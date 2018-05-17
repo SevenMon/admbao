@@ -9,11 +9,8 @@ namespace app\home\controller;
 
 use think\Controller;
 
-class User extends Controller {
+class Order extends Controller {
 	public function index(){
 		return $this->fetch('index');
 	}
-	public function edit(){
-        return $this->fetch('edit');
-    }
 }

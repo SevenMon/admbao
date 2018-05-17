@@ -1,0 +1,67 @@
+{extend name="home@public/main"}
+{block name='css'}
+<link href="__STATIC__/home/css/xiugaiziliao.css?v={:date('ymd')}" rel="stylesheet">
+{/block}
+{block name='body'}
+<div class="top">
+    <div class="fanhui" onclick="javascript:history.go(-1);"><img src="__STATIC__/home/image/fanhui.png">返回</div>
+    <div class="bt">修改资料</div>
+</div>
+<div class="bm-list">
+    <div class="lss fl">手&nbsp;&nbsp;机&nbsp;&nbsp;号</div>
+    <div class="ls fl"><input type="text"></div>
+</div>
+<div class="bm-list">
+    <div class="lss fl">验&nbsp;&nbsp;证&nbsp;&nbsp;码</div>
+    <div class="ls fl">
+        <input type="text" style="width: 40%;margin-right: 0.2rem;" class="fl">
+        <button class="fl" style="height: 100%;width: 40%;border: none;outline: none;background: #348cc0;color: white;border-radius: 4px;">获取验证码</button>
+    </div>
+</div>
+<div class="bm-list">
+    <div class="lss fl">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</div>
+    <div class="ls fl"><input type="text"></div>
+</div>
+<div class="bm-list">
+    <div class="lss fl">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</div>
+    <div class="ls fl">
+        <select style="height: 100%;width: 90%;border: none;outline: none;border: 1px solid #000000;border-radius: 4px;">
+            <option>男</option>
+            <option>女</option>
+        </select>
+    </div>
+</div>
+<div class="bm-list">
+    <div class="lss fl" style="letter-spacing:0.7px">出生年月</div>
+    <div class="ls fl"><input type="text" placeholder=" 例如：2018-12-15"></div>
+</div>
+<div class="bm-list">
+    <div class="lss fl" style="letter-spacing:0.7px">证件类型</div>
+    <div class="ls fl">
+        <select class="fl" style="height: 100%;width:28%;margin-right: 0.1rem;border: none;outline: none;border: 1px solid #000000;border-radius: 4px;">
+            <option>身份证</option>
+            <option>驾驶证</option>
+        </select>
+        <input type="text" style="width: 66%;" class="fl">
+    </div>
+</div>
+<div class="bm-list">
+    <div class="lss fl" style="letter-spacing:0.7px">电子邮箱</div>
+    <div class="ls fl"><input type="text" placeholder="非必填项"></div>
+</div>
+<div class="bm-list">
+    <div class="lss fl" style="letter-spacing:0.7px">国&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;籍</div>
+    <div class="ls fl">
+        <select style="height: 100%;width: 90%;border: none;outline: none;border: 1px solid #000000;border-radius: 4px;">
+            <option>中国</option>
+            <option>英国</option>
+        </select>
+    </div>
+</div>
+
+
+<button class="baocun">保存</button>
+{/block}
+{block name='script'}
+
+{/block}

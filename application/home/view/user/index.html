@@ -4,15 +4,15 @@
 {/block}
 {block name='body'}
 <div class="top">
-    <div class="fanhui"><img src="image/fanhui.png">返回</div>
+    <div class="fanhui" onclick="javascript:history.go(-1);"><img src="__STATIC__/home/image/fanhui.png">返回</div>
     <div class="bt">个人中心</div>
 </div>
-<div class="uesr" style="background: url(image/images/user_02.png) no-repeat;background-size: 100% 100%;">
-    <div class="touxiang"><img src="image/images/banner_01.png"/></div>
+<div class="uesr" style="background: url(__STATIC__/home/image/user_02.png) no-repeat;background-size: 100% 100%;">
+    <div class="touxiang"><img src="__STATIC__/home/image/banner_01.png"/></div>
     <p class="nicheng">麦口</p>
     <div class="zil">
-        <a href="#">
-            <img src="image/ziliao.png"/>
+        <a href="{:url('home/User/edit')}">
+            <img src="__STATIC__/home/image/ziliao.png"/>
             <p>个人资料</p>
         </a>
     </div>
@@ -25,7 +25,7 @@
     <li>
         <ul class="list-list">
             <li>
-                <div class="xq"><span class="fl">2018年4月10号参加赛事</span><span class="fr">查看详情 <img src="image/images/xiabao_03.png"/></span></div>
+                <div class="xq"><span class="fl">2018年4月10号参加赛事</span><span class="fr">查看详情 <img src="__STATIC__/home/image/xiabao_03.png"/></span></div>
                 <div class="kaung">
                     <div class="bm-list">
                         <div class="lss fl">站&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点</div>
@@ -50,7 +50,7 @@
                 </div>
             </li>
             <li>
-                <div class="xq"><span class="fl">2018年4月10号参加赛事</span><span class="fr">查看详情 <img src="image/images/xiabao_03.png"/></span></div>
+                <div class="xq"><span class="fl">2018年4月10号参加赛事</span><span class="fr">查看详情 <img src="__STATIC__/home/image/xiabao_03.png"/></span></div>
                 <div class="kaung">
                     <div class="bm-list">
                         <div class="lss fl">站&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点</div>
@@ -99,10 +99,10 @@
 
             if (i%2==0) {
                 $(".list-list>li").eq(temp).children(".kaung").hide();
-                $(".list-list>li").eq(temp).children(".xq").find("img").attr("src","image/images/xiabao_03.png");
+                $(".list-list>li").eq(temp).children(".xq").find("img").attr("src","__STATIC__/home/image/xiabao_03.png");
             } else{
                 $(".list-list>li").eq(temp).children(".kaung").show();
-                $(".list-list>li").eq(temp).children(".xq").find("img").attr("src","image/images/xiaba_03.png");
+                $(".list-list>li").eq(temp).children(".xq").find("img").attr("src","__STATIC__/home/image/xiaba_03.png");
             }
         })
 
