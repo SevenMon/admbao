@@ -1,0 +1,53 @@
+.top{
+	background: #2f7299;
+	height: 0.3rem;
+	width: 100%;
+	text-align: center;
+	font-size: 0.16rem;
+	position: relative;
+	color: white;
+	line-height: 0.3rem;
+}
+.top .fanhui{
+	position: absolute;
+	left: 0.1rem;
+}
+.fanhui img{
+	height: 0.14rem;
+	width: 0.08rem;
+	margin: 0.09rem;
+}
+.bm-list{
+	height: 0.24rem;
+	line-height: 0.24rem;
+	width: 90%;
+	margin:0.2rem auto;
+	font-size: 0.16rem;
+}
+.bm-list .ls{
+	height: 100%;
+	width: 70%;
+}
+.bm-list .lss{
+	margin-right: 0.1rem;
+}
+.ls input{
+	height: 100%;
+	width: 90%;
+	outline: none;
+	border: none;
+	border: 1px solid black;
+	border-radius: 4px;
+}
+.baocun{
+	height: 0.4rem;
+	width: 40%;
+	border: none;
+	outline: noen;
+	background: #348cc0;
+	font-size: 0.18rem;
+	color: white;
+	display: block;
+	margin:1rem auto;
+	border-radius: 6px;
+}

@@ -1,0 +1,62 @@
+/*设置默认样式start*/
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, input, button, textarea, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
+    margin: 0px;
+    padding: 0px;
+    -webkit-tap-highlight-color: transparent;/*清除点击默认的高亮效果*/
+   -webkit-box-sizing: border-box;/*以你的border开始计算你的宽度*/
+}
+html,body{
+	font-size: 62.5%;
+	font-family: "microsoft yahei",sans-serif;
+}
+
+a{
+	text-decoration: none;
+	color:#555;
+}
+img{
+    vertical-align: top;
+    border: none;
+}
+ul,li{
+	list-style: none;
+}
+input, button, select, textarea {
+    outline: none;
+}
+i,em{
+	font-style: normal;
+	font-weight: normal;
+	
+}
+/*设置默认样式end*/
+/*左浮动*/
+.fl{
+	float: left;
+}
+/*右浮动*/
+.fr{
+	float: right;
+}
+/*清除浮动*/
+.clear:after{
+	content:'';
+	display: block;
+	height:0;
+	visibility: hidden;
+	overflow: hidden;
+    clear: both;
+}
+.clear{
+	zoom: 1;
+}
+.wpprer{
+	width: 1200px;
+	margin: auto;
+}
+.show{
+	display: block;
+}
+.hide{
+	display: none;
+}

@@ -1,0 +1,108 @@
+.top{
+	background: #2f7299;
+	height: 0.3rem;
+	width: 100%;
+	text-align: center;
+	font-size: 0.16rem;
+	position: relative;
+	color: white;
+	line-height: 0.3rem;
+}
+.top .fanhui{
+	position: absolute;
+	left: 0.1rem;
+}
+.fanhui img{
+	height: 0.14rem;
+	width: 0.08rem;
+	margin: 0.09rem;
+}
+.uesr{
+	height: 1.7rem;
+	width: 100%;	
+	padding: 0.2rem 0.1rem 0 0.1rem;
+	position: relative;
+}
+.touxiang{
+	height: 0.6rem;
+	width: 0.6rem;
+	border-radius: 50%;
+	margin: 0 auto;
+}
+.touxiang img{
+	height: 100%;
+	width: 100%;
+	border-radius: 50%;
+}
+.nicheng{
+	font-size: 0.16rem;
+	text-align: center;
+	color: white;
+	margin-top: 0.1rem;
+}
+.zil{
+	position: absolute;
+	top: 0.2rem;
+	right: 0.2rem;
+}
+.zil img{
+	display: block;
+	margin-left: 0.16rem;
+}
+.zil p{
+	font-size: 0.14rem;
+	color: white;
+}
+.qie li{
+	height: 0.3rem;
+	line-height: 0.3rem;
+	width: 50%;
+	float: left;
+	font-size: 0.16rem;
+	color: white;
+	text-align: center;
+	margin-top: 0.2rem;
+}
+.list-list li .xq{
+	height: 0.34rem;
+	font-size: 0.16rem;
+	width: 94%;
+	margin: 0 auto;
+	border-bottom: 1px solid #000000;
+	padding:0.06rem 0;
+}
+.xq img{
+	margin: 0.04rem 0.02rem 0 0;
+}
+.kaung{
+	height: 1.82rem;
+	width: 80%;
+	background: #062031;
+	margin: 0.1rem auto;
+	padding-top: 0.04rem;
+	display: none;
+}
+.bm-list{
+	height: 0.24rem;
+	line-height: 0.24rem;
+	width: 94%;
+	margin:0.1rem auto;
+	font-size: 0.16rem;
+	color: white;
+}
+.bm-list .ls{
+	height: 100%;
+	width: 60%;
+}
+.bm-list .lss{
+	margin: 0 0.14rem;
+}
+.ls input{
+	height: 100%;
+	width: 90%;
+	outline: none;
+	border: none;
+	border: 1px solid white;
+	border-radius: 6px;
+	background: none;
+}

@@ -25,6 +25,7 @@ class Index extends Controller
 
     public function index()
     {
+    	var_dump($_REQUEST);
         $this->redirect('@home');
     }
 }

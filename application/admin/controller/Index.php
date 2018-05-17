@@ -31,6 +31,15 @@ use think\Db;
 class Index extends BasicAdmin
 {
 
+	/**
+	 * 控制器基础方法
+	 */
+	public function initialize()
+	{
+		if (!session('user.id')) {
+			$this->redirect('@admin/Login');
+		}
+	}
     /**
      * 后台框架布局
      * @throws \think\db\exception\DataNotFoundException
@@ -45,6 +54,7 @@ class Index extends BasicAdmin
         if (empty($menus) && !session('user.id')) {
             $this->redirect('@admin/login');
         }
+
         return $this->fetch('', ['title' => '系统管理', 'menus' => $menus]);
     }
 

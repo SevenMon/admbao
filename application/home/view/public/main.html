@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="renderer" content="webkit">
+        <title>首页</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+        <link href="__STATIC__/home/css/base.css?v={:date('ymd')}" rel="stylesheet">
+        <link href="__STATIC__/home/css/swiper-3.4.2.min.css?v={:date('ymd')}" rel="stylesheet">
+        <link href="__STATIC__/home/css/shouye.css?v={:date('ymd')}" rel="stylesheet">
+        {block name="css"}{/block}
+
+        <script src="__STATIC__/home/js/common.js"></script>
+        <script src="__STATIC__/home/js/jquery-3.2.1.min.js"></script>
+        <script src="__STATIC__/home/js/swiper-3.4.2.min.js"></script>
+        <script src="__STATIC__/home/js/swiper.animate1.0.2.min.js"></script>
+
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    </head>
+    <body>
+        {block name="body"}
+        {/block}
+        <ul class="foot">
+            <li><a href="{:url('home/Index/index')}">
+                <img src="__STATIC__/home/image/foot3.png" class="foots1">
+                <img src="__STATIC__/home/image/foot33.png" class="foots2">
+                <p>首页</p>
+            </a>
+            </li>
+            <li><a href="{:url('home/Prize/index')}">
+                <img src="__STATIC__/home/image/foot2.png" class="foots1">
+                <img src="__STATIC__/home/image/foot22.png" class="foots2">
+                <p>抽奖</p>
+            </a>
+            </li>
+            <li><a href="{:url('home/User/index')}">
+                <img src="__STATIC__/home/image/foot1.png" class="foots1">
+                <img src="__STATIC__/home/image/foot11.png" class="foots2">
+                <p>个人中心</p>
+            </a>
+            </li>
+        </ul>
+        {block name="script"}{/block}
+        <script type="text/javascript">
+            $(function(){
+                $(".foot>li:eq(0)").children("a").addClass("action");
+                $(".foot>li:eq(0)").find(".foots2").show();
+                $(".foot>li:eq(0)").find(".foots1").hide();
+                $(".foot>li:eq(1)").find(".foots2").hide();
+                $(".foot>li:eq(1)").find(".foots1").show();
+                $(".foot>li:eq(2)").find(".foots2").hide();
+                $(".foot>li:eq(2)").find(".foots1").show();
+                $(".foot>li").click(function(){
+                    var temp = $(this).index();
+                    $(".foot>li").eq(temp).children("a").addClass("action").parent("li").siblings().children("a").removeClass("action");
+                });
+                $(".foot>li:eq(0)").click(function(){
+                    $(".foot>li:eq(0)").find(".foots2").show();
+                    $(".foot>li:eq(0)").find(".foots1").hide();
+                    $(".foot>li:eq(1)").find(".foots2").hide();
+                    $(".foot>li:eq(1)").find(".foots1").show();
+                    $(".foot>li:eq(2)").find(".foots2").hide();
+                    $(".foot>li:eq(2)").find(".foots1").show();
+                });
+                $(".foot>li:eq(1)").click(function(){
+                    $(".foot>li:eq(0)").find(".foots2").hide();
+                    $(".foot>li:eq(0)").find(".foots1").show();
+                    $(".foot>li:eq(1)").find(".foots2").show();
+                    $(".foot>li:eq(1)").find(".foots1").hide();
+                    $(".foot>li:eq(2)").find(".foots2").hide();
+                    $(".foot>li:eq(2)").find(".foots1").show();
+                });
+                $(".foot>li:eq(2)").click(function(){
+                    $(".foot>li:eq(0)").find(".foots2").hide();
+                    $(".foot>li:eq(0)").find(".foots1").show();
+                    $(".foot>li:eq(1)").find(".foots2").hide();
+                    $(".foot>li:eq(1)").find(".foots1").show();
+                    $(".foot>li:eq(2)").find(".foots2").show();
+                    $(".foot>li:eq(2)").find(".foots1").hide();
+                })
+            })
+        </script>
+    </body>
+</html>

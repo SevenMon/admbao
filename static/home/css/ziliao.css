@@ -1,0 +1,162 @@
+.top{
+	background: #2f7299;
+	height: 0.3rem;
+	width: 100%;
+	text-align: center;
+	font-size: 0.16rem;
+	position: relative;
+	color: white;
+	line-height: 0.3rem;
+}
+.top .fanhui{
+	position: absolute;
+	left: 0.1rem;
+}
+.fanhui img{
+	height: 0.14rem;
+	width: 0.08rem;
+	margin: 0.09rem;
+}
+.tab{
+	border-bottom: 1px solid #ccc;
+	height: 0.4rem;
+	width: 100%;
+}
+.tab li{
+	height: 0.4rem;
+	width: 50%;
+	float: left;
+	font-size: 0.18rem;
+	text-align: center;
+	line-height: 0.4rem;
+}
+.action{
+	border-bottom: 2px solid #ff0000;
+}
+.bm-list{
+	height: 0.3rem;
+	line-height: 0.3rem;
+	width: 94%;
+	margin:0.1rem auto;
+	font-size: 0.16rem;
+}
+.bm-list .ls{
+	height: 100%;
+	width: 60%;
+}
+.ls input{
+	height: 100%;
+	width: 90%;
+	outline: none;
+	border: none;
+	border: 1px solid black;
+	border-radius: 6px;
+}
+.lsr{
+	height: 100%;
+	width: 90%;
+	outline: none;
+	border: none;
+	border: 1px solid black;
+	border-radius: 6px;
+}
+.bm-list .lss{
+	height: 100%;
+	width: 40%;
+	
+}
+.tijiao{
+	display: block;
+	height: 0.4rem;
+	width: 1rem;
+	font-size: 0.18rem;
+	background: #23658b;
+	color: white;
+	margin:0.2rem auto;
+	border: none;
+	outline: none;
+	border-radius: 8px;
+}
+.xyb{
+	display: block;
+	height: 0.27rem;
+	width: 1.05rem;
+	font-size: 0.16rem;
+	background: #348cc0;
+	margin:0.5rem auto;
+	border: none;
+	outline: none;
+	color: white;
+	border-radius: 6px;
+}
+.xbox{
+	height: 2.6rem;
+	width: 94%;
+	background: #e7e7e7;
+	margin: 0.4rem auto;
+	padding-top: 0.3rem;
+	position: relative;
+}
+.bg{
+	height: 0.3rem;
+	width: 45%;
+	border: 1px solid #000000;
+	border-radius: 8px;
+	font-size: 0.16rem;
+	text-align: center;
+	line-height: 0.3rem;
+	margin: 0 auto;
+}
+.shangchuang{
+	height: 0.3rem;
+	width: 45%;
+	border: 1px solid #000000;
+	border-radius: 8px;
+	font-size: 0.16rem;
+	text-align: center;
+	line-height: 0.3rem;
+	margin: 0.2rem auto;
+}
+.sc{
+	position: absolute;
+	top:0.8rem ;
+	right: 0.3rem;
+	background: #00578a;
+	color: white;
+	height: 0.3rem;
+	width: 0.5rem;
+	font-size:0.16rem ;
+	border: none;
+	outline: none;
+	border-radius: 8px;
+}
+.renshu{
+	margin:0.2rem auto;
+	height: 0.3rem;
+	width: 45%;
+	font-size: 0.16rem;
+	text-align: center;
+	line-height: 0.3rem;
+	border: 1px solid #000000;
+	border-radius: 8px;
+}
+.zj{
+	height: 0.3rem;
+	width: 100%;
+	text-align: center;
+	color: red;
+	font-size: 0.16rem;
+	font-weight: 800;
+}
+.fk{
+	height: 0.3rem;
+	width: 0.9rem;
+	font-size: 0.16rem;
+	color: white;
+	background: #00578a;
+	display: block;
+	margin: 0.04rem auto;
+	border: none;
+	outline: none;
+	border-radius: 8px;
+}

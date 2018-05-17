@@ -1,0 +1,89 @@
+.list-lx{
+	height: 4.2rem;
+	width: 100%;
+	overflow-y: scroll;
+}
+.list-lx li{
+	height: 1.4rem;
+	width: 100%;
+	padding: 0.1rem;
+	border-bottom: 1px solid #ccc;
+}
+.list-lx li .img-list{
+	height: 100%;
+	width: 40%;
+}
+.img-list img{
+	height: 100%;
+	width: 100%;
+}
+.list-lx li .conter-list{
+	height: 100%;
+	width: 58%;
+	position: relative;
+}
+.conter-list .zm{
+	font-size: 0.16rem;
+}
+.conter-list .lx{
+	font-size: 0.14rem;
+	color: #585858;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	margin-bottom: 0.2;
+}
+.conter-list .sj{
+	font-size: 0.12rem;
+}
+.conter-list .fy{
+	font-size: 0.12rem;
+}
+.conter-list .nx{
+	font-size: 0.12rem;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+
+}
+.conter-list .bm{
+	display: block;
+	height: 0.2rem;
+	width: 0.8rem;
+	border:none;
+	outline: none;
+	background: #3776c4;
+	color: white;
+	border-radius: 6px;
+	font-size: 0.14rem;
+	position: absolute;
+	bottom: 0;
+}
+.action{
+	color: #6587c8;
+}
+.foot{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	height: 0.5rem;
+	width: 100%;
+	background: #f3f3f3;
+}
+.foot li{
+	height: 100%;
+	width: 33.33%;
+	float: left;
+	padding-top: 0.02rem;
+}
+.foot li img{
+	height: 0.16rem;
+	width: 0.16rem;
+	display: block;
+	margin: auto;
+	margin-top: 0.06rem;
+}
+.foot li p{
+	text-align: center;
+	font-size: 0.14rem;
+}
