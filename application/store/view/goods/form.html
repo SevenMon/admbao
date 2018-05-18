@@ -3,22 +3,21 @@
 {block name="content"}
 <form onsubmit="return false;" action="{:request()->url()}" data-auto="true" method="post" id="ProductForm" class='form-horizontal layui-form padding-top-20'>
 
-    <!--{if !empty($brands)}-->
+
+
+
     <div class="form-group">
-        <label class="col-sm-2 control-label">商品品牌</label>
+        <label class="col-sm-2 control-label">赛事名称(大标题)</label>
         <div class='col-sm-8'>
-            <select required class="layui-select full-width" name="brand_id">
-                {foreach $brands as $brand}
-                <!--{eq name='$brand.id' value='$vo.brand_id|default=0'}-->
-                <option selected="selected" value="{$brand.id}">{$brand.brand_title}</option>
-                <!--{else}-->
-                <option value="{$brand.id}">{$brand.brand_title}</option>
-                <!--{/eq}-->
-                {/foreach}
-            </select>
+            <input name="title" required value="{$vo.goods_title|default=''}" class="layui-input" title="请输入赛事名称" placeholder="请输入赛事名称">
         </div>
     </div>
-    <!--{/if}-->
+    <div class="form-group">
+        <label class="col-sm-2 control-label">二级标题</label>
+        <div class='col-sm-8'>
+            <input name="title_second" required value="{$vo.goods_title|default=''}" class="layui-input" title="请输入赛事二级标题" placeholder="请输入赛事二级标题">
+        </div>
+    </div>
 
     <!--{if !empty($cates)}-->
     <div class="form-group">
@@ -38,49 +37,18 @@
     <!--{/if}-->
 
     <div class="form-group">
-        <label class="col-sm-2 control-label">商品名称</label>
+        <label class="col-sm-2 control-label label-required">赛事图片</label>
         <div class='col-sm-8'>
-            <input name="goods_title" required value="{$vo.goods_title|default=''}" class="layui-input" title="请输入商品名称" placeholder="请输入商品名称">
-        </div>
-    </div>
-
-    {if !empty($tags)}
-    <div class="form-group">
-        <label class="col-sm-2 control-label">商品标签</label>
-        <div class='col-sm-8'>
-            <div class="background-item">
-                {foreach $tags as $tag}
-                <label class="nowrap margin-right-10 line-height-18">
-                    <!--{if isset($vo.tags_id) && in_array($tag.id,$vo.tags_id)}-->
-                    <input type="checkbox" value="{$tag.id}" name="tags_id[]" checked="checked" lay-ignore>
-                    <!--{else}-->
-                    <input type="checkbox" value="{$tag.id}" name="tags_id[]" lay-ignore>
-                    <!--{/if}-->
-                    {$tag.tags_title}
-                </label>
-                {/foreach}
-            </div>
-        </div>
-    </div>
-    {/if}
-
-    <div class="form-group">
-        <label class="col-sm-2 control-label label-required">商品图片</label>
-        <div class='col-sm-8'>
-            <table class="layui-table background-item margin-none" lay-size="sm" lay-skin="nob">
+            <table class="layui-table background-item margin-none" lay-size="sm" lay-skin="nob" style="width: 30%">
                 <thead>
                 <tr>
-                    <td>商品LOGO</td>
-                    <td>商品图片</td>
+                    <td>赛事图片</td>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td class="text-top" style="width:100px">
-                        <input type="hidden" name="goods_logo" value="{$vo.goods_logo|default=''}">
-                    </td>
                     <td class="text-top">
-                        <input type="hidden" name="goods_image" value="{$vo.goods_image|default=''}">
+                        <input type="hidden" name="img_url" value="{$vo.goods_image|default=''}">
                     </td>
                 </tr>
                 </tbody>
@@ -89,17 +57,17 @@
     </div>
 
     <!-- 普通商品及积分商品 开始 -->
-    <div class="form-group">
+    <!--<div class="form-group">
         <label class="col-sm-2 control-label">商品规格</label>
         <div class='col-sm-8'>
             <select required class="layui-select full-width block" name="spec_id" lay-ignore>
                 {foreach $specs as $spec}
                 {php}$param=str_replace('"',"'",$spec['spec_param']);{/php}
-                <!--{eq name='spec.id' value='$vo.spec_id|default=0'}-->
+                &lt;!&ndash;{eq name='spec.id' value='$vo.spec_id|default=0'}&ndash;&gt;
                 <option data-param="{$param}" selected="selected" value="{$spec.id}">{$spec.spec_title}</option>
-                <!--{else}-->
+                &lt;!&ndash;{else}&ndash;&gt;
                 <option data-param="{$param}" value="{$spec.id}">{$spec.spec_title}</option>
-                <!--{/eq}-->
+                &lt;!&ndash;{/eq}&ndash;&gt;
                 {/foreach}
             </select>
             <table class="layui-table notevent" lay-size="sm" ng-if="specs.length>0">
@@ -151,10 +119,10 @@
                 </tbody>
             </table>
         </div>
-    </div>
+    </div>-->
     <!-- 普通商品及积分商品 结束 -->
 
-    <div class="form-group">
+    <!--<div class="form-group">
         <label class="col-sm-2 control-label">视频展示</label>
         <div class='col-sm-8'>
             <div class="row">
@@ -166,19 +134,68 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 
     <div class="form-group">
         <label class="col-sm-2 control-label">展示描述</label>
         <div class='col-sm-8'>
-            <textarea class="layui-textarea" name="goods_desc" placeholder="请输入展示描述">{$vo.goods_desc|default=''}</textarea>
+            <textarea class="layui-textarea" name="describe" placeholder="请输入展示描述">{$vo.goods_desc|default=''}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">报名费（元/人）</label>
+        <div class='col-sm-8'>
+            <input name="price" required value="{$vo.goods_title|default=''}" class="layui-input" title="请输入报名费" placeholder="请输入报名费" style="width: 30%">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">年龄段</label>
+        <div class='col-sm-8'>
+            <input name="min_page" required value="{$vo.goods_title|default=''}" class="layui-input" title="最小年龄" placeholder="最小年龄" style="width: 10%;display: inline-block">
+            至
+            <input name="max_page" required value="{$vo.goods_title|default=''}" class="layui-input" title="最大年龄" placeholder="最大年龄" style="width: 10%;display: inline-block">
         </div>
     </div>
 
     <div class="form-group">
-        <label class="col-sm-2 control-label label-required">商品内容</label>
+        <label class="col-sm-2 control-label">乘车地点</label>
         <div class='col-sm-8'>
-            <textarea name="goods_content">{$vo.goods_content|default=''|htmlspecialchars_decode}</textarea>
+            <input name="car_address" required value="{$vo.goods_title|default=''}" class="layui-input" title="乘车地点" placeholder="乘车地点">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">领取参赛物品地点</label>
+        <div class='col-sm-8'>
+            <input name="receive_good_address" required value="{$vo.goods_title|default=''}" class="layui-input" title="领取参赛物品地点" placeholder="领取参赛物品地点">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">时间段</label>
+        <div class='col-sm-8'>
+            <input required name="start_time" id="begin_time" value="{$Think.get.create_at}" placeholder="开始时间" class="layui-input" style="width: 30%;display: inline-block">
+            至
+            <input required name="end_time" id="end_time" value="{$Think.get.create_at}" placeholder="结束时间" class="layui-input" style="width: 30%;display: inline-block">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">报名结束时间</label>
+        <div class='col-sm-8'>
+            <input required name="signup_end_time" id="signup_end_time" value="{$Think.get.create_at}" placeholder="报名结束时间" class="layui-input" style="width: 40%;">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">参赛人数</label>
+        <div class='col-sm-8'>
+                <input name="people_num" required value="{$vo.goods_title|default=''}" class="layui-input" title="参赛人数" placeholder="参赛人数">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label label-required">内容描述</label>
+        <div class='col-sm-8'>
+            <textarea name="content">{$vo.goods_content|default=''|htmlspecialchars_decode}</textarea>
         </div>
     </div>
 
@@ -193,11 +210,18 @@
     </div>
 
 </form>
-
+<script>
+    (function () {
+        window.form.render();
+        window.laydate.render({elem: '#begin_time'});
+        window.laydate.render({elem: '#end_time'});
+        window.laydate.render({elem: '#signup_end_time'});
+    })();
+</script>
 <script>
     require(['jquery', 'ckeditor', 'angular'], function () {
         window.form.render();
-        window.createEditor('[name="goods_content"]', {height: 500});
+        window.createEditor('[name="content"]', {height: 500});
         var app = angular.module("ProductForm", []).run(callback);
         angular.bootstrap(document.getElementById(app.name), [app.name]);
 
@@ -207,9 +231,9 @@
             // 规格默认数据
             var specdata = JSON.parse('{$vo.list|default=[]|json_encode=###,256|raw}');
             // 单图片上传处理
-            $('#ProductForm [name="goods_logo"]').uploadOneImage();
+            $('#ProductForm [name="img_url"]').uploadOneImage();
             // 多图片上传处理
-            $('#ProductForm [name="goods_image"]').uploadMultipleImage();
+            //$('#ProductForm [name="goods_image"]').uploadMultipleImage();
             // 规格显示切换
             $('#ProductForm').on('click', '[data-spec]', applySpecData);
             // 商品规格切换
@@ -352,6 +376,12 @@
         height: 30px;
         padding-left: 50px;
         border: none !important;
+    }
+    .uploadimage {
+        display: inline-block;
+        width: 100%;
+        height: 80px;
+        background-size: 100% 100%;
     }
 </style>
 {/block}

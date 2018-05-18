@@ -3,19 +3,19 @@
 {block name="button"}
 
 <!--{if auth("$classuri/add")}-->
-<button data-open='{:url("$classuri/add")}' data-title="添加商品" class='layui-btn layui-btn-sm layui-btn-primary'>添加商品</button>
+<button data-open='{:url("$classuri/add")}' data-title="添加商品" class='layui-btn layui-btn-sm layui-btn-primary'>添加赛事</button>
 <!--{/if}-->
 
 <!--{if auth("$classuri/forbid")}-->
-<button data-update data-field='status' data-value='0' data-action='{:url("$classuri/forbid")}' class='layui-btn layui-btn-sm layui-btn-primary'>批量下架</button>
+<!--<button data-update data-field='status' data-value='0' data-action='{:url("$classuri/forbid")}' class='layui-btn layui-btn-sm layui-btn-primary'>批量下架</button>-->
 <!--{/if}-->
 
 <!--{if auth("$classuri/resume")}-->
-<button data-update data-field='status' data-value='1' data-action='{:url("$classuri/resume")}' class='layui-btn layui-btn-sm layui-btn-primary'>批量上架</button>
+<!--<button data-update data-field='status' data-value='1' data-action='{:url("$classuri/resume")}' class='layui-btn layui-btn-sm layui-btn-primary'>批量上架</button>-->
 <!--{/if}-->
 
 <!--{if auth("$classuri/del")}-->
-<button data-update data-field='delete' data-action='{:url("$classuri/del")}' class='layui-btn layui-btn-sm layui-btn-primary'>批量删除</button>
+    <!--<button data-update data-field='delete' data-action='{:url("$classuri/del")}' class='layui-btn layui-btn-sm layui-btn-primary'>批量删除</button>-->
 <!--{/if}-->
 
 {/block}
@@ -26,9 +26,9 @@
 <form class="layui-form layui-form-pane form-search" action="{:request()->url()}" onsubmit="return false" method="get">
 
     <div class="layui-form-item layui-inline">
-        <label class="layui-form-label">商品名称</label>
+        <label class="layui-form-label">赛事名称</label>
         <div class="layui-input-inline">
-            <input name="goods_title" value="{$Think.get.goods_title}" placeholder="请输入商品名称" class="layui-input">
+            <input name="goods_title" value="{$Think.get.goods_title}" placeholder="请输入赛事名称" class="layui-input">
         </div>
     </div>
 

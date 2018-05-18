@@ -90,26 +90,29 @@ class Goods extends BasicAdmin
     public function add()
     {
         if ($this->request->isGet()) {
-            $this->title = '添加商品';
+            $this->title = '添加赛事';
             $this->_form_assign();
             return $this->_form($this->table, 'form');
         }
+
         try {
             $data = $this->_form_build_data();
             Db::transaction(function () use ($data) {
+
                 $goodsID = Db::name($this->table)->insertGetId($data['main']);
                 foreach ($data['list'] as &$vo) {
                     $vo['goods_id'] = $goodsID;
                 }
                 Db::name('StoreGoodsList')->insertAll($data['list']);
+
             });
         } catch (HttpResponseException $exception) {
             return $exception->getResponse();
         } catch (\Exception $e) {
-            $this->error('商品添加失败，请稍候再试！');
+            $this->error('赛事添加失败，请稍候再试！');
         }
         list($base, $spm, $url) = [url('@admin'), $this->request->get('spm'), url('store/goods/index')];
-        $this->success('添加商品成功！', "{$base}#{$url}?spm={$spm}");
+        $this->success('添加赛事成功！', "{$base}#{$url}?spm={$spm}");
     }
 
     /**
@@ -193,7 +196,9 @@ class Goods extends BasicAdmin
     protected function _form_build_data()
     {
         list($main, $list, $post, $verify) = [[], [], $this->request->post(), false];
+
         empty($post['goods_logo']) && $this->error('商品LOGO不能为空，请上传后再提交数据！');
+
         // 商品主数据组装
         $main['cate_id'] = $this->request->post('cate_id', '0');
         $main['spec_id'] = $this->request->post('spec_id', '0');
