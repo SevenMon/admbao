@@ -15,7 +15,9 @@ class Base extends Controller {
     {
 
         parent::__construct();
-        $this->userId = session('userId');
+        $this->userId = 12;
+
+        /*$this->userId = session('userId');
         $openid = session('openid');
         $wechat_info = Db::name('wechat_fans')->where(array('open_id' => $openid))->find();
         if($openid && $wechat_info){
@@ -27,7 +29,7 @@ class Base extends Controller {
             $url = $we::CALLBACKURL;
             $go = $we->getOAuthRedirect($url);
             redirect($go);
-        }
+        }*/
 
     }
 }

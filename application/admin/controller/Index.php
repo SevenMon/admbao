@@ -82,7 +82,7 @@ class Index extends BasicAdmin
                     unset($menus[$key]);
                 }
             } else {
-                unset($menus[$key]);
+                //unset($menus[$key]);
             }
         }
         return $menus;

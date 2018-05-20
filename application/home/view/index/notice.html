@@ -27,54 +27,57 @@
 <div class="box">
     <div class="vwrapper">
         <span class="key">赛事名称：</span>
-        <span class="value">阿迪是范德萨范德萨发</span>
+        <span class="value">{$data['name']}</span>
     </div>
     <div class="vwrapper">
         <span class="key">图片：</span>
-        <span class="value">
-		 	 		<img href="">
+        <span class="value" style="width: 140px;height: 70px">
+		 	 		<img src="{$data['img_url']}" style="width: 140px;height: 70px">
 		 	 	</span>
     </div>
     <div class="vwrapper">
         <span class="key">赛事描述：</span>
-        <span class="value">阿迪是范德萨范德萨发</span>
+        <span class="value">{$data['describe']}</span>
     </div>
     <div class="vwrapper">
         <span class="key">报名价格：</span>
-        <span class="value">123</span>
+        <span class="value">￥{:sprintf("%.2f", $data['price']/100)}/人</span>
     </div>
     <div class="vwrapper">
         <span class="key">年龄段：</span>
-        <span class="value">12-13</span>
+        <span class="value">{$data['age'][0]}-{$data['age'][1]}岁</span>
     </div>
     <div class="vwrapper">
         <span class="key">已参赛人数：</span>
-        <span class="value">12</span>
+        <span class="value">{$data_notice['people_num']}</span>
     </div>
     <div class="vwrapper">
         <span class="key">乘车地点：</span>
-        <span class="value">撒发生的</span>
+        <span class="value">{$data_notice['car_address']}</span>
     </div>
     <div class="vwrapper">
         <span class="key">参赛物品获取地点：</span>
-        <span class="value">发生过多少给多少分过</span>
+        <span class="value">{$data_notice['receive_good_address']}</span>
     </div>
     <div class="vwrapper">
         <span class="key">比赛时间：</span>
-        <span class="value">123124324</span>
+        <span class="value">{$data['compete_time']}</span>
     </div>
     <div class="vwrapper">
         <span class="key">报名截止时间：</span>
-        <span class="value">234234234234</span>
+        <span class="value">
+            {$data_notice['signup_end_time']}
+        </span>
     </div>
     <div class="vwrapper">
         <span class="key">赛事内容：</span>
-        <span class="value">
+        <div style="width: 100%;overflow: hidden;margin-top:10px;border:1px solid lightgrey;min-height: 50px;word-wrap:break-word; ">
+            {:htmlspecialchars_decode($data_notice['content'])}
+        </div>
 
-		 	 	</span>
     </div>
 </div>
-<a href="{:url('home/Index/know',array('id' => $id))}"><button class="xyb">下一步</button></a>
+<a href='{:url("Home/Index/know")}?id={$data.id}'><button class="xyb">下一步</button></a>
 {/block}
 {block name='script'}
 

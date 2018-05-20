@@ -9,14 +9,25 @@
     <div class="bt">报名须知</div>
 </div>
 
-<div class="box">
-
+<div class="box" style="width: 100%;overflow: hidden;word-wrap:break-word; ">
+    {:htmlspecialchars_decode($content)}
 </div>
 <div class="xieyi">
-    <input type="radio">我已同意大会的各项规则以及相关权利和义务，并郑重声明
+    <input type="radio" id="or">我已同意大会的各项规则以及相关权利和义务，并郑重声明
 </div>
-<button class="xyb">下一步</button>
+<button class="xyb" onclick="next()">下一步</button>
+
+
 {/block}
 {block name='script'}
-
+<script>
+    function next(){
+       var info = document.getElementById('or').checked;
+       if(info){
+           window.location.href="{:url('Home/Order/addOrder')}?id={$id}";
+       }else {
+           alert('完全同意后才可以进行下一步！');
+       }
+    }
+</script>
 {/block}

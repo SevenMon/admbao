@@ -22,7 +22,7 @@
             <p class="nx">
                 年龄{$v.age.0}岁--{$v.age.1}岁;
             </p>
-            <a href="{:url('home/Index/notice',array('id' => $v['id']))}">
+            <a href='{:url("Home/Index/notice")}?id={$v.id}'>
                 <button class="bm">我要报名</button>
             </a>
         </div>

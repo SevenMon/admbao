@@ -377,4 +377,29 @@ class Goods extends BasicAdmin
         $this->error("商品上架失败，请稍候再试！");
     }
 
+    public function know(){
+
+        if (!$this->request->isPost()) {
+            $know_content = Db::name('signup_system')->where(array('id' => 1))->find();
+            $know_content = $know_content['know'];
+            $this->assign('know',$know_content);
+            return $this->fetch('');
+        }else{
+            try{
+                $content = $this->request->post('content', '');
+                $know_content = Db::name('signup_system')->where(array('id' => 1))->update(array('know' => $content));
+            }catch (HttpResponseException $exception) {
+                return $exception->getResponse();
+            } catch (\Exception $e) {
+                $this->error('编辑失败，请稍候再试！' . $e->getMessage());
+            }
+            list($base, $spm, $url) = [url('@admin'), $this->request->get('spm'), url('store/goods/know')];
+            $this->success('修改成功！', "{$base}#{$url}?spm={$spm}");
+        }
+
+    }
+    public function updateknow(){
+
+    }
+
 }

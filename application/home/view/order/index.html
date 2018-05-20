@@ -12,116 +12,122 @@
     <li>团体报名</li>
 </ul>
 <ol class="ming-list">
-    <li>
-        <div class="bm-list">
-            <div class="lss fl">报名路线</div>
-            <div class="ls fl"><input type="text"></div>
-        </div>
-        <div class="bm-list">
-            <div class="lss fl">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</div>
-            <div class="ls fl"><input type="text"></div>
-        </div>
-        <div class="bm-list">
-            <div class="lss fl">电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话</div>
-            <div class="ls fl"><input type="text"></div>
-        </div>
-        <div class="bm-list">
-            <div class="lss fl">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</div>
-            <div class="ls fl">
-                <select class="lsr">
-                    <option></option>
-                    <option>男</option>
-                    <option>女</option>
-                </select>
-            </div>
-        </div>
-        <div class="bm-list">
-            <div class="lss fl">出生日期</div>
-            <div class="ls fl"><input type="text"></div>
-        </div>
-        <div class="bm-list">
-            <div class="lss fl">身份证号</div>
-            <div class="ls fl"><input type="text"></div>
-        </div>
-        <div class="bm-list">
-            <div class="lss fl">国&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;籍</div>
-            <div class="ls fl"><input type="text"></div>
-        </div>
-        <div class="bm-list">
-            <div class="lss fl">电子邮箱</div>
-            <div class="ls fl"><input type="text"></div>
-        </div>
-        <div class="bm-list">
-            <div class="lss fl">比赛日期</div>
-            <div class="ls fl"><input type="text"></div>
-        </div>
-        <div class="bm-list">
-            <div class="lss fl">居住地址</div>
-            <div class="ls fl"><input type="text"></div>
-        </div>
-        <div class="bm-list">
-            <div class="lss fl">工作单位</div>
-            <div class="ls fl"><input type="text"></div>
-        </div>
-        <div class="bm-list">
-            <div class="lss fl">服装尺寸</div>
-            <div class="ls fl">
-                <select class="lsr">
-                    <option></option>
-                    <option>S</option>
-                    <option>M</option>
-                    <option>L</option>
-                    <option>XL</option>
-                    <option>XXL</option>
-                </select>
-            </div>
-        </div>
-        <div class="bm-list">
-            <div class="lss fl">服装颜色</div>
-            <div class="ls fl">
-                <select class="lsr">
-                    <option></option>
-                    <option>绿色</option>
-                    <option>白色</option>
-                    <option>黑色</option>
-                    <option>黄色</option>
-                    <option>蓝色</option>
-                </select>
-            </div>
-        </div>
-        <div class="bm-list">
-            <div class="lss fl">紧急联系人</div>
-            <div class="ls fl"><input type="text"></div>
-        </div>
-        <div class="bm-list">
-            <div class="lss fl">紧急联系电话</div>
-            <div class="ls fl"><input type="text"></div>
-        </div>
-        <div class="bm-list">
-            <div class="lss fl">乘车摆渡车地点</div>
-            <div class="ls fl">
-                <select class="lsr">
-                    <option></option>
-                    <option>火车站</option>
-                    <option>北站</option>
-                    <option>花溪</option>
-                    <option>南明</option>
-                    <option>云岩</option>
-                </select>
-            </div>
-        </div>
-        <div class="bm-list">
-            <div class="lss fl">领取参赛物品地点</div>
-            <div class="ls fl">
-                <select class="lsr">
-                    <option></option>
-                    <option>物流到家</option>
-                    <option>现场自取</option>
-                </select>
-            </div>
-        </div>
-        <button class="tijiao">提交</button>
-    </li>
+
+        <li>
+            <form action="{:url('Home/Order/addOrder')}?id={$id}" method="post">
+                <input type="hidden" name="compete_id" value="{$data['id']}" >
+                <div class="bm-list">
+                    <div class="lss fl">报名路线</div>
+                    <div class="ls fl"><input type="text" value="{$data['name']}" readonly required="required"></div>
+                </div>
+                <div class="bm-list">
+                    <div class="lss fl">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</div>
+                    <div class="ls fl"><input type="text" name="name" required="required"></div>
+                </div>
+                <div class="bm-list">
+                    <div class="lss fl">电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话</div>
+                    <div class="ls fl"><input type="text" name="phone" required="required"></div>
+                </div>
+                <div class="bm-list">
+                    <div class="lss fl">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</div>
+                    <div class="ls fl">
+                        <select class="lsr" name="sex" required="required">
+                            <option value=""></option>
+                            <option value="男">男</option>
+                            <option value="女">女</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="bm-list">
+                    <div class="lss fl">出生日期</div>
+                    <div class="ls fl"><input type="text" name="birth" required="required"></div>
+                </div>
+                <div class="bm-list">
+                    <div class="lss fl">身份证号</div>
+                    <div class="ls fl"><input type="text" name="id_card" required="required"></div>
+                </div>
+                <div class="bm-list">
+                    <div class="lss fl">国&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;籍</div>
+                    <div class="ls fl"><input type="text" name="country" required="required"></div>
+                </div>
+                <div class="bm-list">
+                    <div class="lss fl">电子邮箱</div>
+                    <div class="ls fl"><input type="text" name="email" required="required"></div>
+                </div>
+                <div class="bm-list">
+                    <div class="lss fl">比赛日期</div>
+                    <div class="ls fl"><input type="text" value="{$data['compete_time']}" readonly></div>
+                </div>
+                <div class="bm-list">
+                    <div class="lss fl">居住地址</div>
+                    <div class="ls fl"><input type="text" name="address" required="required"></div>
+                </div>
+                <div class="bm-list">
+                    <div class="lss fl">工作单位</div>
+                    <div class="ls fl"><input type="text" name="company" required="required"></div>
+                </div>
+                <div class="bm-list">
+                    <div class="lss fl">服装尺寸</div>
+                    <div class="ls fl">
+                        <select class="lsr" name="size" required="required">
+                            <option value=""></option>
+                            <option value="S">S</option>
+                            <option value="M">M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                            <option value="XXL">XXL</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="bm-list">
+                    <div class="lss fl">服装颜色</div>
+                    <div class="ls fl">
+                        <select class="lsr" name="color" required="required">
+                            <option value=""></option>
+                            <option value="绿色">绿色</option>
+                            <option value="白色">白色</option>
+                            <option value="黑色">黑色</option>
+                            <option value="黄色">黄色</option>
+                            <option value="蓝色">蓝色</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="bm-list">
+                    <div class="lss fl">紧急联系人</div>
+                    <div class="ls fl"><input type="text" name="emergency_person" required="required"></div>
+                </div>
+                <div class="bm-list">
+                    <div class="lss fl">紧急联系电话</div>
+                    <div class="ls fl"><input type="text" name="emergency_phone" required="required"></div>
+                </div>
+                <div class="bm-list">
+                    <div class="lss fl">乘车摆渡车地点</div>
+                    <div class="ls fl">
+                        <select class="lsr" name="car_address" required="required">
+                            <option value=""></option>
+                            <option value="火车站">火车站</option>
+                            <option value="北站">北站</option>
+                            <option value="花溪">花溪</option>
+                            <option value="南明">南明</option>
+                            <option value="云岩">云岩</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="bm-list">
+                    <div class="lss fl">领取参赛物品地点</div>
+                    <div class="ls fl">
+                        <select class="lsr" name="receive_good_address" required="required">
+                            <option value=""></option>
+                            <option value="物流到家">物流到家</option>
+                            <option value="现场自取">现场自取</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="tijiao" type="submit">提交</button>
+            </form>
+        </li>
+
+
     <li>
         <div class="xbox">
             <div class="bg">下载报名表格</div>
