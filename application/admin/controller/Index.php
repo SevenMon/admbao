@@ -69,6 +69,7 @@ class Index extends BasicAdmin
     {
         foreach ($menus as $key => &$menu) {
             !empty($menu['sub']) && $menu['sub'] = $this->buildMenuData($menu['sub'], $nodes, $isLogin);
+
             if (!empty($menu['sub'])) {
                 $menu['url'] = '#';
             } elseif (preg_match('/^https?\:/i', $menu['url'])) {
@@ -82,7 +83,7 @@ class Index extends BasicAdmin
                     unset($menus[$key]);
                 }
             } else {
-                //unset($menus[$key]);
+                unset($menus[$key]);
             }
         }
         return $menus;

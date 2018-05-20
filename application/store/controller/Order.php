@@ -45,65 +45,19 @@ class Order extends BasicAdmin
      */
     public function index()
     {
-        $this->title = '订单管理';
-        $db = Db::name($this->table);
+        $this->title = '赛事订单';
         $get = $this->request->get();
-        // 会员信息查询过滤
-        $memberWhere = [];
-        foreach (['phone', 'nickname'] as $field) {
-            if (isset($get[$field]) && $get[$field] !== '') {
-                $memberWhere[] = [$field, 'like', "%{$get[$field]}%"];
-            }
-        }
-        if (!empty($memberWhere)) {
-            $memberWhere['status'] = '1';
-            $sql = Db::name('Member')->field('id')->where($memberWhere)->buildSql(true);
-            $db->where("mid in {$sql}");
-        }
-        // =============== 商品信息查询过滤 ===============
-        $goodsWhere = [];
-        foreach (['goods_title'] as $field) {
-            if (isset($get[$field]) && $get[$field] !== '') {
-                $goodsWhere[] = [$field, 'like', "%{$get[$field]}%"];
-            }
-        }
-        if (!empty($goodsWhere)) {
-            $sql = Db::name('StoreOrderList')->field('order_no')->where($goodsWhere)->buildSql(true);
-            $db->where("order_no in {$sql}");
-        }
-        // =============== 收货地址过滤 ===============
-        $expressWhere = [];
-        if (isset($get['express_title']) && $get['express_title'] !== '') {
-            $expressWhere[] = ['send_company_title|company_title', 'like', "%{$get['express_title']}%"];
-        }
-        foreach (['send_no', 'username', 'phone', 'province', 'city', 'area', 'address'] as $field) {
-            if (isset($get[$field]) && $get[$field] !== '') {
-                $expressWhere[] = [$field, 'like', "%{$get[$field]}%"];
-            }
-        }
-        if (isset($get['send_status']) && $get['send_status'] !== '') {
-            $expressWhere[] = empty($get['send_status']) ? ['send_no', 'eq', ''] : ['send_no', 'neq', ''];
-        }
-        if (!empty($expressWhere)) {
-            $sql = Db::name('StoreOrderExpress')->field('order_no')->where($expressWhere)->buildSql(true);
-            $db->where("order_no in {$sql}");
-        }
-        // =============== 主订单过滤 ===============
-        foreach (['order_no', 'desc'] as $field) {
-            (isset($get[$field]) && $get[$field] !== '') && $db->whereLike($field, "%{$get[$field]}%");
-        }
-        (isset($get['status']) && $get['status'] !== '') && $db->where('status', $get['status']);
-        // 订单是否包邮状态检索
-        if (isset($get['express_zero']) && $get['express_zero'] !== '') {
-            empty($get['express_zero']) ? $db->where('freight_price', '>', '0') : $db->where('freight_price', '0');
-        }
-        // 订单时间过滤
-        foreach (['create_at', 'pay_at'] as $field) {
-            if (isset($get[$field]) && $get[$field] !== '') {
-                list($start, $end) = explode(' - ', $get[$field]);
-                $db->whereBetween($field, ["{$start} 00:00:00", "{$end} 23:59:59"]);
-            }
-        }
+
+        $where = array();
+        $where[] = array('status','=',1);
+
+        //empty($get['title']) ? '' : $where[] = array('name','like','%'.$get['title'].'%');
+        //empty($get['cate_id']) ? '' : $where[] = array('cate_id','=',$get['cate_id']);
+        /*if(!empty($get['create_time'])){
+            list($start, $end) = explode(' - ', $get['create_time']);
+            $where[] = array('create_time','between',array($start,$end));
+        }*/
+        $db = Db::name('signup_order')->where($where)->order('id','desc');
         return parent::_list($db);
     }
 

@@ -60,99 +60,41 @@
     <table class="layui-table" lay-size="sm">
         <thead>
         <tr>
-            <th class='list-table-check-td'>
-                <input data-auto-none="none" data-check-target='.list-check-box' type='checkbox'/>
-            </th>
-            <th class="text-left">会员信息</th>
-            <th class="text-left">订单信息</th>
-            <th class="text-left nowrap padding-none">
-                <table class="layui-table think-inner-table">
-                    <colgroup>
-                        <col width="70%">
-                    </colgroup>
-                    <tr>
-                        <td>商品信息</td>
-                        <td class="text-right">
-                            价格 <span class="layui-icon font-s12">&#x1006;</span> 数量
-                        </td>
-                    </tr>
-                </table>
-            </th>
-            <th class="text-left">发货信息</th>
+
+            <th class="text-left">订单号</th>
+            <th class="text-left">赛事名字</th>
+            <th class="text-left">用户名</th>
+            <th class="text-left">金额</th>
+            <th class="text-left">类型</th>
+            <th class="text-left">下单时间</th>
+            <th class="text-left">操作</th>
         </tr>
         </thead>
         <tbody>
         {foreach $list as $key=>$vo}
+        <?php $info = json_decode($vo['extra_info'],true); ?>
         <tr>
-            <td class='list-table-check-td text-top'>
-                <input class="list-check-box" value='{$vo.id}' type='checkbox'/>
+
+            <td class="text-left text-top nowrap">
+                {$vo['order_num']}
             </td>
             <td class="text-left text-top nowrap">
-                会员昵称：{$vo.member.nickname|default='<span class="color-desc">未设置会员昵称</span>'}<br>
-                会员手机：{$vo.member.phone|default='<span class="color-desc">未设置会员手机</span>'}
+                {$info['data']['name']}
             </td>
             <td class="text-left text-top nowrap">
-                订单单号：<b>{$vo.order_no}</b> {if $vo.type eq 3}<span class="layui-badge-rim">套餐</span> {/if}
-                {switch name='vo.status'}
-                {case value='0'}<span class="layui-badge layui-bg-gray">已取消</span>{/case}
-                {case value='1'}<span class="layui-badge layui-bg-black">待付款</span>{/case}
-                {case value='2'}<span class="layui-badge layui-bg-blue">待发货</span>{/case}
-                {case value='3'}<span class="layui-badge layui-bg-orange">已发货</span>{/case}
-                {case value='4'}<span class="layui-badge layui-bg-green">已完成</span>{/case}
-                {case value='5'}<span class="layui-badge layui-bg-gray">已退单</span>{/case}
-                {case value='6'}<span class="layui-badge layui-bg-red">退款审核中（{if($vo.refund_type == 1)}退款申请{/if}{if($vo.refund_type == 2)}退货申请{/if}）</span>
-                <span class="margin-left-5"><a data-title="退款审核" data-modal="{:url('order/checkRefund')}?order_no={$vo.order_no}&id={$vo.id}">审核</a></span>{/case}
-                {case value='7'}<span class="layui-badge layui-bg-rown">退款处理中</span>{/case}
-                {/switch}
-                <br>
-            </td>
-            <td class="text-left text-top nowrap padding-none">
-                <table class="layui-table think-inner-table">
-                    <colgroup>
-                        <col width="70%">
-                    </colgroup>
-                    {foreach $vo.goods as $goods}
-                    <tr>
-                        <td>[{$goods.goods_id}] {$goods.goods_title}（{$goods.goods_spec_alias}）</td>
-                        <td class="text-right">
-                            <b>
-                                {if in_array($vo.type,['1','3'])}
-                                ￥ {$goods[$goods['price_field']]}
-                                {else}
-                                {$goods.selling_integral} 积分
-                                {/if}
-                                <span class="layui-icon font-s12">&#x1006;</span>
-                                {$goods.number}
-                            </b>
-                        </td>
-                    </tr>
-                    {/foreach}
-                </table>
+                {$vo['order_num']}
             </td>
             <td class="text-left text-top nowrap">
-                {if empty($vo.express)}
-                <span class="color-desc">无发货信息</span>
-                {else}
-                快递公司：{$vo.express.real_company_title|default=$vo.express.company_title}
-                {if !empty($vo.express.real_company_title)}
-                <!--<span class="color-desc">{$vo.express.real_express_at|format_datetime|default='未发货'}</span>-->
-                {if $vo.express.real_company_title neq $vo.express.company_title}
-                <s class="color-desc">{$vo.express.company_title}</s>
-                {/if}
-                {/if}
-                <br>
-                快递单号：{$vo.express.real_express_no|default='<span class="layui-badge layui-bg-blue">未发货</span>'|raw}
-                <!--{if auth('store/deliver/tracking') and !empty($vo.express.real_express_no)}-->
-                <a data-modal="{:url('store/deliver/tracking')}?express_code={$vo.express.real_express_code}&express_no={$vo.express.real_express_no}&company_title={$vo.express.real_company_title}" data-title="追踪物流">查看</a>
-                <!--{elseif auth('store/deliver/express') and $vo.status eq 2 and $vo.is_pay eq 1}-->
-                <a data-title="快速发货" data-modal="{:url('store/deliver/express')}?order_no={$vo.order_no}">快速发货</a>
-                <!--{/if}-->
-                <br>
-                收货信息：{$vo.express.username} {$vo.express.phone}<br>
-                收货地址：{$vo.express.province}{$vo.express.city}{$vo.express.area}{$vo.express.address}
-                {if auth('store/order/address')}<a data-title="修改收货人信息" data-modal="{:url('order/address')}?order_no={$vo.order_no}">修改</a>{/if}
-                {/if}
-                {if !empty($vo.express.real_express_at)}<br>发货时间：{$vo.express.real_express_at|format_datetime}{/if}
+                {:sprintf("%.2f", $vo.price/100)}元
+            </td>
+            <td class="text-left text-top nowrap">
+                <?php if($vo['type'] == 1){echo "团体";}else{echo "个人";} ?>
+            </td>
+            <td class="text-left text-top nowrap">
+                {$vo['create_time']}
+            </td>
+            <td class="text-left text-top nowrap">
+                <a>查看详情</a>
             </td>
         </tr>
         {/foreach}
