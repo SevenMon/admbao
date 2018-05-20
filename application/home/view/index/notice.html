@@ -1,0 +1,81 @@
+{extend name="home@public/main"}
+{block name='css'}
+<link href="__STATIC__/home/css/shengming.css?v={:date('ymd')}" rel="stylesheet">
+<style>
+    .vwrapper{
+        width: 100%;
+        font-size: 15px;
+        padding: 10px;
+    }
+    .vwrapper span{
+        display: inline-block;
+    }
+    .key{
+        width: 30%;
+    }
+    .value{
+        width: 60%;
+    }
+</style>
+{/block}
+{block name='body'}
+<div class="top">
+    <div class="fanhui"><img src="image/fanhui.png">返回</div>
+    <div class="bt">赛事声明</div>
+</div>
+
+<div class="box">
+    <div class="vwrapper">
+        <span class="key">赛事名称：</span>
+        <span class="value">阿迪是范德萨范德萨发</span>
+    </div>
+    <div class="vwrapper">
+        <span class="key">图片：</span>
+        <span class="value">
+		 	 		<img href="">
+		 	 	</span>
+    </div>
+    <div class="vwrapper">
+        <span class="key">赛事描述：</span>
+        <span class="value">阿迪是范德萨范德萨发</span>
+    </div>
+    <div class="vwrapper">
+        <span class="key">报名价格：</span>
+        <span class="value">123</span>
+    </div>
+    <div class="vwrapper">
+        <span class="key">年龄段：</span>
+        <span class="value">12-13</span>
+    </div>
+    <div class="vwrapper">
+        <span class="key">已参赛人数：</span>
+        <span class="value">12</span>
+    </div>
+    <div class="vwrapper">
+        <span class="key">乘车地点：</span>
+        <span class="value">撒发生的</span>
+    </div>
+    <div class="vwrapper">
+        <span class="key">参赛物品获取地点：</span>
+        <span class="value">发生过多少给多少分过</span>
+    </div>
+    <div class="vwrapper">
+        <span class="key">比赛时间：</span>
+        <span class="value">123124324</span>
+    </div>
+    <div class="vwrapper">
+        <span class="key">报名截止时间：</span>
+        <span class="value">234234234234</span>
+    </div>
+    <div class="vwrapper">
+        <span class="key">赛事内容：</span>
+        <span class="value">
+
+		 	 	</span>
+    </div>
+</div>
+<a href="{:url('home/Index/know',array('id' => $id))}"><button class="xyb">下一步</button></a>
+{/block}
+{block name='script'}
+
+{/block}

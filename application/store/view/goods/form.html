@@ -9,13 +9,13 @@
     <div class="form-group">
         <label class="col-sm-2 control-label">赛事名称(大标题)</label>
         <div class='col-sm-8'>
-            <input name="title" required value="{$vo.goods_title|default=''}" class="layui-input" title="请输入赛事名称" placeholder="请输入赛事名称">
+            <input name="title" required value="{$vo.compete_info.name|default=''}" class="layui-input" title="请输入赛事名称" placeholder="请输入赛事名称">
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label">二级标题</label>
         <div class='col-sm-8'>
-            <input name="title_second" required value="{$vo.goods_title|default=''}" class="layui-input" title="请输入赛事二级标题" placeholder="请输入赛事二级标题">
+            <input name="title_second" required value="{$vo.compete_notice_info.title_second|default=''}" class="layui-input" title="请输入赛事二级标题" placeholder="请输入赛事二级标题">
         </div>
     </div>
 
@@ -25,7 +25,7 @@
         <div class='col-sm-8 text-top'>
             <select required class="layui-select full-width" name="cate_id">
                 {foreach $cates as $cate}
-                <!--{if isset($vo.cate_id) and $cate.id eq $vo.cate_id}-->
+                <!--{if isset($vo.compete_info.cate_id) and $cate.id eq $vo.compete_info.cate_id}-->
                 <option selected value="{$cate.id}">{$cate.spl|raw}{$cate.cate_title}</option>
                 <!--{else}-->
                 <option value="{$cate.id}">{$cate.spl|raw}{$cate.cate_title}</option>
@@ -48,7 +48,7 @@
                 <tbody>
                 <tr>
                     <td class="text-top">
-                        <input type="hidden" name="img_url" value="{$vo.goods_image|default=''}">
+                        <input type="hidden" name="img_url" value="{$vo.compete_info.img_url|default=''}">
                     </td>
                 </tr>
                 </tbody>
@@ -56,146 +56,75 @@
         </div>
     </div>
 
-    <!-- 普通商品及积分商品 开始 -->
-    <!--<div class="form-group">
-        <label class="col-sm-2 control-label">商品规格</label>
-        <div class='col-sm-8'>
-            <select required class="layui-select full-width block" name="spec_id" lay-ignore>
-                {foreach $specs as $spec}
-                {php}$param=str_replace('"',"'",$spec['spec_param']);{/php}
-                &lt;!&ndash;{eq name='spec.id' value='$vo.spec_id|default=0'}&ndash;&gt;
-                <option data-param="{$param}" selected="selected" value="{$spec.id}">{$spec.spec_title}</option>
-                &lt;!&ndash;{else}&ndash;&gt;
-                <option data-param="{$param}" value="{$spec.id}">{$spec.spec_title}</option>
-                &lt;!&ndash;{/eq}&ndash;&gt;
-                {/foreach}
-            </select>
-            <table class="layui-table notevent" lay-size="sm" ng-if="specs.length>0">
-                <tr>
-                    <th>可选规格</th>
-                    <th>规格内容</th>
-                </tr>
-                <tr ng-repeat="x in specs">
-                    <td ng-bind="x.name"></td>
-                    <td>
-                        <label ng-repeat="m in x.param" class="nowrap margin-right-10 line-height-18">
-                            <input data-spec="{{x.name}}_{{m.value}}" ng-model="m.checked" class="inline-block" type="checkbox" lay-ignore>
-                            <span ng-bind="m.value"></span>
-                        </label>
-                    </td>
-                </tr>
-            </table>
-            <table class="layui-table notevent" lay-size="sm">
-                <thead>
-                <tr>
-                    <th>商品规格</th>
-                    <th>市场价格</th>
-                    <th>销售价格</th>
-                    <th>规格状态</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-class="x.status?'':'layui-bg-gray'" ng-repeat="x in specdata">
-                    <td class="nowrap">
-                        <input type="hidden" name="goods_spec[]" value="{{x.spec_name}}">
-                        <span ng-repeat="a in x.spec_attrs">
-                            <span class="layui-badge layui-bg-blue" ng-bind="a.name"></span>
-                            <span ng-if="b" class="layui-badge layui-bg-green" ng-repeat="b in a.value" ng-bind="b"></span>
-                        </span>
-                    </td>
-                    <td class="price-input-td">
-                        <input onblur="this.value=(parseFloat(this.value)||0).toFixed(2)" class="layui-input" placeholder="0.00" name="market_price[]" value="{{x.market_price}}">
-                    </td>
-                    <td class="price-input-td">
-                        <input onblur="this.value=(parseFloat(this.value)||0).toFixed(2)" class="layui-input" placeholder="0.00" name="selling_price[]" value="{{x.selling_price}}">
-                    </td>
-                    <td>
-                        <label class="nowrap line-height-18">
-                            <input type="hidden" name="spec_status[]" value="{{x.status?1:0}}">
-                            <input ng-checked="x.status" ng-model="x.status" value="1" lay-ignore class="inline-block" type="checkbox"/> 启用
-                        </label>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>-->
-    <!-- 普通商品及积分商品 结束 -->
-
-    <!--<div class="form-group">
-        <label class="col-sm-2 control-label">视频展示</label>
-        <div class='col-sm-8'>
-            <div class="row">
-                <div class="col-sm-10 padding-right-0">
-                    <input style="border-right:none" name="goods_video" value="{$vo.goods_video|default=''}" class="layui-input" title="请输入链接或上传视频展示文件" placeholder="请输入链接或上传视频展示文件">
-                </div>
-                <div class="col-sm-2 padding-left-0">
-                    <button data-file="one" data-type="mp4" data-field="goods_video" type="button" class="layui-btn layui-btn-sm" style="height:38px;line-height:38px;width:100%">上传视频文件</button>
-                </div>
-            </div>
-        </div>
-    </div>-->
-
     <div class="form-group">
         <label class="col-sm-2 control-label">展示描述</label>
         <div class='col-sm-8'>
-            <textarea class="layui-textarea" name="describe" placeholder="请输入展示描述">{$vo.goods_desc|default=''}</textarea>
+            <textarea class="layui-textarea" name="describe" placeholder="请输入展示描述">{$vo.compete_info.describe|default=''}</textarea>
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label">报名费（元/人）</label>
         <div class='col-sm-8'>
-            <input name="price" required value="{$vo.goods_title|default=''}" class="layui-input" title="请输入报名费" placeholder="请输入报名费" style="width: 30%">
+            <input name="price" required value="{:sprintf('%.2f', $vo.compete_info.price/100)}" class="layui-input" title="请输入报名费" placeholder="请输入报名费" style="width: 30%">
         </div>
     </div>
+    <?php $ages = json_decode($vo['compete_info']['age'],true); ?>
     <div class="form-group">
         <label class="col-sm-2 control-label">年龄段</label>
         <div class='col-sm-8'>
-            <input name="min_page" required value="{$vo.goods_title|default=''}" class="layui-input" title="最小年龄" placeholder="最小年龄" style="width: 10%;display: inline-block">
+            <input name="min_page" required value="{$ages[0]|default=''}" class="layui-input" title="最小年龄" placeholder="最小年龄" style="width: 10%;display: inline-block">
             至
-            <input name="max_page" required value="{$vo.goods_title|default=''}" class="layui-input" title="最大年龄" placeholder="最大年龄" style="width: 10%;display: inline-block">
+            <input name="max_page" required value="{$ages[1]|default=''}" class="layui-input" title="最大年龄" placeholder="最大年龄" style="width: 10%;display: inline-block">
+            岁
         </div>
+
     </div>
 
     <div class="form-group">
         <label class="col-sm-2 control-label">乘车地点</label>
         <div class='col-sm-8'>
-            <input name="car_address" required value="{$vo.goods_title|default=''}" class="layui-input" title="乘车地点" placeholder="乘车地点">
+            <input name="car_address" required value="{$vo.compete_notice_info.car_address|default=''}" class="layui-input" title="乘车地点" placeholder="乘车地点">
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-sm-2 control-label">领取参赛物品地点</label>
         <div class='col-sm-8'>
-            <input name="receive_good_address" required value="{$vo.goods_title|default=''}" class="layui-input" title="领取参赛物品地点" placeholder="领取参赛物品地点">
+            <input name="receive_good_address" required value="{$vo.compete_notice_info.receive_good_address|default=''}" class="layui-input" title="领取参赛物品地点" placeholder="领取参赛物品地点">
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-sm-2 control-label">时间段</label>
         <div class='col-sm-8'>
-            <input required name="start_time" id="begin_time" value="{$Think.get.create_at}" placeholder="开始时间" class="layui-input" style="width: 30%;display: inline-block">
+            <input required name="start_time" id="begin_time" value="{$vo.compete_notice_info.start_time}" placeholder="开始时间" class="layui-input" style="width: 30%;display: inline-block">
             至
-            <input required name="end_time" id="end_time" value="{$Think.get.create_at}" placeholder="结束时间" class="layui-input" style="width: 30%;display: inline-block">
+            <input required name="end_time" id="end_time" value="{$vo.compete_notice_info.end_time}" placeholder="结束时间" class="layui-input" style="width: 30%;display: inline-block">
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label">报名结束时间</label>
         <div class='col-sm-8'>
-            <input required name="signup_end_time" id="signup_end_time" value="{$Think.get.create_at}" placeholder="报名结束时间" class="layui-input" style="width: 40%;">
+            <input required name="signup_end_time" id="signup_end_time" value="{$vo.compete_notice_info.signup_end_time}" placeholder="报名结束时间" class="layui-input" style="width: 40%;">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">比赛时间</label>
+        <div class='col-sm-8'>
+            <input required name="compete_time" id="compete_time" value="{$vo.compete_info.compete_time}" placeholder="比赛时间" class="layui-input" style="width: 40%;">
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label">参赛人数</label>
         <div class='col-sm-8'>
-                <input name="people_num" required value="{$vo.goods_title|default=''}" class="layui-input" title="参赛人数" placeholder="参赛人数">
+                <input name="people_num" required value="{$vo.compete_notice_info.people_num|default=''}" class="layui-input" title="参赛人数" placeholder="参赛人数">
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-sm-2 control-label label-required">内容描述</label>
         <div class='col-sm-8'>
-            <textarea name="content">{$vo.goods_content|default=''|htmlspecialchars_decode}</textarea>
+            <textarea name="content">{$vo.compete_notice_info.content|default=''|htmlspecialchars_decode}</textarea>
         </div>
     </div>
 
@@ -203,7 +132,7 @@
 
     <div class="col-sm-7 col-sm-offset-2">
         <div class="layui-form-item text-center">
-            {if !empty($vo.id)}<input type="hidden" name="id" value="{$vo.id}">{/if}
+            {if !empty($vo['compete_info']['id'])}<input type="hidden" name="id" value="{$vo.compete_info.id}">{/if}
             <button class="layui-btn" type="submit">保存配置</button>
             <button class="layui-btn layui-btn-danger" type='button' onclick="window.history.back()">取消编辑</button>
         </div>
@@ -216,6 +145,7 @@
         window.laydate.render({elem: '#begin_time'});
         window.laydate.render({elem: '#end_time'});
         window.laydate.render({elem: '#signup_end_time'});
+        window.laydate.render({elem: '#compete_time'});
     })();
 </script>
 <script>

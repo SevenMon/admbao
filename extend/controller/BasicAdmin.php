@@ -95,6 +95,7 @@ class BasicAdmin extends Controller
     protected function _list($dbQuery = null, $isPage = true, $isDisplay = true, $total = false, $result = [])
     {
         $db = is_null($dbQuery) ? Db::name($this->table) : (is_string($dbQuery) ? Db::name($dbQuery) : $dbQuery);
+
         // 列表排序默认处理
         if ($this->request->isPost() && $this->request->post('action') === 'resort') {
             foreach ($this->request->post() as $key => $value) {
@@ -115,9 +116,11 @@ class BasicAdmin extends Controller
             $rows = intval($this->request->get('rows', cookie('page-rows')));
             cookie('page-rows', $rows = $rows >= 10 ? $rows : 20);
             // 分页数据处理
+
             $query = $this->request->get();
             $page = $db->paginate($rows, $total, ['query' => $query]);
             if (($totalNum = $page->total()) > 0) {
+
                 list($rowsHTML, $pageHTML, $maxNum) = [[], [], $page->lastPage()];
                 foreach ([10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200] as $num) {
                     list($query['rows'], $query['page']) = [$num, '1'];
@@ -139,8 +142,10 @@ class BasicAdmin extends Controller
         } else {
             $result['list'] = $db->select();
         }
+
         if (false !== $this->_callback('_data_filter', $result['list'], []) && $isDisplay) {
             !empty($this->title) && $this->assign('title', $this->title);
+
             return $this->fetch('', $result);
         }
         return $result;

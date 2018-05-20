@@ -11,62 +11,23 @@
     </div>
 </div>
 <ul class="list-lx">
+    {volist name="data" id="v" key="k" }
     <li>
-        <div class="img-list fl"><img src="__STATIC__/home/image/list_03.png"/></div>
+        <div class="img-list fl"><img src="{$v.img_url}"/></div>
         <div class="conter-list fr">
-            <p class="zm">黎平站</p>
-            <p class="lx">12公里荷你相约徒步路线</p>
-            <p class="sj">比赛时间：2018-12-15</p>
-            <p class="fy">比赛时间：<span style="color: #ff3d3d;">￥120.00</span></p>
+            <p class="zm">{$v.name}</p>
+            <p class="lx">{$v.describe}</p>
+            <p class="sj">比赛时间：{$v.compete_time}</p>
+            <p class="fy">报名费用：<span style="color: #ff3d3d;">￥{:sprintf("%.2f", $v.price/100)}/人</span></p>
             <p class="nx">
-                年龄12岁--60岁;
+                年龄{$v.age.0}岁--{$v.age.1}岁;
             </p>
-            <a href="{:url('home/Order/index')}">
+            <a href="{:url('home/Index/notice',array('id' => $v['id']))}">
                 <button class="bm">我要报名</button>
             </a>
         </div>
     </li>
-    <li>
-        <div class="img-list fl"><img src="__STATIC__/home/image/list_03.png"/></div>
-        <div class="conter-list fr">
-            <p class="zm">黎平站</p>
-            <p class="lx">12公里荷你相约徒步路线</p>
-            <p class="sj">比赛时间：2018-12-15</p>
-            <p class="fy">比赛时间：<span style="color: #ff3d3d;">￥120.00</span></p>
-            <p class="nx">
-                年龄12岁--60岁;
-            </p>
-            <a href="{:url('home/Order/index')}">
-                <button class="bm">我要报名</button>
-            </a>
-        </div>
-    </li>
-    <li>
-        <div class="img-list fl"><img src="__STATIC__/home/image/list_03.png"/></div>
-        <div class="conter-list fr">
-            <p class="zm">黎平站</p>
-            <p class="lx">12公里荷你相约徒步路线</p>
-            <p class="sj">比赛时间：2018-12-15</p>
-            <p class="fy">比赛时间：<span style="color: #ff3d3d;">￥120.00</span></p>
-            <p class="nx">
-                年龄12岁--60岁;
-            </p>
-            <button class="bm">我要报名</button>
-        </div>
-    </li>
-    <li>
-        <div class="img-list fl"><img src="__STATIC__/home/image/list_03.png"/></div>
-        <div class="conter-list fr">
-            <p class="zm">黎平站</p>
-            <p class="lx">12公里荷你相约徒步路线</p>
-            <p class="sj">比赛时间：2018-12-15</p>
-            <p class="fy">比赛时间：<span style="color: #ff3d3d;">￥120.00</span></p>
-            <p class="nx">
-                年龄12岁--60岁;
-            </p>
-            <button class="bm">我要报名</button>
-        </div>
-    </li>
+    {/volist}
 </ul>
 <div style="height: 0.5rem;width: 100%;"></div>
 

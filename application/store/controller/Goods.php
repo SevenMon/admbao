@@ -47,23 +47,19 @@ class Goods extends BasicAdmin
      */
     public function index()
     {
-        $this->title = '商品管理';
+        $this->title = '赛事管理';
         $get = $this->request->get();
-        $db = Db::name($this->table)->where(['is_deleted' => '0']);
-        if (isset($get['tags_id']) && $get['tags_id'] !== '') {
-            $db->whereLike('tags_id', "%,{$get['tags_id']},%");
+
+        $where = array();
+        $where[] = array('status','=',1);
+        empty($get['title']) ? '' : $where[] = array('name','like','%'.$get['title'].'%');
+        //empty($get['cate_id']) ? '' : $where[] = array('cate_id','=',$get['cate_id']);
+        if(!empty($get['create_time'])){
+            list($start, $end) = explode(' - ', $get['create_time']);
+            $where[] = array('create_time','between',array($start,$end));
         }
-        if (isset($get['goods_title']) && $get['goods_title'] !== '') {
-            $db->whereLike('goods_title', "%{$get['goods_title']}%");
-        }
-        foreach (['cate_id', 'brand_id'] as $field) {
-            (isset($get[$field]) && $get[$field] !== '') && $db->where($field, $get[$field]);
-        }
-        if (isset($get['create_at']) && $get['create_at'] !== '') {
-            list($start, $end) = explode(' - ', $get['create_at']);
-            $db->whereBetween('create_at', ["{$start} 00:00:00", "{$end} 23:59:59"]);
-        }
-        return parent::_list($db->order('status desc,sort asc,id desc'));
+        $db = Db::name('signup_compete')->where($where)->order('id','desc');
+        return parent::_list($db);
     }
 
     /**
@@ -72,11 +68,11 @@ class Goods extends BasicAdmin
      */
     protected function _data_filter(&$data)
     {
-        $result = GoodsService::buildGoodsList($data);
+        /*$result = GoodsService::buildGoodsList($data);
         $this->assign([
             'brands' => $result['brand'],
             'cates'  => ToolsService::arr2table($result['cate']),
-        ]);
+        ]);*/
     }
 
     /**
@@ -96,20 +92,54 @@ class Goods extends BasicAdmin
         }
 
         try {
-            $data = $this->_form_build_data();
-            Db::transaction(function () use ($data) {
+            //添加赛事数据
+            $data = array();
+            $data['title'] = $this->request->post('title', '');
+            $data['title_second'] = $this->request->post('title_second', '');
+            $data['cate_id'] = $this->request->post('cate_id', '');
+            $data['img_url'] = $this->request->post('img_url', '');
+            $data['describe'] = $this->request->post('describe', '');
+            $data['price'] = $this->request->post('price', '');
+            $data['min_age'] = $this->request->post('min_page', '');
+            $data['max_age'] = $this->request->post('max_page', '');
+            $data['car_address'] = $this->request->post('car_address', '');
+            $data['receive_good_address'] = $this->request->post('receive_good_address', '');
+            $data['start_time'] = $this->request->post('start_time', '');
+            $data['end_time'] = $this->request->post('end_time', '');
+            $data['signup_end_time'] = $this->request->post('signup_end_time', '');
+            $data['people_num'] = $this->request->post('people_num', '');
+            $data['content'] = $this->request->post('content', '');
+            $data['cate_id'] = $this->request->post('cate_id', '');
+            $data['compete_time'] = $this->request->post('compete_time', '');
 
-                $goodsID = Db::name($this->table)->insertGetId($data['main']);
-                foreach ($data['list'] as &$vo) {
-                    $vo['goods_id'] = $goodsID;
-                }
-                Db::name('StoreGoodsList')->insertAll($data['list']);
+            $compete_info['name'] = $data['title'];
+            $compete_info['img_url'] = $data['img_url'];
+            $compete_info['describe'] = $data['describe'];
+            $compete_info['price'] = bcmul($data['price'],100);
+            $compete_info['age'] = json(array($data['min_age'],$data['max_age']));
+            $compete_info['create_time'] = date("Y-m-d H-i-s");
+            $compete_info['cate_id'] = $data['cate_id'];
+            $compete_info['compete_time'] = $data['compete_time'];
 
-            });
+            $compete_notice['car_address'] = $data['car_address'];
+            $compete_notice['receive_good_address'] = $data['receive_good_address'];
+            $compete_notice['title'] = $data['title'];
+            $compete_notice['title_second'] = $data['title_second'];
+            $compete_notice['start_time'] = $data['start_time'];
+            $compete_notice['end_time'] = $data['end_time'];
+            $compete_notice['signup_end_time'] = $data['signup_end_time'];
+            $compete_notice['people_num'] = $data['people_num'];
+            $compete_notice['content'] = $data['content'];
+            $compete_notice['create_time'] = date("Y-m-d H-i-s");
+
+            $compete_id = Db::name('signup_compete')->insert($compete_info);
+            $compete_notice['compete_id'] = $compete_id;
+            $info = Db::name('signup_compete_notice')->insert($compete_notice);
+
         } catch (HttpResponseException $exception) {
             return $exception->getResponse();
         } catch (\Exception $e) {
-            $this->error('赛事添加失败，请稍候再试！');
+            $this->error($e->getMessage());
         }
         list($base, $spm, $url) = [url('@admin'), $this->request->get('spm'), url('store/goods/index')];
         $this->success('添加赛事成功！', "{$base}#{$url}?spm={$spm}");
@@ -125,29 +155,63 @@ class Goods extends BasicAdmin
     public function edit()
     {
         if (!$this->request->isPost()) {
-            $goods_id = $this->request->get('id');
-            $goods = Db::name($this->table)->where(['id' => $goods_id, 'is_deleted' => '0'])->find();
-            empty($goods) && $this->error('需要编辑的商品不存在！');
-            $goods['list'] = Db::name('StoreGoodsList')->where(['goods_id' => $goods_id, 'is_deleted' => '0'])->select();
+            $compete_id = $this->request->get('id');
+            $data = Db::name("signup_compete")->where(['id' => $compete_id, 'status' => '1'])->find();
+            empty($data) && $this->error('需要编辑的赛事不存在！');
+            $data_notice = Db::name("signup_compete_notice")->where(['compete_id' => $compete_id])->find();
+
             $this->_form_assign();
-            return $this->fetch('form', ['vo' => $goods, 'title' => '编辑商品']);
+            return $this->fetch('form', ['vo' => array('compete_info' => $data,'compete_notice_info' => $data_notice), 'title' => '编辑赛事']);
         }
         try {
-            $data = $this->_form_build_data();
-            $goods_id = $this->request->post('id');
-            $goods = Db::name($this->table)->where(['id' => $goods_id, 'is_deleted' => '0'])->find();
-            empty($goods) && $this->error('商品编辑失败，请稍候再试！');
-            foreach ($data['list'] as &$vo) {
-                $vo['goods_id'] = $goods_id;
-            }
-            Db::transaction(function () use ($data, $goods_id, $goods) {
-                // 更新商品主表
-                $where = ['id' => $goods_id, 'is_deleted' => '0'];
-                Db::name('StoreGoods')->where($where)->update(array_merge($goods, $data['main']));
-                // 更新商品详细
-                Db::name('StoreGoodsList')->where(['goods_id' => $goods_id])->delete();
-                Db::name('StoreGoodsList')->insertAll($data['list']);
-            });
+
+            $compete_id = $this->request->post('id');
+            //添加赛事数据
+            $data = array();
+            $data['title'] = $this->request->post('title', '');
+            $data['title_second'] = $this->request->post('title_second', '');
+            $data['cate_id'] = $this->request->post('cate_id', '');
+            $data['img_url'] = $this->request->post('img_url', '');
+            $data['describe'] = $this->request->post('describe', '');
+            $data['price'] = $this->request->post('price', '');
+            $data['min_age'] = $this->request->post('min_page', '');
+            $data['max_age'] = $this->request->post('max_page', '');
+            $data['car_address'] = $this->request->post('car_address', '');
+            $data['receive_good_address'] = $this->request->post('receive_good_address', '');
+            $data['start_time'] = $this->request->post('start_time', '');
+            $data['end_time'] = $this->request->post('end_time', '');
+            $data['signup_end_time'] = $this->request->post('signup_end_time', '');
+            $data['people_num'] = $this->request->post('people_num', '');
+            $data['content'] = $this->request->post('content', '');
+            $data['cate_id'] = $this->request->post('cate_id', '');
+            $data['compete_time'] = $this->request->post('compete_time', '');
+
+            $compete_info['name'] = $data['title'];
+            $compete_info['img_url'] = $data['img_url'];
+            $compete_info['describe'] = $data['describe'];
+            $compete_info['price'] = bcmul($data['price'],100);
+            $compete_info['age'] = json_encode(array($data['min_age'],$data['max_age']));
+            $compete_info['create_time'] = date("Y-m-d H-i-s");
+            $compete_info['cate_id'] = $data['cate_id'];
+            $compete_info['compete_time'] = $data['compete_time'];
+
+            $compete_notice['car_address'] = $data['car_address'];
+            $compete_notice['receive_good_address'] = $data['receive_good_address'];
+            $compete_notice['title'] = $data['title'];
+            $compete_notice['title_second'] = $data['title_second'];
+            $compete_notice['start_time'] = $data['start_time'];
+            $compete_notice['end_time'] = $data['end_time'];
+            $compete_notice['signup_end_time'] = $data['signup_end_time'];
+            $compete_notice['people_num'] = $data['people_num'];
+            $compete_notice['content'] = $data['content'];
+            $compete_notice['create_time'] = date("Y-m-d H-i-s");
+
+            Db::name('signup_compete')->where(array('id' => $compete_id))->update($compete_info);
+
+            $compete_notice['compete_id'] = $compete_id;
+            $info = Db::name('signup_compete_notice')->where(array('compete_id' => $compete_id))->update($compete_notice);
+
+
         } catch (HttpResponseException $exception) {
             return $exception->getResponse();
         } catch (\Exception $e) {
@@ -274,10 +338,17 @@ class Goods extends BasicAdmin
      */
     public function del()
     {
-        if (DataService::update($this->table)) {
+        $compete_id = $this->request->post('id');
+
+        if(empty($compete_id)){
+            $this->error("商品删除失败，请稍候再试！");
+        }
+        $info = Db::name('signup_compete')->where(array('id'=>$compete_id))->update(array('status' => 0));
+        if(empty($info)){
+            $this->error("商品删除失败，请稍候再试！");
+        }else{
             $this->success("商品删除成功！", '');
         }
-        $this->error("商品删除失败，请稍候再试！");
     }
 
     /**
