@@ -5,32 +5,28 @@
 <form class="layui-form layui-form-pane form-search" action="{:request()->url()}" onsubmit="return false" method="get">
 
     <div class="layui-form-item layui-inline">
-        <label class="layui-form-label">订单单号</label>
+        <label class="layui-form-label">中奖人姓名或昵称</label>
         <div class="layui-input-inline">
-            <input name="order_num" value="{$Think.get.order_no}" placeholder="请输入订单单号" class="layui-input">
+            <input name="order_num" value="{$Think.get.order_no}" placeholder="中奖人姓名或昵称" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item layui-inline">
-        <label class="layui-form-label">赛事名称</label>
+        <label class="layui-form-label">奖品</label>
         <div class="layui-input-inline">
-            <input name="title" value="{$Think.get.goods_title}" placeholder="赛事名称" class="layui-input">
+            <input name="title" value="{$Think.get.goods_title}" placeholder="奖品" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item layui-inline">
-        <label class="layui-form-label">用户昵称</label>
+        <label class="layui-form-label">活动名</label>
         <div class="layui-input-inline">
-            <input name="user_nickname" value="{$Think.get.goods_title}" placeholder="用户昵称" class="layui-input">
+            <input name="title" value="{$Think.get.goods_title}" placeholder="活动名" class="layui-input">
         </div>
     </div>
 
-    <div class="layui-form-item layui-inline">
-        <label class="layui-form-label">下单时间</label>
-        <div class="layui-input-inline">
-            <input name="create_time" data-time value="{$Think.get.create_at}" placeholder="下单时间" class="layui-input">
-        </div>
-    </div>
+
+
 
     <div class="layui-form-item layui-inline">
         <button class="layui-btn layui-btn-primary"><i class="layui-icon">&#xe615;</i> 搜 索</button>
@@ -53,7 +49,7 @@
         <thead>
         <tr>
 
-            <th class="text-left">订单号</th>
+            <th class="text-left">活动名</th>
             <th class="text-left">赛事名字</th>
             <th class="text-left">用户名</th>
             <th class="text-left">金额</th>

@@ -49,17 +49,55 @@ class Order extends BasicAdmin
         $get = $this->request->get();
 
         $where = array();
+
         $where[] = array('status','=',1);
 
-        //empty($get['title']) ? '' : $where[] = array('name','like','%'.$get['title'].'%');
-        //empty($get['cate_id']) ? '' : $where[] = array('cate_id','=',$get['cate_id']);
-        /*if(!empty($get['create_time'])){
+        empty($get['order_num']) ? '' : $where[] = array('order_num','like','%'.$get['order_num'].'%');
+
+        if(!empty($get['create_time'])){
             list($start, $end) = explode(' - ', $get['create_time']);
             $where[] = array('create_time','between',array($start,$end));
-        }*/
+        }
+
+        if(!empty($get['title'])){
+			$compete_id_array = array();
+        	$compete_where = array();
+			$compete_where[] = array('name','like','%'.$get['title'].'%');
+			$compete_where[] = array('status','=',1);
+        	$compete_id_array = Db::name('signup_compete')->where($compete_where)->column('id');
+			//$compete_id_str = implode(",", $compete_id_array);
+			$where[] = array('compete_id','in',$compete_id_array);
+		}
+
+		if(!empty($get['user_nickname'])){
+			$user_id_array = array();
+			$user_where = array();
+			$user_where[] = array('wechat_fans.nickname','like','%'.$get['user_nickname'].'%');
+			$user_where[] = array('signup_user.name','like','%'.$get['user_nickname'].'%');
+			$user_id_array = Db::table('signup_user')->leftjoin('wechat_fans','wechat_fans.id = signup_user.wechat_id')->whereOr($user_where)->column('signup_user.id');
+			//$compete_id_str = implode(",", $compete_id_array);
+			$where[] = array('user_id','in',$user_id_array);
+		}
         $db = Db::name('signup_order')->where($where)->order('id','desc');
         return parent::_list($db);
     }
+
+    public function  detail(){
+		$get = $this->request->get();
+		$order_id = $get['id'];
+		$order_info = Db::name('signup_order')->find($order_id);
+		$order_info['extra_info'] = json_decode($order_info['extra_info'],true);
+
+		$order_people_info = Db::name('signup_order_people_info')->where(array('order_id'=>$order_id))->select();
+
+		$user_info = Db::name('signup_user')->find($order_info['user_id']);
+		$wechat_user_info = Db::name('wechat_fans')->find($user_info['wechat_id']);
+		$this->assign('order_info',$order_info);
+		$this->assign('order_people_info',$order_people_info);
+		$this->assign('user_info',$user_info);
+		$this->assign('wechat_user_info',$wechat_user_info);
+		return $this->fetch('', ['title' => '订单详情']);
+	}
 
     /**
      * 订单列表数据处理

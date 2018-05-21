@@ -1,0 +1,153 @@
+{extend name='admin@public/content'}
+
+{block name="content"}
+<form onsubmit="return false;" action="#" data-auto="true" method="post" id="ProductForm" class='form-horizontal layui-form padding-top-20'>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">订单id</label>
+        <div class='col-sm-8'>
+            <input name="title" required value="{$order_info['id']|default=''}" class="layui-input" title="订单id" placeholder="订单id" readonly>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">订单编号</label>
+        <div class='col-sm-8'>
+            <input name="title" required value="{$order_info['order_num']|default=''}" class="layui-input" title="订单编号" placeholder="订单编号" readonly>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">订单金额</label>
+        <div class='col-sm-8'>
+            <input name="title" required value="{:sprintf('%.2f', $order_info['price']/100)}" class="layui-input" title="订单金额" placeholder="订单金额" readonly>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">类型</label>
+        <div class='col-sm-8'>
+            <input name="title" required value="<?php if($order_info['type'] == 1){echo "团体";}else{echo "个人";} ?>" class="layui-input" title="类型" placeholder="类型" readonly>
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">下单人</label>
+        <div class='col-sm-8'>
+            <input name="title" required value="{$user_info['name']}" class="layui-input" title="下单人" placeholder="下单人" readonly>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">微信昵称</label>
+        <div class='col-sm-8'>
+            <input name="title" required value="{$wechat_user_info['nickname']}" class="layui-input" title="微信昵称" placeholder="微信昵称" readonly>
+        </div>
+    </div>
+<?php
+    if(!empty($order_info['type'] == 1)){
+?>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">附件</label>
+        <div class='col-sm-8'>
+            <button class="button" value="下载团队报名附件">下载团队报名附件</button>
+        </div>
+    </div>
+    <?php
+    }
+    ?>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">参赛人信息</label>
+        <div class='col-sm-8'>
+            <table class="people-info">
+                <tr>
+                    <th>名字</th>
+                    <th>电话</th>
+                    <th>性别</th>
+                    <th>出生日期</th>
+                    <th>身份证</th>
+                    <th>国籍</th>
+                    <th>邮件</th>
+                    <th>地址</th>
+                    <th>所在公司</th>
+                    <th>服装尺寸</th>
+                    <th>服装颜色</th>
+                    <th>紧急电话</th>
+                    <th>紧急联系人</th>
+                    <th>上车地点</th>
+                    <th>参赛物品领取地</th>
+                </tr>
+                {foreach $order_people_info as $key=>$vo }
+                <tr>
+                    <td>{$vo['name']}</td>
+                    <td>{$vo['phone']}</td>
+                    <td>{$vo['sex']}</td>
+                    <td>{$vo['birth']}</td>
+                    <td>{$vo['id_card']}</td>
+                    <td>{$vo['country']}</td>
+                    <td>{$vo['email']}</td>
+                    <td>{$vo['address']}</td>
+                    <td>{$vo['company']}</td>
+                    <td>{$vo['size']}</td>
+                    <td>{$vo['color']}</td>
+                    <td>{$vo['emergency_person']}</td>
+                    <td>{$vo['emergency_phone']}</td>
+                    <td>{$vo['car_address']}</td>
+                    <td>{$vo['receive_good_address']}</td>
+                </tr>
+                {/foreach}
+
+            </table>
+        </div>
+    </div>
+    <button type="button" class="btn btn-primary" onclick="javascript:history.go(-1)" value="返回" style="margin-left: 16.66666667%;">返回</button>
+</form>
+
+{/block}
+
+{block name="style"}
+<style>
+    .people-info{
+        border:1px solid aliceblue;
+    }
+    .people-info th,.people-info td,.people-info tr{
+        border:1px solid aliceblue;
+        padding: 5px 10px;
+    }
+    .background-item {
+        padding: 15px;
+        background: #efefef;
+    }
+
+    .background-item thead tr {
+        background: #e0e0e0
+    }
+
+    .price-input-td {
+        padding: 0 !important;
+    }
+
+    .price-input-td:before {
+        margin: 4px;
+        width: 35px;
+        height: 22px;
+        content: "金额";
+        line-height: 20px;
+        text-align: center;
+        position: absolute;
+        background: #e2e2e2;
+    }
+
+    .price-input-td input {
+        height: 30px;
+        padding-left: 50px;
+        border: none !important;
+    }
+    .uploadimage {
+        display: inline-block;
+        width: 100%;
+        height: 80px;
+        background-size: 100% 100%;
+    }
+</style>
+{/block}

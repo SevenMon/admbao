@@ -108,3 +108,9 @@ function local_image($url)
 {
     return \service\FileService::download($url)['url'];
 }
+
+//根据competeid 获取name
+function getCompeteInfo($compete_id){
+	$name = Db::name('signup_compete')->where(array('id' => $compete_id))->column('name');
+	return $name[0];
+}
