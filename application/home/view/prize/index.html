@@ -5,12 +5,17 @@
 {block name='body'}
 <img src="__STATIC__/home/image/prize/1.png" id="shan-img" style="display:none;" />
 <img src="__STATIC__/home/image/prize/2.png" id="sorry-img" style="display:none;" />
+<h1 style="width: 100%;text-align: center;padding-top: 30px">{$prize_active['name']}</h1>
+<h2 style="width: 100%;text-align: center;padding-top: 15px">抽奖时间</h2>
+<h3 style="width: 100%;text-align: center;padding-top: 15px">{$prize_active['start_time']}--{$prize_active['end_time']}</h3>
+
 <div class="banner">
-    <div class="turnplate" style="background-image:url(__STATIC__/home/image/prize/turnplate-bg.png);background-size:100% 100%;margin-top:30%;">
+    <div class="turnplate" style="background-image:url(__STATIC__/home/image/prize/turnplate-bg.png);background-size:100% 100%;margin-top:15%;">
         <canvas class="item" id="wheelcanvas" width="422px" height="422px"></canvas>
         <img class="pointer" src="__STATIC__/home/image/prize/turnplate-pointer.png"/>
     </div>
 </div>
+<h2 style="width: 100%;text-align: center;padding-top: 15px">您还有<?php echo $num > 0 ? 0 : 1 ?>次抽奖机会</h2>
 {/block}
 {block name='script'}
 <script src="__STATIC__/home/js/jquery-1.10.2.js"></script>
@@ -18,6 +23,7 @@
 <script type="text/javascript">
     var turnplate={
         restaraunts:[],				//大转盘奖品名称
+        itemid:[],				//奖品id
         colors:[],					//大转盘奖品区块对应背景颜色
         outsideRadius:192,			//大转盘外圆的半径
         textRadius:155,				//大转盘奖品位置距离圆心的距离
@@ -29,8 +35,12 @@
 
     $(document).ready(function(){
         //动态添加大转盘的奖品与奖品区域背景颜色
-        turnplate.randomRate = ["50%", '50%', '0%', '0%', '0%', '0%', '0%', '0%', '0%', '0%'];  //小心设置按100%分配
-        turnplate.restaraunts = ["一等奖", "10猫币", "谢谢参与", "5猫币", "10元免费流量包", "20元免费流量包", "20猫币 ", "30元免费流量包", "100元免费流量包", "2猫币"];
+        //turnplate.randomRate = ["50%", '50%', '0%', '0%', '0%', '0%', '0%', '0%', '0%', '0%'];  //小心设置按100%分配
+        turnplate.randomRate = <?php echo $rate; ?>;  //小心设置按100%分配
+        //turnplate.restaraunts = ["一等奖", "10猫币", "谢谢参与", "5猫币", "10元免费流量包", "20元免费流量包", "20猫币 ", "30元免费流量包", "100元免费流量包", "2猫币"];
+        turnplate.restaraunts = <?php echo $prize_name; ?>;
+        turnplate.itemid = <?php echo $prize_id; ?>;
+
         turnplate.colors = ["#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF","#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF","#FFF4D6", "#FFFFFF"];
 
 
@@ -46,7 +56,7 @@
         };
 
         //旋转转盘 item:奖品位置; txt：提示语;
-        var rotateFn = function (item, txt){
+        var rotateFn = function (item, txt, id){
             var angles = item * (360 / turnplate.restaraunts.length) - (360 / (turnplate.restaraunts.length*2));
             if(angles<270){
                 angles = 270 - angles;
@@ -61,17 +71,34 @@
                 callback:function (){
                     alert(txt);
                     turnplate.bRotate = !turnplate.bRotate;
+                    console.log(id);
+                    $.ajax({
+                        url:"/home/Prize/lucky?active_id={$prize_active['id']}&prize_id=" + id,
+                        async:false,
+                        success:function (data) {
+                            window.location.reload();
+                        }
+                    });
                 }
             });
         };
 
         $('.pointer').click(function (){
+            //判断是否有机会抽奖
+            if({$can} == '0'){
+                alert('未在指定时间内，不可抽奖！');
+                return false;
+            }
+            if({$num} > 0){
+                alert('此次活动您已经抽过奖了，不能再次抽奖！');
+                return false;
+            }
             if(turnplate.bRotate)return;
             turnplate.bRotate = !turnplate.bRotate;
             //获取随机数(奖品个数范围内)
             var item = rnd(turnplate.randomRate);
             //奖品数量等于10,指针落在对应奖品区域的中心角度[252, 216, 180, 144, 108, 72, 36, 360, 324, 288]
-            rotateFn(item, turnplate.restaraunts[item-1]);
+            rotateFn(item, turnplate.restaraunts[item-1],turnplate.itemid[item-1]);
         });
     });
 

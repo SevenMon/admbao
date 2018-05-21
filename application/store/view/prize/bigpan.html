@@ -77,15 +77,7 @@
             url:"/store/Prize/updateStatus?id="+id,
             async:false,
             success:function (data) {
-                if(data == 0){
-                    //event.stopPropagation();
-                    alert('系统错误 请联系开发人员');
-                }else if(data == -1){
-                    //event.stopPropagation();
-                    alert('最多只能有一个活动开启。');
-                }else {
 
-                }
                 window.location.reload();
             }
         });

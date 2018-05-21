@@ -54,8 +54,8 @@ class Prize extends BasicAdmin
 		$this->success('添加成功！', "{$base}#{$url}?spm={$spm}1");
     }
 
-    public function prizeUser(){
-        echo "用户获奖页面";
+    public function prizeuser(){
+        return $this->fetch();
     }
     public function  edit(){
 		$get = $this->request->get();
@@ -87,22 +87,8 @@ class Prize extends BasicAdmin
 	public function updateStatus(){
 		$get = $this->request->get();
 		$prize_id = $get['id'];
-		$data = Db::name('signup_prize_active')->where(array('status' => 1))->select();
-		if(count($data) > 1){
-			echo 0;
-			return ;
-		}elseif (count($data) == 1){
-			if($data[0]['id'] == $prize_id){
-				$data[0]['status'] = 0;
-				Db::name('signup_prize_active')->update($data[0]);
-			}else{
-				echo -1;
-				return ;
-			}
-		}else{
-			Db::name('signup_prize_active')->where(array('id' => $prize_id))->update(array('status' => 1));
-		}
+		$data = Db::name('signup_prize_active')->where(array('status' => 1))->update(array('status' => 0));
+        Db::name('signup_prize_active')->where(array('id' => $prize_id))->update(array('status' => 1));
 		echo 1;
-		return ;
 	}
 }
