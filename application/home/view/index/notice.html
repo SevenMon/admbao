@@ -20,24 +20,24 @@
 {/block}
 {block name='body'}
 <div class="top">
-    <div class="fanhui"><img src="image/fanhui.png">返回</div>
+    <div class="fanhui" onclick="javascript:history.go(-1);"><img src="__STATIC__/home/image/fanhui.png">返回</div>
     <div class="bt">赛事声明</div>
 </div>
 
 <div class="box">
     <div class="vwrapper">
         <span class="key">赛事名称：</span>
-        <span class="value">{$data['name']}</span>
+        <span class="value">{$data['name']|default=''}</span>
     </div>
     <div class="vwrapper">
         <span class="key">图片：</span>
         <span class="value" style="width: 140px;height: 70px">
-		 	 		<img src="{$data['img_url']}" style="width: 140px;height: 70px">
+		 	 		<img src="{$data['img_url']|default=''}" style="width: 140px;height: 70px">
 		 	 	</span>
     </div>
     <div class="vwrapper">
         <span class="key">赛事描述：</span>
-        <span class="value">{$data['describe']}</span>
+        <span class="value">{$data['describe']|default=''}</span>
     </div>
     <div class="vwrapper">
         <span class="key">报名价格：</span>
@@ -45,28 +45,28 @@
     </div>
     <div class="vwrapper">
         <span class="key">年龄段：</span>
-        <span class="value">{$data['age'][0]}-{$data['age'][1]}岁</span>
+        <span class="value">{$data['age'][0]|default=''}-{$data['age'][1]}岁</span>
     </div>
     <div class="vwrapper">
         <span class="key">已参赛人数：</span>
-        <span class="value">{$data_notice['people_num']}</span>
+        <span class="value">{$data_notice['people_num']|default=''}</span>
     </div>
     <div class="vwrapper">
         <span class="key">乘车地点：</span>
-        <span class="value">{$data_notice['car_address']}</span>
+        <span class="value">{$data_notice['car_address']|default=''}</span>
     </div>
     <div class="vwrapper">
         <span class="key">参赛物品获取地点：</span>
-        <span class="value">{$data_notice['receive_good_address']}</span>
+        <span class="value">{$data_notice['receive_good_address']|default=''}</span>
     </div>
     <div class="vwrapper">
         <span class="key">比赛时间：</span>
-        <span class="value">{$data['compete_time']}</span>
+        <span class="value">{$data['compete_time']|default=''}</span>
     </div>
     <div class="vwrapper">
         <span class="key">报名截止时间：</span>
         <span class="value">
-            {$data_notice['signup_end_time']}
+            {$data_notice['signup_end_time']|default=''}
         </span>
     </div>
     <div class="vwrapper">

@@ -112,5 +112,21 @@ function local_image($url)
 //根据competeid 获取name
 function getCompeteInfo($compete_id){
 	$name = Db::name('signup_compete')->where(array('id' => $compete_id))->column('name');
+	if(empty($name)){
+		return false;
+	}
 	return $name[0];
+}
+
+//根据id 获取活动名字
+function getActiveName($active_id){
+	$name = Db::name('signup_prize_active')->where(array('id' => $active_id))->column('name');
+	return $name[0];
+}
+
+//根据用户id 获取用户 姓名电话昵称
+function getUserInfo($user_id){
+	$user_info = Db::name('signup_user')->find($user_id);
+	$user_watch_info = Db::name('wechat_fans')->find($user_info['wechat_id']);
+	return '姓名：'.$user_info['name']."<br/>电话：".$user_info['phone']."<br/>昵称：".$user_watch_info['nickname'];
 }

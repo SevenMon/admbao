@@ -55,7 +55,36 @@ class Prize extends BasicAdmin
     }
 
     public function prizeuser(){
-        return $this->fetch();
+		$get = $this->request->get();
+    	$key = empty($get['key']) ? '' : $get['key'];
+    	$prize_name = empty($get['prize_name']) ? '' : $get['prize_name'];
+    	$active_name = empty($get['active_name']) ? '' : $get['active_name'];
+		$where = array();
+    	if(!empty($key)){
+			$user_where = array();
+			$user_where[] = array('signup_user.phone','=',$key);
+			$user_where[] = array('signup_user.name','like','%' . $key . '%');
+			$user_where[] = array('wechat_fans.nickname','like','%' . $key . '%');
+			$user_id_array = Db::name('signup_user')->leftJoin('wechat_fans','signup_user.wechat_id = wechat_fans.id')->whereOr($user_where)->column('signup_user.id');
+			$where[] = array('user_id	','in',$user_id_array);
+    		$this->assign('key',$key);
+		}
+		if(!empty($prize_name)){
+			$where[] = array('name','like','%' . $prize_name . '%');
+			$this->assign('prize_name',$prize_name);
+		}
+		if(!empty($active_name)){
+    		$active_where = array();
+			$active_where[] = array('id','=',$active_name);
+			$active_where[] = array('name','like','%' . $active_name . '%');
+			$active_id_array = Db::name('signup_prize_active')->whereOr($active_where)->column('id');
+			$where[] = array('prize_active_id','in',$active_id_array);
+			$this->assign('active_name',$active_name);
+		}
+
+
+		$db = Db::name('signup_prize_user')->whereOr($where)->order('id','desc');
+		return parent::_list($db);
     }
     public function  edit(){
 		$get = $this->request->get();

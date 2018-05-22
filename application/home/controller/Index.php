@@ -12,13 +12,15 @@ use think\Db;
 
 use app\home\controller\Base;
 
-class Index extends Controller {
+class Index extends Base {
 	public function index(){
+	    $img = Db::name('signup_banner')->where(array('status' => 1))->select();
 	    $data = Db::name('signup_compete')->where(array('status' => 1))->select();
 	    foreach ($data as &$value){
             $value['age'] = json_decode($value['age'],true);
         }
 	    $this->assign('data',$data);
+	    $this->assign('img',$img);
 		return $this->fetch('index');
 	}
 

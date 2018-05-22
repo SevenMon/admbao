@@ -398,8 +398,38 @@ class Goods extends BasicAdmin
         }
 
     }
-    public function updateknow(){
 
-    }
+    //首页轮播图设置
+    public function banner(){
+		if (!$this->request->isPost()) {
+			$data = Db::name('signup_banner')->select();
+			$this->assign('data',$data);
+			return $this->fetch('', ['title' => '编辑首页轮播图']);
+		}else{
+			$compete_id = $_POST['compete_id'];
+			$status = $_POST['status'];
+			$img1 = $_POST['img_url1'];
+			$img2 = $_POST['img_url2'];
+			$img3 = $_POST['img_url3'];
+			$img4 = $_POST['img_url4'];
+			$img5 = $_POST['img_url5'];
+			$data = array();
+			foreach ($compete_id as $key => $value){
+				$img_name = 'img'.($key + 1);
+				$data[] = array(
+					'id' => $key+1,
+					'img_url' => $$img_name,
+					'compete_id' => $value,
+					'status' => in_array($key+1,$_POST['status']) ? 1 : 0,
+				);
+			}
+			foreach ($data as $value){
+				Db::name('signup_banner')->update($value);
+			}
+			list($base, $spm, $url) = [url('@admin'), $this->request->get('spm'), url('store/goods/banner')];
+			$this->success('修改成功！', "{$base}#{$url}?spm={$spm}");
+		}
+
+	}
 
 }

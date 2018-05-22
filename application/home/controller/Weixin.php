@@ -1,5 +1,5 @@
 <?php
-namespace Home\Controller;
+namespace app\home\controller;
 
 use Think\Controller;
 use Wechat\Wechat;

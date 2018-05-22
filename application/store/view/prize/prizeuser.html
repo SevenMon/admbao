@@ -5,23 +5,23 @@
 <form class="layui-form layui-form-pane form-search" action="{:request()->url()}" onsubmit="return false" method="get">
 
     <div class="layui-form-item layui-inline">
-        <label class="layui-form-label">中奖人姓名或昵称</label>
+        <label class="layui-form-label">中奖人姓名/昵称/电话</label>
         <div class="layui-input-inline">
-            <input name="order_num" value="{$Think.get.order_no}" placeholder="中奖人姓名或昵称" class="layui-input">
+            <input name="key" value="{$key|default=''}" placeholder="中奖人姓名/昵称/电话" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item layui-inline">
         <label class="layui-form-label">奖品</label>
         <div class="layui-input-inline">
-            <input name="title" value="{$Think.get.goods_title}" placeholder="奖品" class="layui-input">
+            <input name="prize_name" value="{$prize_name|default=''}" placeholder="奖品" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item layui-inline">
-        <label class="layui-form-label">活动名</label>
+        <label class="layui-form-label">活动名/活动id</label>
         <div class="layui-input-inline">
-            <input name="title" value="{$Think.get.goods_title}" placeholder="活动名" class="layui-input">
+            <input name="active_name" value="{$active_name|default=''}" placeholder="活动名/活动id" class="layui-input">
         </div>
     </div>
 
@@ -46,41 +46,36 @@
         <thead>
         <tr>
 
+            <th class="text-left">活动名id</th>
             <th class="text-left">活动名</th>
-            <th class="text-left">赛事名字</th>
-            <th class="text-left">用户名</th>
-            <th class="text-left">金额</th>
-            <th class="text-left">类型</th>
-            <th class="text-left">下单时间</th>
-            <th class="text-left">操作</th>
+            <th class="text-left">中奖人信息</th>
+            <th class="text-left">奖品名字</th>
+            <th class="text-left">奖品图片</th>
+
         </tr>
         </thead>
         <tbody>
         {foreach $list as $key=>$vo}
-        <?php $info = json_decode($vo['extra_info'],true); ?>
         <tr>
+            <td class="text-left text-top nowrap">
+                {$vo['prize_active_id']}
+            </td>
+            <td class="text-left text-top nowrap">
+                {$vo['prize_active_id']|getActiveName}
+            </td>
+            <td class="text-left text-top nowrap">
+                {:htmlspecialchars_decode(getUserInfo($vo['user_id']))}
+            </td>
+            <td class="text-left text-top nowrap">
+                {$vo['name']}
+            </td>
+            <td class="text-left text-top nowrap">
+                <img src="{$vo['img_url']}">
+            </td>
 
-            <td class="text-left text-top nowrap">
-                {$vo['order_num']}
-            </td>
-            <td class="text-left text-top nowrap">
-                {$vo['compete_id']|getCompeteInfo}
-            </td>
-            <td class="text-left text-top nowrap">
-                {$vo['order_num']}
-            </td>
-            <td class="text-left text-top nowrap">
-                {:sprintf("%.2f", $vo.price/100)}元
-            </td>
-            <td class="text-left text-top nowrap">
-                <?php if($vo['type'] == 1){echo "团体";}else{echo "个人";} ?>
-            </td>
-            <td class="text-left text-top nowrap">
-                {$vo['create_time']}
-            </td>
-            <td class="text-left text-top nowrap">
+            <!--<td class="text-left text-top nowrap">
                 <a data-open='{:url("$classuri/detail")}?id={$vo.id}'>查看详情</a>
-            </td>
+            </td>-->
         </tr>
         {/foreach}
         </tbody>
