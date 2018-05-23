@@ -13,10 +13,14 @@ use think\Db;
 class Order extends Base {
 
 	public function addOrder(){
+		$user_id = $this->userId;
+
         $compete_id = $this->request->get('id', '');
         $data_notice = Db::name('signup_compete_notice')->where(array('compete_id' => $compete_id))->find();
         $data = Db::name('signup_compete')->find($compete_id);
         if (!$this->request->isPost()) {
+			$user_info = getUserAllInfo($user_id);
+			$this->assign('user_info',$user_info);
             $this->assign('id',$compete_id);
             $this->assign('data',$data);
             $this->assign('data_notice',$data_notice);

@@ -13,6 +13,7 @@
 // +----------------------------------------------------------------------
 
 return [
+	'url' => 'http://www.hihill.cn',
     'service_url' => 'https://service.thinkadmin.top',
     // 下面参数用作微信支付
     'appid'       => 'wx60a43dd8161666d4',

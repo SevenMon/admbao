@@ -41,4 +41,9 @@ class Index extends Base {
         $this->assign('content',$know_content['know']);
         return $this->fetch('know');
     }
+    public function user(){
+		$user_id = $this->userId;
+		
+		return $this->fetch('user');
+	}
 }

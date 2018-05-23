@@ -31,9 +31,16 @@
             <p class="nx">
                 年龄{$v.age.0}岁--{$v.age.1}岁;
             </p>
-            <a href='{:url("Home/Index/notice")}?id={$v.id}'>
-                <button class="bm">我要报名</button>
+            <?php if(signupOr($v['id'])){ ?>
+                <a href='{:url("Home/Index/notice")}?id={$v.id}'>
+                    <button class="bm">我要报名</button>
+                </a>
+            <?php }else{ ?>
+            <a href='#'>
+                <button class="bm" onclick="alert('报名人数已满，不能报名！')">我要报名</button>
+
             </a>
+            <?php } ?>
         </div>
     </li>
     {/volist}

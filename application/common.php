@@ -130,3 +130,16 @@ function getUserInfo($user_id){
 	$user_watch_info = Db::name('wechat_fans')->find($user_info['wechat_id']);
 	return '姓名：'.$user_info['name']."<br/>电话：".$user_info['phone']."<br/>昵称：".$user_watch_info['nickname'];
 }
+//获取用户信息
+function getUserAllInfo($user_id){
+	$user_info = Db::name('signup_user')->find($user_id);
+	$user_watch_info = Db::name('wechat_fans')->find($user_info['wechat_id']);
+	return array(
+		'user_info' => $user_info,
+		'user_watch_info' => $user_watch_info,
+	);
+}
+//判断是否可以报名
+function signupOr($compete_id){
+	return false;
+}

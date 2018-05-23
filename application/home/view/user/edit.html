@@ -7,60 +7,61 @@
     <div class="fanhui" onclick="javascript:history.go(-1);"><img src="__STATIC__/home/image/fanhui.png">返回</div>
     <div class="bt">修改资料</div>
 </div>
-<div class="bm-list">
-    <div class="lss fl">手&nbsp;&nbsp;机&nbsp;&nbsp;号</div>
-    <div class="ls fl"><input type="text"></div>
-</div>
-<div class="bm-list">
-    <div class="lss fl">验&nbsp;&nbsp;证&nbsp;&nbsp;码</div>
-    <div class="ls fl">
-        <input type="text" style="width: 40%;margin-right: 0.2rem;" class="fl">
-        <button class="fl" style="height: 100%;width: 40%;border: none;outline: none;background: #348cc0;color: white;border-radius: 4px;">获取验证码</button>
+<form action="{:url('Home/User/edit')}" method="post">
+    <input type="hidden" name="user_id" value="{$user_info['user_info']['id']}">
+    <div class="bm-list">
+        <div class="lss fl">手&nbsp;&nbsp;机&nbsp;&nbsp;号</div>
+        <div class="ls fl"><input type="text" name="phone" required></div>
     </div>
-</div>
-<div class="bm-list">
-    <div class="lss fl">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</div>
-    <div class="ls fl"><input type="text"></div>
-</div>
-<div class="bm-list">
-    <div class="lss fl">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</div>
-    <div class="ls fl">
-        <select style="height: 100%;width: 90%;border: none;outline: none;border: 1px solid #000000;border-radius: 4px;">
-            <option>男</option>
-            <option>女</option>
-        </select>
+    <div class="bm-list">
+        <div class="lss fl">验&nbsp;&nbsp;证&nbsp;&nbsp;码</div>
+        <div class="ls fl">
+            <input type="text" style="width: 40%;margin-right: 0.2rem;" class="fl" name="code">
+            <button class="fl" style="height: 100%;width: 40%;border: none;outline: none;background: #348cc0;color: white;border-radius: 4px;">获取验证码</button>
+        </div>
     </div>
-</div>
-<div class="bm-list">
-    <div class="lss fl" style="letter-spacing:0.7px">出生年月</div>
-    <div class="ls fl"><input type="text" placeholder=" 例如：2018-12-15"></div>
-</div>
-<div class="bm-list">
-    <div class="lss fl" style="letter-spacing:0.7px">证件类型</div>
-    <div class="ls fl">
-        <select class="fl" style="height: 100%;width:28%;margin-right: 0.1rem;border: none;outline: none;border: 1px solid #000000;border-radius: 4px;">
-            <option>身份证</option>
-            <option>驾驶证</option>
-        </select>
-        <input type="text" style="width: 66%;" class="fl">
+    <div class="bm-list">
+        <div class="lss fl">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</div>
+        <div class="ls fl"><input type="text" name="name" required></div>
     </div>
-</div>
-<div class="bm-list">
-    <div class="lss fl" style="letter-spacing:0.7px">电子邮箱</div>
-    <div class="ls fl"><input type="text" placeholder="非必填项"></div>
-</div>
-<div class="bm-list">
-    <div class="lss fl" style="letter-spacing:0.7px">国&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;籍</div>
-    <div class="ls fl">
-        <select style="height: 100%;width: 90%;border: none;outline: none;border: 1px solid #000000;border-radius: 4px;">
-            <option>中国</option>
-            <option>英国</option>
-        </select>
+    <div class="bm-list">
+        <div class="lss fl">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</div>
+        <div class="ls fl">
+            <select style="height: 100%;width: 90%;border: none;outline: none;border: 1px solid #000000;border-radius: 4px;" name="sex" required>
+                <option>男</option>
+                <option>女</option>
+            </select>
+        </div>
     </div>
-</div>
-
-
-<button class="baocun">保存</button>
+    <div class="bm-list">
+        <div class="lss fl" style="letter-spacing:0.7px">出生年月</div>
+        <div class="ls fl"><input type="text" placeholder=" 例如：2018-12-15" name="birth" required></div>
+    </div>
+    <div class="bm-list">
+        <div class="lss fl" style="letter-spacing:0.7px" name="card_type">证件类型</div>
+        <div class="ls fl">
+            <select class="fl" style="height: 100%;width:28%;margin-right: 0.1rem;border: none;outline: none;border: 1px solid #000000;border-radius: 4px;" required name="card_type">
+                <option value="0">身份证</option>
+                <option value="1">驾驶证</option>
+            </select>
+            <input type="text" style="width: 66%;" class="fl" name="card_id">
+        </div>
+    </div>
+    <div class="bm-list">
+        <div class="lss fl" style="letter-spacing:0.7px">电子邮箱</div>
+        <div class="ls fl"><input type="text" placeholder="非必填项" name="email" required></div>
+    </div>
+    <div class="bm-list">
+        <div class="lss fl" style="letter-spacing:0.7px">国&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;籍</div>
+        <div class="ls fl">
+            <select style="height: 100%;width: 90%;border: none;outline: none;border: 1px solid #000000;border-radius: 4px;" name="country" required>
+                <option value="中国">中国</option>
+                <option value="英国">英国</option>
+            </select>
+        </div>
+    </div>
+    <button class="baocun" type="submit">保存</button>
+</form>
 {/block}
 {block name='script'}
 

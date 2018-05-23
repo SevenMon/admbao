@@ -31,18 +31,19 @@ class Weixin extends Controller
 				if($info){
 					$update_info = Db::name('wechat_fans')->where(array('id' => $info['id']))->update($user);
 					$watch_id = $update_info['id'];
+					$user_info = Db::name('signup_user')->insert(array('wechat_id' => $watch_id));
+					$userId = $user_info['id'];
 				}else{
 					$watch_id = Db::name('wechat_fans')->insertGetId($user);
-					Db::name('signup_user')->insert(array('wechat_id' => $watch_id));
+					$userId = Db::name('signup_user')->insertGetId(array('wechat_id' => $watch_id));
+					$user_info = Db::name('signup_user')->where(array('wechat_id' => $watch_id))->find();
 				}
 				session('openid',$user['openid']);
-				$user_info = Db::name('signup_user')->where(array('wechat_id' => $watch_id))->find();
-				$user_watch_info = Db::name('wechat_fans')->where(array('openid' => $user['openid']))->find();
-				
+				session('userId',$userId);
 				if($user_info['status'] == 0){
-					$backUrl = "http://www.hihill.cn/home/User/edit"; //要跳转的url
+					$backUrl = Config::get('common.uri')."home/User/edit?userId=".$userId; //要跳转的url
 				}else{
-					$backUrl = "http://www.hihill.cn"; //要跳转的url
+					$backUrl = Config::get('common.uri'); //要跳转的url
 				}
 				header("Location: ".$backUrl);
 			}else{

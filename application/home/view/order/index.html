@@ -22,37 +22,37 @@
                 </div>
                 <div class="bm-list">
                     <div class="lss fl">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</div>
-                    <div class="ls fl"><input type="text" name="name" required="required"></div>
+                    <div class="ls fl"><input type="text" name="name" required="required" value="{$user_info['user_info']['name']|default=''}"></div>
                 </div>
                 <div class="bm-list">
                     <div class="lss fl">电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话</div>
-                    <div class="ls fl"><input type="text" name="phone" required="required"></div>
+                    <div class="ls fl"><input type="text" name="phone" required="required" value="{$user_info['user_info']['phone']|default=''}"></div>
                 </div>
                 <div class="bm-list">
                     <div class="lss fl">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</div>
                     <div class="ls fl">
                         <select class="lsr" name="sex" required="required">
                             <option value=""></option>
-                            <option value="男">男</option>
-                            <option value="女">女</option>
+                            <option value="男" <?php if($user_info['user_info']['sex'] == '男')echo 'selected'; ?> >男</option>
+                            <option value="女" <?php if($user_info['user_info']['sex'] == '女')echo 'selected'; ?> >女</option>
                         </select>
                     </div>
                 </div>
                 <div class="bm-list">
                     <div class="lss fl">出生日期</div>
-                    <div class="ls fl"><input type="text" name="birth" required="required"></div>
+                    <div class="ls fl"><input type="text" name="birth" required="required" value="{$user_info['user_info']['birth']|default=''}"></div>
                 </div>
                 <div class="bm-list">
                     <div class="lss fl">身份证号</div>
-                    <div class="ls fl"><input type="text" name="id_card" required="required"></div>
+                    <div class="ls fl"><input type="text" name="id_card" required="required" value="<?php if($user_info['user_info']['card_type'] == 0)echo $user_info['user_info']['card_id']; ?>"></div>
                 </div>
                 <div class="bm-list">
                     <div class="lss fl">国&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;籍</div>
-                    <div class="ls fl"><input type="text" name="country" required="required"></div>
+                    <div class="ls fl"><input type="text" name="country" required="required" value="{$user_info['user_info']['country']|default=''}"></div>
                 </div>
                 <div class="bm-list">
                     <div class="lss fl">电子邮箱</div>
-                    <div class="ls fl"><input type="text" name="email" required="required"></div>
+                    <div class="ls fl"><input type="text" name="email" required="required" value="{$user_info['user_info']['email']|default=''}"></div>
                 </div>
                 <div class="bm-list">
                     <div class="lss fl">比赛日期</div>
