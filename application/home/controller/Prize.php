@@ -10,7 +10,7 @@ namespace app\home\controller;
 use think\Controller;
 use think\Db;
 
-class Prize extends Controller {
+class Prize extends Base {
 	public function index(){
 	    $user_id = 1;
 	    $prize = Db::name('signup_prize')->order('id','asc')->select();

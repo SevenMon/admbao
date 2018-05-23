@@ -3,6 +3,7 @@ namespace app\home\controller;
 
 use think\Controller;
 use app\common\Wechat;
+use think\Db;
 
 class Weixin extends Controller
 {
@@ -21,47 +22,36 @@ class Weixin extends Controller
         $we = new Wechat();
         $token = $we->getOauthAccessToken();
         $accessToken = $we->getToken();
-
         if($token){
-			
             $user = $we->getOauthUserInfo($accessToken,$token['openid']);
-			$myfile = fopen("user.txt", "w");
-			fwrite($myfile, json_encode($user));
-			exit();
-            /*if($user){
-                $userId = D('WeixinUser')->getInfoByOpenId($user['openid'],array('userId'));
-                if($userId){
-                    D('WeixinUser')->updateWeixinUser($userId['userId'],$user);        //更新微信信息，如果有修改昵称或者头像
-                    session('openid',$user['openid']);
-                    $backUrl = "http://home.lovewh.cn"; //要跳转的url
-                    redirect($backUrl);
-                }else{
-                    if($uid = D('WeixinUser')->addWeixin($user)) {
-                        //送优惠券
-                        $couponInfo = D('Coupon')->find(1);
-                        if(!empty($couponInfo) &&  $couponInfo['isSend'] == 1){
-                            D('UserCoupon')->sendCoupon($uid,1);
-                        }
+			if($user){
+				unset($user['groupid']);
+				unset($user['tagid_list']);
+				$info = Db::name('wechat_fans')->where(array('openid' => $user['openid']))->find();
+				if($info){
+					$update_info = Db::name('wechat_fans')->where(array('id' => $info['id']))->update($user);
+					$watch_id = $update_info['id'];
+				}else{
+					$watch_id = Db::name('wechat_fans')->insert($user);
+					Db::name('signup_user')->insert(array('wechat_id' => $watch_id));
+				}
+				session('openid',$user['openid']);
+				$user_info = Db::name('signup_user')->insert(array('wechat_id' => $watch_id));
+				$user_watch_info = Db::name('wechat_fans')->where(array('openid' => $user['openid']))->find();
 
-                        session('openid',$user['openid']);
-                        $backUrl = "http://home.lovewh.cn"; //要跳转的url
-                        redirect($backUrl);
-                    }else{
-                        $this->error('token数据库写入失败');
-                    }
-                }
-            }else{
-                $this->error('获取用户信息失败');
-            }*/
+				if($user_info['status'] == 0){
+					$backUrl = "http://home.lovewh.cn/home/User/edit"; //要跳转的url
+				}else{
+					$backUrl = "http://home.lovewh.cn"; //要跳转的url
+				}
+			}else{
+				$this->error('获取用户信息失败');
+			}
         }else{
             $this->error('获取accesstoken失败');
         }
     }
-
-
-
-
-
+    
     public function valid()
     {
         $echoStr = $_GET["echostr"];

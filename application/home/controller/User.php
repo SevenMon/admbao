@@ -9,11 +9,12 @@ namespace app\home\controller;
 
 use think\Controller;
 
-class User extends Controller {
+class User extends Base {
 	public function index(){
 		return $this->fetch('index');
 	}
 	public function edit(){
+		$userId = $this->userId;
         return $this->fetch('edit');
     }
 }
