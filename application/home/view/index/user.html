@@ -1,6 +1,14 @@
 {extend name="home@public/main"}
 {block name='css'}
 <link href="__STATIC__/home/css/gerenzhongxin.css?v={:date('ymd')}" rel="stylesheet">
+<style>
+    .xf-prize{
+        line-height: 60px;
+        width:33%;
+        text-align: center;
+        overflow: hidden;
+    }
+</style>
 {/block}
 {block name='body'}
 <div class="top">
@@ -8,10 +16,10 @@
     <div class="bt">个人中心</div>
 </div>
 <div class="uesr" style="background: url(__STATIC__/home/image/user_02.png) no-repeat;background-size: 100% 100%;">
-    <div class="touxiang"><img src="__STATIC__/home/image/banner_01.png"/></div>
-    <p class="nicheng">麦口</p>
+    <div class="touxiang"><img src="{$user_info['user_watch_info']['headimgurl']}"/></div>
+    <p class="nicheng">{$user_info['user_watch_info']['nickname']}</p>
     <div class="zil">
-        <a href="{:url('home/User/edit')}">
+        <a href="{:url('home/User/edit')}?userId={$user_info['user_info']['id']}">
             <img src="__STATIC__/home/image/ziliao.png"/>
             <p>个人资料</p>
         </a>
@@ -24,59 +32,56 @@
 <ol class="huan">
     <li>
         <ul class="list-list">
-            <li>
-                <div class="xq"><span class="fl">2018年4月10号参加赛事</span><span class="fr">查看详情 <img src="__STATIC__/home/image/xiabao_03.png"/></span></div>
-                <div class="kaung">
-                    <div class="bm-list">
-                        <div class="lss fl">站&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点</div>
-                        <div class="ls fr"><input type="text"></div>
+            {volist name="order_list" id="v" key="k" }
+                <li>
+                    <div class="xq"><span class="fl">2018年4月10号参加赛事</span><span class="fr">查看详情 <img src="__STATIC__/home/image/xiabao_03.png"/></span></div>
+                    <div class="kaung">
+                        <div class="bm-list">
+                            <div class="lss fl">站&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点</div>
+                            <div class="ls fr"><input style="color: white" type="text"></div>
+                        </div>
+                        <div class="bm-list">
+                            <div class="lss fl">赛事名称</div>
+                            <div class="ls fr"><input style="color: white" type="text" value="{$v['compete_id']|getCompeteInfo}"></div>
+                        </div>
+                        <div class="bm-list">
+                            <div class="lss fl">参&nbsp;&nbsp;赛&nbsp;号</div>
+                            <div class="ls fr"><input style="color: white" type="text"></div>
+                        </div>
+                        <div class="bm-list">
+                            <div class="lss fl">赛事时间</div>
+                            <div class="ls fr"><input style="color: white" type="text" value="{$v['compete_id']|getCompeteTime}"></div>
+                        </div>
+                        <div class="bm-list">
+                            <div class="lss fl">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态</div>
+                            <div class="ls fr"><input style="color: white" type="text" value="已付款"></div>
+                        </div>
                     </div>
-                    <div class="bm-list">
-                        <div class="lss fl">赛事名称</div>
-                        <div class="ls fr"><input type="text"></div>
-                    </div>
-                    <div class="bm-list">
-                        <div class="lss fl">参&nbsp;&nbsp;赛&nbsp;号</div>
-                        <div class="ls fr"><input type="text"></div>
-                    </div>
-                    <div class="bm-list">
-                        <div class="lss fl">赛事时间</div>
-                        <div class="ls fr"><input type="text"></div>
-                    </div>
-                    <div class="bm-list">
-                        <div class="lss fl">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态</div>
-                        <div class="ls fr"><input type="text"></div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="xq"><span class="fl">2018年4月10号参加赛事</span><span class="fr">查看详情 <img src="__STATIC__/home/image/xiabao_03.png"/></span></div>
-                <div class="kaung">
-                    <div class="bm-list">
-                        <div class="lss fl">站&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点</div>
-                        <div class="ls fr"><input type="text"></div>
-                    </div>
-                    <div class="bm-list">
-                        <div class="lss fl">赛事名称</div>
-                        <div class="ls fr"><input type="text"></div>
-                    </div>
-                    <div class="bm-list">
-                        <div class="lss fl">参&nbsp;&nbsp;赛&nbsp;号</div>
-                        <div class="ls fr"><input type="text"></div>
-                    </div>
-                    <div class="bm-list">
-                        <div class="lss fl">赛事时间</div>
-                        <div class="ls fr"><input type="text"></div>
-                    </div>
-                    <div class="bm-list">
-                        <div class="lss fl">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态</div>
-                        <div class="ls fr"><input type="text"></div>
-                    </div>
-                </div>
-            </li>
+                </li>
+            {/volist}
         </ul>
     </li>
-    <li>2</li>
+    <li>
+
+            {volist name="prize_list" id="v" key="k" }
+            <ul class="list-list">
+                <li>
+                    <div class="xq" style="height: 60px;">
+                        <span class="fl xf-prize">
+                            {$v['name']}
+                        </span>
+                        <span class="cen xf-prize">
+                            {$v['content']}
+                        </span>
+                        <span class="fr xf-prize">
+                            <img style="width: 50px;height: 50px;" src="{$v['img_url']}"/>
+                        </span>
+                    </div>
+                </li>
+            </ul>
+            {/volist}
+
+    </li>
 </ol>
 {/block}
 {block name='script'}

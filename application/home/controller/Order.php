@@ -41,10 +41,11 @@ class Order extends Base {
                 )),
                 'attachment' => '',
                 'create_time' => date("Y-m-d H-i-s"),
-                'status' => 0
+                'status' => 0,
             );
 
-            $order_id = Db::name('signup_order')->insert($order);
+            $order_id = Db::name('signup_order')->insertGetId($order);
+            Db::name('signup_compete')->where(array('id' => $data['id']))->update(array('sell_num' => ($data['sell_num'] + 1)));
 
             $order_people = array(
                 'order_id' => $order_id,

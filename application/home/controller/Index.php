@@ -43,7 +43,18 @@ class Index extends Base {
     }
     public function user(){
 		$user_id = $this->userId;
-		
+		$user_info = getUserAllInfo($user_id);
+
+		$where = array(
+		    'user_id' => $user_id,
+            //'status' => 1
+        );
+		$order_list = Db::name('signup_order')->where($where)->select();
+		$prize_list = Db::name('signup_prize_user')->where(array('user_id' => $user_id))->select();
+
+		$this->assign('order_list',$order_list);
+		$this->assign('prize_list',$prize_list);
+		$this->assign('user_info',$user_info);
 		return $this->fetch('user');
 	}
 }

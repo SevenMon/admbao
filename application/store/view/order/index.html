@@ -2,42 +2,54 @@
 
 {block name="content"}
 <!-- 表单搜索 开始 -->
-<form class="layui-form layui-form-pane form-search" action="{:request()->url()}" onsubmit="return false" method="get">
+<form class="layui-form layui-form-pane form-search" action="{:request()->url()}" onsubmit="return false" method="get" id="order_form">
 
     <div class="layui-form-item layui-inline">
         <label class="layui-form-label">订单单号</label>
         <div class="layui-input-inline">
-            <input name="order_num" value="{$Think.get.order_no}" placeholder="请输入订单单号" class="layui-input">
+            <input name="order_num" value="{$order_num}" placeholder="请输入订单单号" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item layui-inline">
         <label class="layui-form-label">赛事名称</label>
         <div class="layui-input-inline">
-            <input name="title" value="{$Think.get.goods_title}" placeholder="赛事名称" class="layui-input">
+            <input name="titles" value="{$titles}" placeholder="赛事名称" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item layui-inline">
         <label class="layui-form-label">用户昵称</label>
         <div class="layui-input-inline">
-            <input name="user_nickname" value="{$Think.get.goods_title}" placeholder="用户昵称" class="layui-input">
+            <input name="user_nickname" value="{$user_nickname}" placeholder="用户昵称" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item layui-inline">
         <label class="layui-form-label">下单时间</label>
         <div class="layui-input-inline">
-            <input name="create_time" data-time value="{$Think.get.create_at}" placeholder="下单时间" class="layui-input">
+            <input name="create_time" data-time value="{$create_time}" placeholder="下单时间" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item layui-inline">
         <button class="layui-btn layui-btn-primary"><i class="layui-icon">&#xe615;</i> 搜 索</button>
+        <button class="layui-btn layui-btn-primary" type="button" id="export" onclick="export_order()"><i class="layui-icon">&#xe601;</i> 导 出</button>
+
     </div>
 
 </form>
 <script>
+    function export_order(){
+        var t = $('#order_form').serializeArray();
+        console.log(t);
+        var param = '?';
+        for (var i=0;i<t.length;i++)
+        {
+            param += t[i]['name']+'='+t[i]['value']+'&';
+        }
+        window.location.href='/store/Order/export'+param;
+    }
     window.form.render();
     $('[data-time]').map(function () {
         window.laydate.render({range: true, elem: this});

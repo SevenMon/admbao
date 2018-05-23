@@ -11,7 +11,7 @@
     <input type="hidden" name="user_id" value="{$user_info['user_info']['id']}">
     <div class="bm-list">
         <div class="lss fl">手&nbsp;&nbsp;机&nbsp;&nbsp;号</div>
-        <div class="ls fl"><input type="text" name="phone" required></div>
+        <div class="ls fl"><input type="text" name="phone" value="{$user_info['user_info']['phone']}" required></div>
     </div>
     <div class="bm-list">
         <div class="lss fl">验&nbsp;&nbsp;证&nbsp;&nbsp;码</div>
@@ -22,41 +22,41 @@
     </div>
     <div class="bm-list">
         <div class="lss fl">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</div>
-        <div class="ls fl"><input type="text" name="name" required></div>
+        <div class="ls fl"><input type="text" name="name" value="{$user_info['user_info']['name']}" required></div>
     </div>
     <div class="bm-list">
         <div class="lss fl">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</div>
         <div class="ls fl">
             <select style="height: 100%;width: 90%;border: none;outline: none;border: 1px solid #000000;border-radius: 4px;" name="sex" required>
-                <option>男</option>
-                <option>女</option>
+                <option value="男" <?php if($user_info['user_info']['sex'] == '男')echo 'selected'; ?> >男</option>
+                <option value="女" <?php if($user_info['user_info']['sex'] == '女')echo 'selected'; ?> >女</option>
             </select>
         </div>
     </div>
     <div class="bm-list">
         <div class="lss fl" style="letter-spacing:0.7px">出生年月</div>
-        <div class="ls fl"><input type="text" placeholder=" 例如：2018-12-15" name="birth" required></div>
+        <div class="ls fl"><input type="text" placeholder=" 例如：2018-12-15" name="birth" value="{$user_info['user_info']['birth']}" required></div>
     </div>
     <div class="bm-list">
         <div class="lss fl" style="letter-spacing:0.7px" name="card_type">证件类型</div>
         <div class="ls fl">
             <select class="fl" style="height: 100%;width:28%;margin-right: 0.1rem;border: none;outline: none;border: 1px solid #000000;border-radius: 4px;" required name="card_type">
-                <option value="0">身份证</option>
-                <option value="1">驾驶证</option>
+                <option value="0" <?php if($user_info['user_info']['card_type'] == 0)echo 'selected'; ?> >身份证</option>
+                <option value="1" <?php if($user_info['user_info']['card_type'] == 1)echo 'selected'; ?> >驾驶证</option>
             </select>
-            <input type="text" style="width: 66%;" class="fl" name="card_id">
+            <input type="text" style="width: 66%;" class="fl" name="card_id" value="{$user_info['user_info']['card_id']}">
         </div>
     </div>
     <div class="bm-list">
         <div class="lss fl" style="letter-spacing:0.7px">电子邮箱</div>
-        <div class="ls fl"><input type="text" placeholder="非必填项" name="email" required></div>
+        <div class="ls fl"><input type="text" placeholder="非必填项" name="email" value="{$user_info['user_info']['email']}" required></div>
     </div>
     <div class="bm-list">
         <div class="lss fl" style="letter-spacing:0.7px">国&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;籍</div>
         <div class="ls fl">
             <select style="height: 100%;width: 90%;border: none;outline: none;border: 1px solid #000000;border-radius: 4px;" name="country" required>
-                <option value="中国">中国</option>
-                <option value="英国">英国</option>
+                <option value="中国" <?php if($user_info['user_info']['country'] == '中国')echo 'selected'; ?> >中国</option>
+                <option value="英国" <?php if($user_info['user_info']['country'] == '英国')echo 'selected'; ?> >英国</option>
             </select>
         </div>
     </div>

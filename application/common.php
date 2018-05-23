@@ -117,6 +117,14 @@ function getCompeteInfo($compete_id){
 	}
 	return $name[0];
 }
+//根据competeid 获取name
+function getCompeteTime($compete_id){
+    $time = Db::name('signup_compete')->where(array('id' => $compete_id))->column('compete_time');
+    if(empty($time)){
+        return false;
+    }
+    return $time[0];
+}
 
 //根据id 获取活动名字
 function getActiveName($active_id){
@@ -141,5 +149,11 @@ function getUserAllInfo($user_id){
 }
 //判断是否可以报名
 function signupOr($compete_id){
-	return false;
+    $data_notice = Db::name('signup_compete_notice')->where(array('compete_id' => $compete_id))->find();
+    $data = Db::name('signup_compete')->find($compete_id);
+    if($data_notice['people_num'] >= $data['sell_num']){
+        return true;
+    }else{
+        return false;
+    }
 }

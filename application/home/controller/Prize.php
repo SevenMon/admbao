@@ -44,11 +44,15 @@ class Prize extends Base {
 	}
 
 	public function lucky(){
-	    $user_id = 1;
+	    $user_id = $this->userId;
 	    $prize_id = $this->request->get('prize_id', '');
 	    $active_id = $this->request->get('active_id', '');
         $prize = Db::name('signup_prize')->find($prize_id);
-
+        $prize['stock'] = $prize['stock'] - 1;
+        if($prize['stock'] == 0){
+            $prize['rate'] = 0;
+        }
+        Db::name('signup_prize')->update($prize);
         $data = array(
             'prize_active_id' => $active_id,
             'user_id' => $user_id,

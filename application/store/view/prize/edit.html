@@ -2,6 +2,7 @@
 
 {block name="content"}
 <form onsubmit="return false;" action="{:request()->url()}" data-auto="true" method="post" id="ProductForm" class='form-horizontal layui-form padding-top-20'>
+    <input type="hidden" value="{$data['id']}" name="id">
     <div class="form-group">
         <label class="col-sm-2 control-label">奖品名字</label>
         <div class='col-sm-8'>

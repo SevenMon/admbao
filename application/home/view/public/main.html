@@ -24,7 +24,7 @@
         {block name="body"}
         {/block}
         <ul class="foot">
-            <li><a href="{:url('home/Index/index')}" <?php if(request()->controller() == 'Index')echo "class='action'" ?> >
+            <li><a href="{:url('home/Index/index')}" <?php if(request()->controller() == 'Index' && request()->action()== 'index')echo "class='action'" ?> >
                 <img src="__STATIC__/home/image/foot3.png" class="foots1">
                 <img src="__STATIC__/home/image/foot33.png" class="foots2">
                 <p>首页</p>
@@ -36,7 +36,7 @@
                 <p>抽奖</p>
             </a>
             </li>
-            <li><a href="{:url('home/Index/user')}" <?php if(request()->controller() == 'User')echo "class='action'" ?> >
+            <li><a href="{:url('home/Index/user')}" <?php if(request()->action()== 'user')echo "class='action'" ?> >
                 <img src="__STATIC__/home/image/foot1.png" class="foots1">
                 <img src="__STATIC__/home/image/foot11.png" class="foots2">
                 <p>个人中心</p>

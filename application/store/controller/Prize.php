@@ -96,13 +96,14 @@ class Prize extends BasicAdmin
 		}else{
 			try {
 				$data = array();
+				$data['id'] = $this->request->post('id', '');
 				$data['name'] = $this->request->post('name', '');
 				$data['content'] = $this->request->post('content', '');
 				$data['rate'] = $this->request->post('rate', '');
 				$data['stock'] = $this->request->post('stock', '');
 				$data['img_url'] = $this->request->post('img_url', '');
 				//$data['id'] = $prize_id;
-				$info = Db::name('signup_prize')->insert($data);
+				$info = Db::name('signup_prize')->update($data);
 			} catch (HttpResponseException $exception) {
 				return $exception->getResponse();
 			} catch (\Exception $e) {
