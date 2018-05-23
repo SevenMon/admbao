@@ -17,13 +17,15 @@ class Weixin extends Controller
          */
     public function callback()
     {
-
+		
         $we = new Wechat();
         $token = $we->getOauthAccessToken();
         $accessToken = $we->getToken();
+
         if($token){
+			
             $user = $we->getOauthUserInfo($accessToken,$token['openid']);
-			$myfile = fopen("testfile.txt", "w");
+			$myfile = fopen("user.txt", "w");
 			fwrite($myfile, json_encode($user));
 			exit();
             /*if($user){

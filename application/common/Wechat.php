@@ -206,10 +206,13 @@ class Wechat {
 			'secret'     => $this->secret
 		);
 		$jsonStr = $this->http(self::AUTH_URL, $params);
+		
+
 		if ($jsonStr) {
 			$jsonArr = $this->parseJson($jsonStr);
 			if ($jsonArr) {
-				return $this->access_token = $jsonArr['access_token'];
+				$this->access_token = $jsonArr['access_token'];
+				return $this->access_token;
 			}else {
 				return false;
 			}
