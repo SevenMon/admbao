@@ -126,6 +126,14 @@ function getCompeteTime($compete_id){
     return $time[0];
 }
 
+function getCompeteDes($compete_id){
+	$describe = Db::name('signup_compete')->where(array('id' => $compete_id))->column('describe');
+	if(empty($describe)){
+		return false;
+	}
+	return $describe[0];
+}
+
 //根据id 获取活动名字
 function getActiveName($active_id){
 	$name = Db::name('signup_prize_active')->where(array('id' => $active_id))->column('name');

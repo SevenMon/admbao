@@ -12,7 +12,7 @@ use think\Db;
 
 class Prize extends Base {
 	public function index(){
-	    $user_id = 1;
+	    $user_id = $this->userId;
 	    $prize = Db::name('signup_prize')->order('id','asc')->select();
 	    $prize_people = Db::name('signup_prize_user')->limit(8)->select();
 	    $prize_active = Db::name('signup_prize_active')->where(array('status' => 1))->find();

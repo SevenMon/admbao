@@ -69,6 +69,49 @@ class Order extends Base {
             Db::name('signup_order_people_info')->insert($order_people);
             return $this->fetch('pay');
         }
-
     }
+
+    public function addOrderByGroup(){
+		echo 123;
+		exit();
+	}
+	public function downSignupTable(){
+		//$file_name = "signup";
+		$file_name = "signup.csv";     //下载文件名
+		$file_dir = "static/file/";        //下载文件存放目录
+		//检查文件是否存在
+		if (! file_exists ( $file_dir . $file_name )) {
+			header('HTTP/1.1 404 NOT FOUND');
+		} else {
+			//以只读和二进制模式打开文件
+			$file = fopen ( $file_dir . $file_name, "rb" );
+			//告诉浏览器这是一个文件流格式的文件
+			Header ( "Content-type: application/octet-stream" );
+			//请求范围的度量单位
+			Header ( "Accept-Ranges: bytes" );
+			//Content-Length是指定包含于请求或响应中数据的字节长度
+			Header ( "Accept-Length: " . filesize ( $file_dir . $file_name ) );
+			//用来告诉浏览器，文件是可以当做附件被下载，下载后的文件名称为$file_name该变量的值。
+			Header ( "Content-Disposition: attachment; filename=" . $file_name );
+			//读取文件内容并直接输出到浏览器
+			//echo fread ( $file, filesize ( $file_dir . $file_name ) );
+			//fclose ( $file );
+			readfile($file_dir . $file_name);
+			exit ();
+		}
+	}
+	public function downSignupTable1($file){
+		$file = "static/file/signup.csv";
+		if (file_exists($file)) {
+			header('Content-Description: File Transfer');
+			header('Content-Type: application/octet-stream');
+			header('Content-Disposition: attachment; filename="signup.csv"');
+			header('Expires: 0');
+			header('Cache-Control: must-revalidate');
+			header('Pragma: public');
+			header('Content-Length: ' . filesize($file));
+			readfile($file);
+			exit;
+		}else{exit($file."文件不存在");}
+	}
 }

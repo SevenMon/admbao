@@ -14,7 +14,7 @@
 <ol class="ming-list">
 
         <li>
-            <form action="{:url('Home/Order/addOrder')}?id={$id}" method="post">
+            <form action="{:url('home/Order/addOrder')}?id={$id}" method="post">
                 <input type="hidden" name="compete_id" value="{$data['id']}" >
                 <div class="bm-list">
                     <div class="lss fl">报名路线</div>
@@ -130,13 +130,23 @@
 
     <li>
         <div class="xbox">
-            <div class="bg">下载报名表格</div>
-            <div class="shangchuang">上传填好的表格</div><button class="sc">上传</button>
+            <a href="{:url('home/Order/downSignupTable')}">
+                <div class="bg">下载报名表格</div>
+            </a>
+            <div class="shangchuang">上传填好的表格</div>
+            <button class="sc">
+                上传
+            </button>
             <div class="renshu">
                 人数:<span>3</span>人&nbsp;<span>120</span>元/人
             </div>
             <div class="zj">总计：<span class="sum">360</span>元</div>
             <button class="fk">去付款</button>
+
+            <form action="UploadFile.ashx" method="post" enctype="multipart/form-data">
+                <input type="file" name="fileUpload"/>
+                <input type="submit" value="上传文件" />
+            </form>
         </div>
     </li>
 </ol>
