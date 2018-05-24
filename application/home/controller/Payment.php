@@ -2,13 +2,15 @@
 namespace app\home\controller;
 
 use think\Controller;
+use think\facade\Config;
 
 class Payment extends Controller
 {
     /*
      * 支付
      */
-    public function payment(){
+    public function callback(){
+		
         /*$orderId = I('orderId');
         if($orderId > 10000000 && $orderId <= 50000000){
             //普通订单
@@ -26,30 +28,35 @@ class Payment extends Controller
             $orderId = $orderInfo['orderId'];
         }*/
 
-        $price = bcmul(123,100);
+        $price = bcmul(0.1,100);
         ini_set('date.timezone','Asia/Shanghai');
         require_once $_SERVER['DOCUMENT_ROOT']."/application/common/WeixinPay/lib/WxPay.Api.php";
         require_once $_SERVER['DOCUMENT_ROOT']."/application/common/WeixinPay/example/WxPay.JsApiPay.php";
         $tools = new \JsApiPay();
+		
         $openId = $tools->GetOpenid();
         $input = new \WxPayUnifiedOrder();
+
         $input->SetBody("微信支付");
         $input->SetAttach("微信公众号支付");
-        $input->SetOut_trade_no("1314");//订单号
-        $input->SetTotal_fee($price);//总金额
+		
+        $input->SetOut_trade_no("1312342");//订单号
+        $input->SetTotal_fee("1");//总金额
+		
         $input->SetTime_start(date("YmdHis"));
         $input->SetTime_expire(date("YmdHis", time() + 600));
         $input->SetGoods_tag("订单");
         $input->SetNotify_url(Config::get('common.uri')."home/Payment/callback");//回调地址
         $input->SetTrade_type("JSAPI");
         $input->SetOpenid($openId);
+		
         $order = \WxPayApi::unifiedOrder($input);
         $jsApiParameters = $tools->GetJsApiParameters($order);
         $this->assign('jsApiParameters',$jsApiParameters);
-        $this->display();
+        return $this->fetch('payment');
     }
 
-    public function callback(){
+    public function payment(){
     	echo 123;
     	exit();
         $xmlStr = file_get_contents("php://input");

@@ -4,6 +4,7 @@ namespace app\home\controller;
 use think\Controller;
 use app\common\Wechat;
 use think\Db;
+use think\facade\Config;
 
 class Weixin extends Controller
 {
@@ -31,7 +32,7 @@ class Weixin extends Controller
 				if($info){
 					$update_info = Db::name('wechat_fans')->where(array('id' => $info['id']))->update($user);
 					$watch_id = $update_info['id'];
-					$user_info = Db::name('signup_user')->insert(array('wechat_id' => $watch_id));
+					$user_info = Db::name('signup_user')->where(array('wechat_id' => $watch_id))->find();
 					$userId = $user_info['id'];
 				}else{
 					$watch_id = Db::name('wechat_fans')->insertGetId($user);

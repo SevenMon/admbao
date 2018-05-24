@@ -1,13 +1,16 @@
 {extend name="home@public/main"}
 {block name='css'}
 <link href="__STATIC__/home/css/xiugaiziliao.css?v={:date('ymd')}" rel="stylesheet">
+<style>
+
+</style>
 {/block}
 {block name='body'}
 <div class="top">
     <div class="fanhui" onclick="javascript:history.go(-1);"><img src="__STATIC__/home/image/fanhui.png">返回</div>
     <div class="bt">修改资料</div>
 </div>
-<form action="{:url('Home/User/edit')}" method="post">
+<form action="{:url('home/User/edit')}" method="post">
     <input type="hidden" name="user_id" value="{$user_info['user_info']['id']}">
     <div class="bm-list">
         <div class="lss fl">手&nbsp;&nbsp;机&nbsp;&nbsp;号</div>
@@ -49,7 +52,7 @@
     </div>
     <div class="bm-list">
         <div class="lss fl" style="letter-spacing:0.7px">电子邮箱</div>
-        <div class="ls fl"><input type="text" placeholder="非必填项" name="email" value="{$user_info['user_info']['email']}" required></div>
+        <div class="ls fl"><input type="text" placeholder="非必填项" name="email" value="{$user_info['user_info']['email']}"></div>
     </div>
     <div class="bm-list">
         <div class="lss fl" style="letter-spacing:0.7px">国&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;籍</div>

@@ -2,7 +2,6 @@
 require_once $_SERVER['DOCUMENT_ROOT']."/application/common/WeixinPay/lib/WxPay.Exception.php";
 require_once $_SERVER['DOCUMENT_ROOT']."/application/common/WeixinPay/lib/WxPay.Config.php";
 require_once $_SERVER['DOCUMENT_ROOT']."/application/common/WeixinPay/lib/WxPay.Data.php";
-
 /**
  * 
  * 接口访问类，包含所有微信支付API列表的封装，类中方法为static方法，

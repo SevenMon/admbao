@@ -2,8 +2,8 @@
 /**
 * 2015-06-29 修复签名问题
 **/
-require_once $_SERVER['DOCUMENT_ROOT']."/ThinkPHP/Library/Vendor/WeixinPay/lib/WxPay.Config.php";
-require_once $_SERVER['DOCUMENT_ROOT']."/ThinkPHP/Library/Vendor/WeixinPay/lib/WxPay.Exception.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/application/common/WeixinPay/lib/WxPay.Config.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/application/common/WeixinPay/lib/WxPay.Exception.php";
 
 /**
  * 

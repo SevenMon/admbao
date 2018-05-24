@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT']."/ThinkPHP/Library/Vendor/WeixinPay/lib/WxPay.Api.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/application/common/WeixinPay/lib/WxPay.Api.php";
 
 /**
  * 

@@ -29,6 +29,10 @@ i,em{
 	font-weight: normal;
 	
 }
+input,textarea{   
+    -webkit-touch-callout: text;   
+    -webkit-user-select: text;   
+}  
 /*设置默认样式end*/
 /*左浮动*/
 .fl{

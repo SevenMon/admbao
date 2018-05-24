@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT']."/ThinkPHP/Library/Vendor/WeixinPay/lib/WxPay.Api.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/application/common/WeixinPay/lib/WxPay.Api.php";
 /**
  * 
  * JSAPI支付实现类
@@ -43,7 +43,7 @@ class JsApiPay
 		//通过code获得openid
 		if (!isset($_GET['code'])){
 			//触发微信返回code码
-			$baseUrl = urlencode('http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].$_SERVER['QUERY_STRING']);
+			$baseUrl = urlencode('http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
 			$url = $this->__CreateOauthUrlForCode($baseUrl);
 			Header("Location: $url");
 			exit();
@@ -96,7 +96,7 @@ class JsApiPay
 		//初始化curl
 		$ch = curl_init();
 		//设置超时
-		curl_setopt($ch, CURLOPT_TIMEOUT, $this->curl_timeout);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 200);
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER,FALSE);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST,FALSE);
