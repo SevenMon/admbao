@@ -1,0 +1,61 @@
+{extend name='admin@public/content'}
+
+{block name="content"}
+<table class="table">
+    <tbody>
+    <tr>
+        <td>ID：</td>
+        <td>{$user_info['user_info']['id']}</td>
+    </tr>
+    <tr>
+        <td>姓名：</td>
+        <td>{$user_info['user_info']['name']}</td>
+    </tr>
+    <tr>
+        <td>昵称：</td>
+        <td>{$user_info['user_watch_info']['nickname']}</td>
+    </tr>
+    <tr>
+        <td>头像：</td>
+        <td>
+            <img src="{$user_info['user_watch_info']['headimgurl']}" width="60px;"/>
+        </td>
+    </tr>
+    <tr>
+        <td>电话：</td>
+        <td>{$user_info['user_info']['phone']}</td>
+    </tr>
+    <tr>
+        <td>性别：</td>
+        <td>{$user_info['user_info']['sex']}</td>
+    </tr>
+    <tr>
+        <td>出生日期：</td>
+        <td>{$user_info['user_info']['birth']}</td>
+    </tr>
+    <tr>
+        <td>证件类型：</td>
+        <td>
+            <?php
+                if($user_info['user_info']['card_type'] == 1){
+                    echo "驾驶证";
+                }else{
+                    echo "身份证";
+                }
+            ?>
+        </td>
+    </tr>
+    <tr>
+        <td>证件号：</td>
+        <td>{$user_info['user_info']['card_id']}</td>
+    </tr><tr>
+        <td>电子邮箱：</td>
+        <td>{$user_info['user_info']['email']}</td>
+    </tr>
+    <tr>
+        <td>国籍：</td>
+        <td>{$user_info['user_info']['country']}</td>
+    </tr>
+    </tbody>
+</table>
+{/block}

@@ -29,9 +29,10 @@ class Weixin extends Controller
 				unset($user['groupid']);
 				unset($user['tagid_list']);
 				$info = Db::name('wechat_fans')->where(array('openid' => $user['openid']))->find();
+				
 				if($info){
 					$update_info = Db::name('wechat_fans')->where(array('id' => $info['id']))->update($user);
-					$watch_id = $update_info['id'];
+					$watch_id = $info['id'];
 					$user_info = Db::name('signup_user')->where(array('wechat_id' => $watch_id))->find();
 					$userId = $user_info['id'];
 				}else{

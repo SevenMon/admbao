@@ -1,6 +1,20 @@
 {extend name="home@public/main"}
 {block name='css'}
-<link href="__STATIC__/home/css/ziliao.css?v={:date('ymd')}" rel="stylesheet">
+<link href="__STATIC__/home/css/ziliao.css?v={:date('ymdhis')}" rel="stylesheet">
+<style>
+	.url_down{
+		height:30px;
+		width:45%;
+		border:1px solid #000000;
+		border-radius:8px;
+		font-size:16px;
+		text-align:center;
+		line-height:30px;
+		margin:8px auto;
+		display:block;
+		background-color:#e7e7e7
+	}
+</style>
 {/block}
 {block name='body'}
 <div class="top">
@@ -130,26 +144,25 @@
 
     <li>
         <div class="xbox">
-            <a href="{:url('home/Order/downSignupTable')}">
-                <div class="bg">下载报名表格</div>
-            </a>
-            <div class="shangchuang">上传填好的表格</div>
-            <button class="sc">
+          
+                <div class="bg"  onclick="down_table()">下载报名表格</div>
+				<input type='text' id='down_url' value="{$down_url}" class="url_down" />
+         
+            <div class="shangchuang" id="uploadfilename">上传填好的表格.csv</div>
+            <button class="sc" onclick="upload_table()">
                 上传
             </button>
             <div class="renshu">
-                人数:<span>3</span>人&nbsp;<span>120</span>元/人
+                人数:<span id="people_num_xf">0</span>人&nbsp;<span id="people_price">0</span>元/人
             </div>
-            <div class="zj">总计：<span class="sum">360</span>元</div>
-            <button class="fk">去付款</button>
-
-            <form action="UploadFile.ashx" method="post" enctype="multipart/form-data">
-                <input type="file" name="fileUpload"/>
-                <input type="submit" value="上传文件" />
-            </form>
+            <div class="zj">总计：<span class="sum" id="sumprice">0</span>元</div>
+            <button class="fk" id="pay_price" onclick="payment()">去付款</button>
+                <input type="file" name="fileUpload" style="display:none;" id="upload" />
         </div>
     </li>
 </ol>
+<input type="hidden" name="order_id" value="" id="order_id">
+<input type="hidden" name="payment_url" value="" id="payment_url">
 {/block}
 {block name='script'}
 <script type="text/javascript">
@@ -162,6 +175,51 @@
             $(".tab>li").eq(temp).addClass("action").siblings().removeClass("action");
             $(".ming-list>li").eq(temp).show().siblings().hide();
         })
+		$("#upload").change(function(){
+			//上传操作
+			var formData = new FormData();
+			formData.append('file', $('#upload')[0].files[0]);
+			$.ajax({
+				url: '/home/Order/uploadTable?id={$id}',
+				type: 'POST',
+				cache: false,
+				data: formData,
+				processData: false,
+				contentType: false
+			}).done(function(res) {
+                res = JSON.parse( res );
+                if(res.status == 1){
+                    $("#sumprice").text(res['data']['prize'] * res['data']['people_num'] / 100);
+                    $("#people_price").text(res['data']['prize']/100);
+                    $("#people_num_xf").text(res['data']['people_num']);
+                    $("#order_id").val(res['data']['order_id']);
+                    $("#payment_url").val(res['data']['url']);
+                    $("#uploadfilename").text(res['data']['old_name']);
+                }else{
+                    alert(res.msg);
+                }
+			}).fail(function(res) {
+				alert('文件格式错误，请重新编辑！（请用指定地点下载的表格进行填写）');
+			});
+		})
+		
     })
+	function down_table(){
+		
+         alert('请自行粘贴下方的下载地址，使用其他浏览器进行下载！');
+        
+	}
+	function upload_table(){
+		$("#upload").trigger("click");
+	}
+    function payment(){
+        if($("#order_id").val() == ''){
+            alert('请上传报名表！');
+        }else{
+            //alert($("#order_id").val())
+            window.location.href=$("#payment_url").val();
+        }
+        
+    }
 </script>
 {/block}

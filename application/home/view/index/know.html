@@ -1,7 +1,11 @@
 {extend name="home@public/main"}
 {block name='css'}
 <link href="__STATIC__/home/css/xuzhi.css?v={:date('ymd')}" rel="stylesheet">
-
+<style>
+.know_content img{
+	width:100%
+}
+</style>
 {/block}
 {block name='body'}
 <div class="top">
@@ -9,7 +13,7 @@
     <div class="bt">报名须知</div>
 </div>
 
-<div class="box" style="width: 100%;overflow: hidden;word-wrap:break-word; ">
+<div class="box know_content" style="width: 100%;overflow: hidden;word-wrap:break-word; font-size: 15px;border: 1px solid;padding: 10px;">
     {:htmlspecialchars_decode($content)}
 </div>
 <div class="xieyi">

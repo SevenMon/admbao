@@ -65,10 +65,10 @@
     <div class="form-group">
         <label class="col-sm-2 control-label">报名费（元/人）</label>
         <div class='col-sm-8'>
-            <input name="price" required value="{:sprintf('%.2f', $vo.compete_info.price/100)}" class="layui-input" title="请输入报名费" placeholder="请输入报名费" style="width: 30%">
+            <input name="price" required value="{:sprintf('%.2f', (empty($vo.compete_info.price)?0:$vo.compete_info.price)/100)}" class="layui-input" title="请输入报名费" placeholder="请输入报名费" style="width: 30%">
         </div>
     </div>
-    <?php $ages = json_decode($vo['compete_info']['age'],true); ?>
+    <?php $ages = json_decode(empty($vo['compete_info']['age'])?'':$vo['compete_info']['age'],true); ?>
     <div class="form-group">
         <label class="col-sm-2 control-label">年龄段</label>
         <div class='col-sm-8'>

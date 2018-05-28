@@ -132,7 +132,7 @@ class Goods extends BasicAdmin
             $compete_notice['content'] = $data['content'];
             $compete_notice['create_time'] = date("Y-m-d H-i-s");
 
-            $compete_id = Db::name('signup_compete')->insert($compete_info);
+            $compete_id = Db::name('signup_compete')->insertGetId($compete_info);
             $compete_notice['compete_id'] = $compete_id;
             $info = Db::name('signup_compete_notice')->insert($compete_notice);
 

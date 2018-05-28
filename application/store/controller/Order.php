@@ -234,6 +234,26 @@ class Order extends BasicAdmin
             '乘车摆渡地点',
             '领取参赛物品地点',
             );
+        /*
+        $head = array(
+            '姓名',
+            '电话',
+            '性别',
+            '出生日期',
+            '身份证号',
+            '国籍',
+            '电子邮件',
+            '居住地址',
+            '工作单位',
+            '服装尺寸（S/M/L/XL/XXM/L/XL/XXL）',
+            '服装颜色（绿色/白色/黑色/黄色/蓝色）',
+            '紧急联系人',
+            '紧急联系人电话',
+            '乘车摆渡地点（火车站/北站/花溪/南明/云岩）',
+            '领取参赛物品地点（物流到家/现场自取）',
+            );
+            */
+
         //下载头.
         header('Content-Type: application/vnd.ms-excel;charset=gbk');
         header('Content-Disposition: attachment;filename="query.csv"');
@@ -252,10 +272,12 @@ class Order extends BasicAdmin
         };
         //写入头部;
         fputcsv($fp, $changCode($head));
+        
         foreach ($result_data as $value){
             $value = $changCode($value);
             fputcsv($fp, $value);//写入数据;
         }
+        
 
         flush();
         ob_flush();

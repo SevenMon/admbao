@@ -3,6 +3,7 @@ namespace app\home\controller;
 
 use think\Controller;
 use think\facade\Config;
+use think\Db;
 
 class Payment extends Controller
 {
@@ -10,25 +11,13 @@ class Payment extends Controller
      * 支付
      */
     public function callback(){
+		$order_id = $_GET['order_id'];
+		$order_info = Db::name('signup_order')->find($order_id);
 		
-        /*$orderId = I('orderId');
-        if($orderId > 10000000 && $orderId <= 50000000){
-            //普通订单
-            $orderInfo = D('Order')->find($orderId);
-        }elseif($orderId > 50000000){
-            //充值订单
-            $orderInfo = D('WalletOrder')->find($orderId);
-        }else{
-            $this->error("错误的订单号".$orderId);
-        }
-        if(empty($orderInfo)){
-            $this->error("错误的订单号".$orderId);
-        }else{
-            $price = $orderInfo['price'];
-            $orderId = $orderInfo['orderId'];
-        }*/
+		if(empty($order_info) || $order_info['status'] == 1){
+			return $this->error('订单数据错误！','/home/Index/index');
+		}
 
-        $price = bcmul(0.1,100);
         ini_set('date.timezone','Asia/Shanghai');
         require_once $_SERVER['DOCUMENT_ROOT']."/application/common/WeixinPay/lib/WxPay.Api.php";
         require_once $_SERVER['DOCUMENT_ROOT']."/application/common/WeixinPay/example/WxPay.JsApiPay.php";
@@ -40,25 +29,25 @@ class Payment extends Controller
         $input->SetBody("微信支付");
         $input->SetAttach("微信公众号支付");
 		
-        $input->SetOut_trade_no("1312342");//订单号
-        $input->SetTotal_fee("1");//总金额
+        $input->SetOut_trade_no($order_info['order_num']);//订单号
+        $input->SetTotal_fee($order_info['price']);//总金额
 		
         $input->SetTime_start(date("YmdHis"));
         $input->SetTime_expire(date("YmdHis", time() + 600));
         $input->SetGoods_tag("订单");
-        $input->SetNotify_url(Config::get('common.uri')."home/Payment/callback");//回调地址
+        $input->SetNotify_url(Config::get('common.uri')."home/payment/payment");//回调地址
         $input->SetTrade_type("JSAPI");
         $input->SetOpenid($openId);
 		
         $order = \WxPayApi::unifiedOrder($input);
         $jsApiParameters = $tools->GetJsApiParameters($order);
         $this->assign('jsApiParameters',$jsApiParameters);
+		
         return $this->fetch('payment');
     }
 
     public function payment(){
-    	echo 123;
-    	exit();
+		
         $xmlStr = file_get_contents("php://input");
         $xml = simplexml_load_string($xmlStr);
         $attach = $this->unicodeDecode((string) $xml->attach);//商家数据包，原样返回
@@ -81,24 +70,66 @@ class Payment extends Controller
             'time_end' => $time_end,
             'total_fee' => $total_fee,
             'transaction_id' => $transaction_id,
+            'sign' => $sign,
         );
+		
+		/*
+		$myfile = fopen("newfile.txt", "a");
+		fwrite($myfile, json_encode($callInfo));
+		fclose($myfile);
         error_log(print_r(json_encode($callInfo),true),3,'/mnt/logs/bee.log');
+		*/
+		$myfile = fopen("newfile.txt", "a");
+		fwrite($myfile, json_encode($return_code));
+		fclose($myfile);
         if ($return_code == 'SUCCESS') {
-            $logWeixinPay = D('LogWeixinPay');
+            $myfile = fopen("newfile1.txt", "a");
+		fwrite($myfile, json_encode($return_code));
+		fclose($myfile);
+			//填写支付成功的日志
+			$data = $callInfo;
+			unset($data['sign']);
+			$myfile = fopen("newfile21.txt", "a");
+		fwrite($myfile, json_encode($data));
+		fclose($myfile);
+			try{
+		
+				//Db::name('signup_payinfo')->insert($data);
+			} catch (HttpResponseException $exception) {
+				return $exception->getResponse();
+			} catch (\Exception $e) {
+				$myfile = fopen("newfile2.txt", "a");
+		fwrite($myfile, $this->error($e->getMessage()));
+		fclose($myfile);
+				$this->error($e->getMessage());
+			}
+			
+			
+			
+			
             //TODO 增加签名验证
             //if ($beeCloud->checkSign($appId, $appSecret, $msg['timestamp'], $msg['sign'])) {
-            if(1){
-                $ret = $logWeixinPay->callback($callInfo);
-            } else {
-                $ret = 'sign error';
-            }
+            $order_info = Db::name('signup_order')->where(array('order_num' => $out_trade_no))->find();
+			$myfile = fopen("newfile3.txt", "a");
+		fwrite($myfile, Db::name('signup_order')->getLastSql());
+		fclose($myfile);
+			if(!empty($order_info) && $order_info['status'] == 0){
+				Db::name('signup_order')->where(array('order_num' => $out_trade_no))->update(array('status' => 1));
+				$myfile = fopen("newfile4.txt", "a");
+		fwrite($myfile, Db::name('signup_order')->getLastSql());
+		fclose($myfile);
+			}elseif(!empty($order_info) && $order_info['status'] == 1){
+				$myfile = fopen("newfile5.txt", "a");
+		fwrite($myfile, '234');
+		fclose($myfile);
+				$ret = 'success';
+			}else{
+				$myfile = fopen("newfile6.txt", "a");
+		fwrite($myfile, '234');
+		fclose($myfile);
+			}
         } else {
             $ret = 'No msg';
-        }
-        if($ret!='success'){
-            error_log(date('Y-m-d H:i:s')."===============================\n",3,'/mnt/logs/bee.log');
-            error_log(print_r($ret,true),3,'/mnt/logs/bee.log');
-            error_log($ret."\n",3,'/mnt/logs/bee.log');
         }
         echo $ret;
         exit;
