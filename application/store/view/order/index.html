@@ -113,10 +113,7 @@
 				<?php if($vo['code_status'] == 1){echo "已使用";}else{echo "未使用";} ?>
             </td>
             <td class="text-left text-top nowrap">
-
-					<a onclick="useCode({$vo.id},{$vo['code_status']})">使用核销码</a><br/>
-
-                
+                <a onclick="useCode({$vo.id},{$vo['code_status']})">使用核销码</a><br/>
                 <a data-open='{:url("$classuri/detail")}?id={$vo.id}'>查看详情</a>
             </td>
         </tr>
@@ -140,7 +137,7 @@ function useCode(order_id,status){
 				$('.code_status_'+order_id).text('已使用');
 				alert('核销码使用成功!');
 			}else{
-				alert('修改失败，请稍后再试！');
+				alert(data);
 			}
 			
 		},

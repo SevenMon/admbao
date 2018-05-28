@@ -40,7 +40,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                {foreach $data as $key=>$vo }
+                {foreach $list as $key=>$vo }
                 <tr>
                     <td>{$vo['id']}</td>
                     <td>{$vo['name']}</td>
@@ -65,6 +65,7 @@
                 {/foreach}
                 </tbody>
             </table>
+            {if isset($page)}<p>{$page|raw}</p>{/if}
         </div>
     </div>
 

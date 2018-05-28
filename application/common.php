@@ -178,3 +178,9 @@ function randcode($len){
 	return $string;
 }
 
+//
+function getwechatinfo($wechat_id,$param){
+    $data = Db::name('wechat_fans')->where(array('id' => $wechat_id))->column($param);
+    return $data[0];
+}
+

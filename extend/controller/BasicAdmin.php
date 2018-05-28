@@ -114,7 +114,8 @@ class BasicAdmin extends Controller
         }
         if ($isPage) {
             $rows = intval($this->request->get('rows', cookie('page-rows')));
-            cookie('page-rows', $rows = $rows >= 10 ? $rows : 20);
+            //cookie('page-rows', $rows = $rows >= 10 ? $rows : 20);
+            cookie('page-rows', $rows);
             // 分页数据处理
 
             $query = $this->request->get();
@@ -122,7 +123,7 @@ class BasicAdmin extends Controller
             if (($totalNum = $page->total()) > 0) {
 
                 list($rowsHTML, $pageHTML, $maxNum) = [[], [], $page->lastPage()];
-                foreach ([10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200] as $num) {
+                foreach ([1,10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200] as $num) {
                     list($query['rows'], $query['page']) = [$num, '1'];
                     $url = url('@admin') . '#' . $this->request->baseUrl() . '?' . http_build_query($query);
                     $rowsHTML[] = "<option data-url='{$url}' " . ($rows === $num ? 'selected' : '') . " value='{$num}'>{$num}</option>";

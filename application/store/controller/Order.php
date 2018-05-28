@@ -293,6 +293,11 @@ class Order extends BasicAdmin
 	
 	public function useCode(){
 		$order_id = $_GET['order_id'];
+		$data = Db::name('signup_order')->where(array('id' => $order_id))->find();
+		if($data['code_status'] == 1){
+		    echo "核销码已经使用过！";
+		    return;
+        }
 		Db::name('signup_order')->where(array('id' => $order_id))->update(array('code_status' => 1));
 		echo 1;
 	}

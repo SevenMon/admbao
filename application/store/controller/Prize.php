@@ -33,9 +33,10 @@ class Prize extends BasicAdmin
 
     public function bigpan(){
 		if (!$this->request->isPost()) {
-			$data = Db::name('signup_prize_active')->order('id','desc')->select();
-			$this->assign('data',$data);
-			return $this->fetch();
+            $db = Db::name('signup_prize_active')->order('id','desc');
+            return parent::_list($db);
+			//$this->assign('data',$data);
+			//return $this->fetch();
 		}else{
 			try {
 				$data = array();
@@ -127,4 +128,14 @@ class Prize extends BasicAdmin
         Db::name('signup_prize_active')->where(array('id' => $prize_id))->update(array('status' => 1));
 		echo 1;
 	}
+    public function useCode(){
+        $id = $_GET['id'];
+        $data = Db::name('signup_prize_user')->where(array('id' => $id))->find();
+        if($data['code_status'] == 1){
+            echo "核销码已经使用过！";
+            return;
+        }
+        Db::name('signup_prize_user')->where(array('id' => $id))->update(array('code_status' => 1));
+        echo 1;
+    }
 }

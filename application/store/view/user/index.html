@@ -2,6 +2,35 @@
 
 {block name="content"}
 <!-- 表单搜索 开始 -->
+<form class="layui-form layui-form-pane form-search" action="{:request()->url()}" onsubmit="return false" method="get" id="order_form">
+
+    <div class="layui-form-item layui-inline">
+        <label class="layui-form-label">昵称</label>
+        <div class="layui-input-inline">
+            <input name="nickname" value="{$nickname|default=''}" placeholder="昵称" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-inline">
+        <label class="layui-form-label">名字</label>
+        <div class="layui-input-inline">
+            <input name="name" value="{$name|default=''}" placeholder="名字" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-inline">
+        <label class="layui-form-label">电话</label>
+        <div class="layui-input-inline">
+            <input name="phone" value="{$phone|default=''}" placeholder="电话" class="layui-input">
+        </div>
+    </div>
+
+
+    <div class="layui-form-item layui-inline">
+        <button class="layui-btn layui-btn-primary"><i class="layui-icon">&#xe615;</i> 搜 索</button>
+    </div>
+
+</form>
 <script>
     window.form.render();
     $('[data-time]').map(function () {
@@ -33,7 +62,7 @@
                 {$vo['id']}
             </td>
             <td class="text-left text-top nowrap">
-                {$vo['watch_info']['nickname']}
+                {:getwechatinfo($vo['wechat_id'],'nickname')}
             </td>
             <td class="text-left text-top nowrap">
                 {$vo['name']}
@@ -42,7 +71,7 @@
                 {$vo['phone']}
             </td>
             <td class="text-left text-top nowrap">
-                <img src="{$vo['watch_info']['headimgurl']}" />
+                <img src="{:getwechatinfo($vo['wechat_id'],'headimgurl')}" />
             </td>
             <td class="text-left text-top nowrap">
                 <a data-open='{:url("$classuri/detail")}?user_id={$vo.id}'>查看详情</a>
