@@ -52,6 +52,12 @@ class Order extends BasicAdmin
 
         $where[] = array('status','=',1);
 
+		if(!empty($get['code'])){
+            $where[] = array('code','like','%'.$get['code'].'%');
+
+        }
+        $this->assign('code',empty($get['code'])?'':$get['code']);
+		
         if(!empty($get['order_num'])){
             $where[] = array('order_num','like','%'.$get['order_num'].'%');
 
@@ -284,4 +290,10 @@ class Order extends BasicAdmin
         exit();
 
     }
+	
+	public function useCode(){
+		$order_id = $_GET['order_id'];
+		Db::name('signup_order')->where(array('id' => $order_id))->update(array('code_status' => 1));
+		echo 1;
+	}
 }

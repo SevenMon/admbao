@@ -60,6 +60,12 @@ class Prize extends BasicAdmin
     	$prize_name = empty($get['prize_name']) ? '' : $get['prize_name'];
     	$active_name = empty($get['active_name']) ? '' : $get['active_name'];
 		$where = array();
+		
+		if(!empty($get['code'])){
+            $where[] = array('code','like','%'.$get['code'].'%');
+        }
+        $this->assign('code',empty($get['code'])?'':$get['code']);
+		
     	if(!empty($key)){
 			$user_where = array();
 			$user_where[] = array('signup_user.phone','=',$key);
