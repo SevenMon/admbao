@@ -46,6 +46,7 @@ class Order extends Base {
                 'attachment' => '',
                 'create_time' => date("Y-m-d H-i-s"),
                 'status' => 0,
+				'code' => randcode(5)
             );
 
             $order_id = Db::name('signup_order')->insertGetId($order);
@@ -211,6 +212,7 @@ class Order extends Base {
 	                'attachment' => '',
 	                'create_time' => date("Y-m-d H-i-s"),
 	                'status' => 0,
+					'code' => randcode(5)
             	);
 	            $order_id = Db::name('signup_order')->insertGetId($order);
 	            Db::name('signup_compete')->where(array('id' => $data['id']))->update(array('sell_num' => ($data['sell_num'] + count($people_info) - 1)));

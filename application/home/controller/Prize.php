@@ -60,6 +60,7 @@ class Prize extends Base {
             'name' => $prize['name'],
             'content' => $prize['content'],
             'img_url' => $prize['img_url'],
+			'code' => randcode(5)
         );
         Db::name('signup_prize_user')->insert($data);
         echo 1;
