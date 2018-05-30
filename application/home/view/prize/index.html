@@ -15,7 +15,7 @@
         <img class="pointer" src="__STATIC__/home/image/prize/turnplate-pointer.png"/>
     </div>
 </div>
-<h2 style="width: 100%;text-align: center;padding-top: 15px">您还有<?php echo $num > 0 ? 0 : 1; ?>次抽奖机会</h2>
+<h2 style="width: 100%;text-align: center;padding-top: 15px">您还有{$num}次抽奖机会</h2>
 {/block}
 {block name='script'}
 <script src="__STATIC__/home/js/jquery-1.10.2.js"></script>
@@ -89,8 +89,8 @@
                 alert('未在指定时间内，不可抽奖！');
                 return false;
             }
-            if({$num} > 0){
-                alert('此次活动您已经抽过奖了，不能再次抽奖！');
+            if({$num} <= 0){
+                alert('您已经没有抽奖机会了！');
                 return false;
             }
             if(turnplate.bRotate)return;

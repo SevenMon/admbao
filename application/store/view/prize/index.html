@@ -23,7 +23,6 @@
             <th class="text-left">中奖率</th>
             <th class="text-left">库存</th>
             <th class="text-left">图片</th>
-            <th class="text-left">创建时间</th>
             <th class="text-left">操作</th>
         </tr>
         </thead>
@@ -44,9 +43,6 @@
             </td>
             <td class="text-left text-top nowrap">
                 <img src="{$vo['img_url']}" />
-            </td>
-            <td class="text-left text-top nowrap">
-                {$vo['create_time']}
             </td>
             <td class="text-left text-top nowrap">
                 <a data-open='{:url("$classuri/edit")}?id={$vo.id}'>修改</a>

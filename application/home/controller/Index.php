@@ -51,7 +51,7 @@ class Index extends Base {
         );
 		$order_list = Db::name('signup_order')->where($where)->select();
 
-		$prize_list = Db::name('signup_prize_user')->where(array('user_id' => $user_id))->select();
+		$prize_list = Db::name('signup_prize_user')->where(array('user_id' => $user_id,'luck_status' => 1))->select();
 
 		$this->assign('order_list',$order_list);
 		$this->assign('prize_list',$prize_list);

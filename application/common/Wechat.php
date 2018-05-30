@@ -29,8 +29,8 @@ class Wechat {
 	/* OAuth2.0授权地址 */
 	const OAUTH_AUTHORIZE_URL     = 'https://open.weixin.qq.com/connect/oauth2/authorize';
 	const OAUTH_USER_TOKEN_URL    = 'https://api.weixin.qq.com/sns/oauth2/access_token';
-	//const OAUTH_GET_USERINFO	  = 'https://api.weixin.qq.com/sns/userinfo';
-	const OAUTH_GET_USERINFO	  = 'https://api.weixin.qq.com/cgi-bin/user/info';
+	const OAUTH_GET_USERINFO	  = 'https://api.weixin.qq.com/sns/userinfo';
+	//const OAUTH_GET_USERINFO	  = 'https://api.weixin.qq.com/cgi-bin/user/info';
 	/* 消息模板 */
 	const TEMPLATE_SEND			  = 'https://api.weixin.qq.com/cgi-bin/message/template/send';
 	/* JSAPI_TICKET获取地址 */

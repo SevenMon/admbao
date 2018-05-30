@@ -61,7 +61,7 @@ class Prize extends BasicAdmin
     	$prize_name = empty($get['prize_name']) ? '' : $get['prize_name'];
     	$active_name = empty($get['active_name']) ? '' : $get['active_name'];
 		$where = array();
-		
+        $where[] = array('luck_status','=','1');
 		if(!empty($get['code'])){
             $where[] = array('code','like','%'.$get['code'].'%');
         }
