@@ -115,7 +115,7 @@ class BasicAdmin extends Controller
         if ($isPage) {
             $rows = intval($this->request->get('rows', cookie('page-rows')));
             //cookie('page-rows', $rows = $rows >= 10 ? $rows : 20);
-            cookie('page-rows', $rows);
+            cookie('page-rows', $rows = $rows <= 0 ? 1 : $rows);
             // 分页数据处理
 
             $query = $this->request->get();
