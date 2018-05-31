@@ -1,0 +1,25 @@
+{extend name='admin@public/content'}
+
+{block name="content"}
+<form onsubmit="return false;" action="{:request()->url()}" data-auto="true" method="post" id="ProductForm" class='form-horizontal layui-form padding-top-20'>
+    <h2 style="margin-bottom: 20px">每个选项 | 竖线隔开 例：1|2|3</h2>
+    <div class="xf-aa">
+        <span style="width: 15%;display: inline-block">服装尺寸：</span><textarea name="size" rows="3" cols="20" style="vertical-align: top;width: 70%;height: 100px">{$data[1]['know']}</textarea>
+    </div>
+    <div class="xf-aa">
+        <span style="width: 15%;display: inline-block">服装颜色：</span><textarea name="color" rows="3" cols="20" style="vertical-align: top;width: 70%;height: 100px">{$data[2]['know']}</textarea>
+    </div>
+    <div class="xf-aa">
+        <span style="width: 15%;display: inline-block">乘车摆渡车地点：</span><textarea name="car_address" rows="3" cols="20" style="vertical-align: top;width: 70%;height: 100px">{$data[3]['know']}</textarea>
+    </div>
+    <div class="xf-aa">
+        <span style="width: 15%;display: inline-block">领取参赛物品地点：</span><textarea name="good_address" rows="3" cols="20" style="vertical-align: top;width: 70%;height: 100px">{$data[4]['know']}</textarea>
+    </div>
+    <button class="btn btn-success" type="submit">保存</button>
+</form>
+<style>
+    .xf-aa{
+        margin-bottom: 20px;
+    }
+</style>
+{/block}

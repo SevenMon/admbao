@@ -49,9 +49,9 @@
                         </select>
                     </div>
                 </div>
-                <div class="bm-list">
+                <div class="bm-list" hidden>
                     <div class="lss fl">出生日期</div>
-                    <div class="ls fl"><input type="text" name="birth" required="required" value=""></div>
+                    <div class="ls fl"><input type="text" name="birth" value=""></div>
                 </div>
                 <div class="bm-list">
                     <div class="lss fl">身份证号</div>
@@ -78,11 +78,9 @@
                     <div class="ls fl">
                         <select class="lsr" name="size" required="required">
                             <option value=""></option>
-                            <option value="S">S</option>
-                            <option value="M">M</option>
-                            <option value="L">L</option>
-                            <option value="XL">XL</option>
-                            <option value="XXL">XXL</option>
+                            {foreach $select_info['size'] as $key=>$vo }
+                            <option value="{$vo}">{$vo}</option>
+                            {/foreach}
                         </select>
                     </div>
                 </div>
@@ -91,11 +89,9 @@
                     <div class="ls fl">
                         <select class="lsr" name="color" required="required">
                             <option value=""></option>
-                            <option value="绿色">绿色</option>
-                            <option value="白色">白色</option>
-                            <option value="黑色">黑色</option>
-                            <option value="黄色">黄色</option>
-                            <option value="蓝色">蓝色</option>
+                            {foreach $select_info['color'] as $key=>$vo }
+                            <option value="{$vo}">{$vo}</option>
+                            {/foreach}
                         </select>
                     </div>
                 </div>
@@ -112,11 +108,9 @@
                     <div class="ls fl">
                         <select class="lsr" name="car_address" required="required">
                             <option value=""></option>
-                            <option value="火车站">火车站</option>
-                            <option value="北站">北站</option>
-                            <option value="花溪">花溪</option>
-                            <option value="南明">南明</option>
-                            <option value="云岩">云岩</option>
+                            {foreach $select_info['car_address'] as $key=>$vo }
+                            <option value="{$vo}">{$vo}</option>
+                            {/foreach}
                         </select>
                     </div>
                 </div>
@@ -125,8 +119,9 @@
                     <div class="ls fl">
                         <select class="lsr" name="receive_good_address" required="required" onchange="changeaddress()">
                             <option value=""></option>
-                            <option value="物流到家">物流到家</option>
-                            <option value="现场自取">现场自取</option>
+                            {foreach $select_info['good_address'] as $key=>$vo }
+                            <option value="{$vo}">{$vo}</option>
+                            {/foreach}
                         </select>
                     </div>
                 </div>

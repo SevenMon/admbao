@@ -137,7 +137,7 @@ function getCompeteDes($compete_id){
 //根据id 获取活动名字
 function getActiveName($active_id){
 	$name = Db::name('signup_prize_active')->where(array('id' => $active_id))->column('name');
-	return $name[0];
+	return empty($name[0]) ? '' : $name[0];
 }
 
 //根据用户id 获取用户 姓名电话昵称
@@ -182,5 +182,17 @@ function randcode($len){
 function getwechatinfo($wechat_id,$param){
     $data = Db::name('wechat_fans')->where(array('id' => $wechat_id))->column($param);
     return $data[0];
+}
+
+//获取下拉框数据
+function getselect(){
+    $data = Db::name('signup_system')->order('id','asc')->select();
+    $result = array(
+        'size' => explode('|',$data[1]['know']),
+        'color' => explode('|',$data[2]['know']),
+        'car_address' => explode('|',$data[3]['know']),
+        'good_address' => explode('|',$data[4]['know']),
+    );
+    return $result;
 }
 

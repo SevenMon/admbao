@@ -301,4 +301,22 @@ class Order extends BasicAdmin
 		Db::name('signup_order')->where(array('id' => $order_id))->update(array('code_status' => 1));
 		echo 1;
 	}
+
+	public function select(){
+        $get = $this->request->get();
+        $data = Db::name('signup_system')->order('id','asc')->select();
+        $this->assign('data',$data);
+        $this->assign('title','下拉框管理');
+        if ($this->request->isGet()) {
+            return $this->fetch();
+        }else{
+            Db::name('signup_system')->update(array('id' => 2,'know' => $this->request->post('size', '')));
+            Db::name('signup_system')->update(array('id' => 3,'know' => $this->request->post('color', '')));
+            Db::name('signup_system')->update(array('id' => 4,'know' => $this->request->post('car_address', '')));
+            Db::name('signup_system')->update(array('id' => 5,'know' => $this->request->post('good_address', '')));
+            list($base, $spm, $url) = [url('@admin'), $this->request->get('spm'), url('store/Order/select')];
+            $this->success('保存成功！', "{$base}#{$url}?spm={$spm}");
+        }
+
+    }
 }

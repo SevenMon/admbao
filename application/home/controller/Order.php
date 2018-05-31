@@ -21,6 +21,10 @@ class Order extends Base {
         $data = Db::name('signup_compete')->find($compete_id);
         if (!$this->request->isPost()) {
 			$user_info = getUserAllInfo($user_id);
+
+			$select_info = getselect();
+
+			$this->assign('select_info',$select_info);
 			$this->assign('user_info',$user_info);
             $this->assign('id',$compete_id);
             $this->assign('data',$data);
@@ -84,8 +88,12 @@ class Order extends Base {
         $compete_id = $this->request->get('id', '');
         $data_notice = Db::name('signup_compete_notice')->where(array('compete_id' => $compete_id))->find();
         $data = Db::name('signup_compete')->find($compete_id);
+        $select_info = getselect();
+
+        $this->assign('select_info',$select_info);
         if (!$this->request->isPost()) {
             $user_info = getUserAllInfo($user_id);
+
             $this->assign('user_info',$user_info);
             $this->assign('id',$compete_id);
             $this->assign('data',$data);
@@ -145,6 +153,9 @@ class Order extends Base {
     public function addPeople(){
         $order_id = $_GET['order_id'];
         $this->assign('order_id',$order_id);
+        $select_info = getselect();
+
+        $this->assign('select_info',$select_info);
         if ($this->request->isPost()) {
             $order_people = array(
                 'order_id' => $order_id,

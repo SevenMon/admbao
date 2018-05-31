@@ -13,7 +13,10 @@ class Base extends Controller {
      */
     public function __construct()
     {
+        $this->userId = 12;
+
         parent::__construct();
+        /*
 		$openid = session('openid');
         $wechat_info = Db::name('wechat_fans')->where(array('openid' => $openid))->find();
         if($wechat_info){
@@ -29,5 +32,6 @@ class Base extends Controller {
             $go = $we->getOAuthRedirect($url,'','snsapi_userinfo');
 			header("Location: ".$go);
         }
+        */
     }
 }
