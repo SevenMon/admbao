@@ -170,7 +170,7 @@ class Order extends Base {
                 //只有团体报名的支付才走这个方法  更新order 的price
                 $order_info =  Db::name('signup_order')->find($order_id);
                 $num = Db::name('signup_order_people_info')->where(array('order_id' => $order_id))->count();
-                Db::name('signup_order')->where(array('id' => $order_id))->update(array('price' => $order_info['price'] * $num));
+                Db::name('signup_order')->where(array('id' => $order_id))->update(array('price' => $order_info['price'] * $num,'type' => 1));
                 $url = Config::get('common.uri')."home/payment/callback?order_id=".$order_id;
                 header("location: $url");
                 exit();

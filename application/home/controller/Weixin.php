@@ -19,15 +19,16 @@ class Weixin extends Controller
          */
     public function callback()
     {
-		
         $we = new Wechat();
         $token = $we->getOauthAccessToken();
         $accessToken = $we->getToken();
         if($token){
-            $user = $we->getOauthUserInfo($accessToken,$token['openid']);
+            $user = $we->getOauthUserInfo($token['access_token'],$token['openid']);
+            
 			if($user){
 				unset($user['groupid']);
 				unset($user['tagid_list']);
+                unset($user['privilege']);
 				$info = Db::name('wechat_fans')->where(array('openid' => $user['openid']))->find();
 				
 				if($info){

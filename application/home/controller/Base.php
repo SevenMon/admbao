@@ -26,7 +26,7 @@ class Base extends Controller {
         }else{
             $we = new Wechat();
             $url = $we::CALLBACKURL;
-            $go = $we->getOAuthRedirect($url);
+            $go = $we->getOAuthRedirect($url,'','snsapi_userinfo');
 			header("Location: ".$go);
         }
     }
