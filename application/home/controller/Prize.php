@@ -24,7 +24,7 @@ class Prize extends Base {
 
         //可以抽奖的次数
         $order_num = Db::name('signup_order')->where(array('user_id' => $user_id,'status' => 1))->count();
-        $all_num = $order_num * 3 + 3;
+        $all_num = (empty($order_num)?0:1) + 3;
 
 
         $rate = array();

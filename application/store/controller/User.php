@@ -55,7 +55,7 @@ class User extends BasicAdmin{
         $this->assign('phone',empty($get['phone'])?'':$get['phone']);
 
 
-        $db = Db::name('signup_user')->leftJoin('wechat_fans','signup_user.wechat_id=wechat_fans.id')->where($where)->order('signup_user.id','desc');
+        $db = Db::name('signup_user')->field("*,signup_user.id user_id")->leftJoin('wechat_fans','signup_user.wechat_id=wechat_fans.id')->where($where)->order('signup_user.id','desc');
         return parent::_list($db);
 
     }

@@ -52,10 +52,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="bm-list" hidden>
-                    <div class="lss fl">出生日期</div>
-                    <div class="ls fl"><input type="text" name="birth" value="{$user_info['user_info']['birth']|default=''}"></div>
-                </div>
+
                 <div class="bm-list">
                     <div class="lss fl">身份证号</div>
                     <div class="ls fl"><input type="text" name="id_card" required="required" value="<?php if($user_info['user_info']['card_type'] == 0)echo $user_info['user_info']['card_id']; ?>"></div>
@@ -179,10 +176,7 @@
                     </select>
                 </div>
             </div>
-            <div class="bm-list">
-                <div class="lss fl">出生日期</div>
-                <div class="ls fl"><input type="text" name="birth" required="required" value="{$user_info['user_info']['birth']|default=''}"></div>
-            </div>
+
             <div class="bm-list">
                 <div class="lss fl">身份证号</div>
                 <div class="ls fl"><input type="text" name="id_card" required="required" value="<?php if($user_info['user_info']['card_type'] == 0)echo $user_info['user_info']['card_id']; ?>"></div>

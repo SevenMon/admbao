@@ -59,7 +59,7 @@
         {foreach $list as $key=>$vo}
         <tr>
             <td class="text-left text-top nowrap">
-                {$vo['id']}
+                {$vo['user_id']}
             </td>
             <td class="text-left text-top nowrap">
                 {:getwechatinfo($vo['wechat_id'],'nickname')}
@@ -74,7 +74,7 @@
                 <img src="{:getwechatinfo($vo['wechat_id'],'headimgurl')}" />
             </td>
             <td class="text-left text-top nowrap">
-                <a data-open='{:url("$classuri/detail")}?user_id={$vo.id}'>查看详情</a>
+                <a data-open='{:url("$classuri/detail")}?user_id={$vo.user_id}'>查看详情</a>
             </td>
         </tr>
         {/foreach}
