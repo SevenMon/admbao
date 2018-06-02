@@ -26,7 +26,7 @@ class User extends Controller {
 				'phone' => $_POST['phone'],
 				'name' => $_POST['name'],
 				'sex' => $_POST['sex'],
-				'birth' => $_POST['birth'],
+				//'birth' => $_POST['birth'],
 				'card_id' => $_POST['card_id'],
 				'card_type' => $_POST['card_type'],
 				'email' => $_POST['email'],
