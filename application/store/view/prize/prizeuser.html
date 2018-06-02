@@ -58,9 +58,8 @@
             <th class="text-left">中奖人信息</th>
             <th class="text-left">奖品名字</th>
             <th class="text-left">奖品图片</th>
-            <th class="text-left">核销码</th>
-            <th class="text-left">核销码状态</th>
-            <th class="text-left">操作</th>
+
+            <th class="text-left">核销状态</th>
 
         </tr>
         </thead>
@@ -82,14 +81,9 @@
             <td class="text-left text-top nowrap">
                 <img src="{$vo['img_url']}">
             </td>
-            <td class="text-left text-top nowrap">
-                {$vo['code']}
-            </td>
+
             <td class="text-left text-top nowrap code_status_{$vo.id}"">
-                <?php if($vo['code_status'] == 1){echo "已使用";}else{echo "未使用";} ?>
-            </td>
-            <td class="text-left text-top nowrap">
-                <a onclick="useCode({$vo.id},{$vo['code_status']})">使用核销码</a><br/>
+                <?php if($vo['code_status'] == 1){echo "已核销";}else{echo "未核销";} ?>
             </td>
             <!--<td class="text-left text-top nowrap">
                 <a data-open='{:url("$classuri/detail")}?id={$vo.id}'>查看详情</a>

@@ -21,10 +21,12 @@ class Weixin extends Controller
     {
         $we = new Wechat();
         $token = $we->getOauthAccessToken();
-        $accessToken = $we->getToken();
+        //$accessToken = $we->getToken();
+
         if($token){
             $user = $we->getOauthUserInfo($token['access_token'],$token['openid']);
-            
+            //$user = $we->getOauthUserInfo('10_sa4FUkDXCQRhJ9Rx9DKciIRnVuHeN2QSA-QN_7NiSf-wi_ExhELvdm5_G5tLBElAicnWBsaBw944dCk2QLZfGA',$token['openid']);
+            //$user = $we->getOauthUserInfo($accessToken,$token['openid']);
 			if($user){
 				unset($user['groupid']);
 				unset($user['tagid_list']);

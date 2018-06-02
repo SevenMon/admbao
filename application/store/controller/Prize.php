@@ -129,10 +129,18 @@ class Prize extends BasicAdmin
 		echo 1;
 	}
     public function useCode(){
+		
         $id = $_GET['id'];
+        $code = $_GET['code'];
+		
+		$param = Db::name('signup_system_config')->where(array('key' => 'prizecode'))->find();
+		if($param['value'] != $code){
+			echo "核销码错误！";
+            return;
+		}
         $data = Db::name('signup_prize_user')->where(array('id' => $id))->find();
         if($data['code_status'] == 1){
-            echo "核销码已经使用过！";
+            echo "已核销过！";
             return;
         }
         Db::name('signup_prize_user')->where(array('id' => $id))->update(array('code_status' => 1));

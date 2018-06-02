@@ -24,13 +24,6 @@
             <input name="user_nickname" value="{$user_nickname}" placeholder="用户昵称/名字" class="layui-input">
         </div>
     </div>
-	
-	<div class="layui-form-item layui-inline">
-        <label class="layui-form-label">核销码</label>
-        <div class="layui-input-inline">
-            <input name="code" value="{$code|default=""}" placeholder="核销码" class="layui-input">
-        </div>
-    </div>
 
     <div class="layui-form-item layui-inline">
         <label class="layui-form-label">下单时间</label>
@@ -78,8 +71,7 @@
             <th class="text-left">金额</th>
             <th class="text-left">类型</th>
             <th class="text-left">下单时间</th>
-            <th class="text-left">核销码</th>
-            <th class="text-left">核销码状态</th>
+
             <th class="text-left">操作</th>
         </tr>
         </thead>
@@ -106,14 +98,9 @@
             <td class="text-left text-top nowrap">
                 {$vo['create_time']}
             </td>
-			<td class="text-left text-top nowrap">
-                {$vo['code']}
-            </td>
-			<td class="text-left text-top nowrap code_status_{$vo.id}">
-				<?php if($vo['code_status'] == 1){echo "已使用";}else{echo "未使用";} ?>
-            </td>
+
             <td class="text-left text-top nowrap">
-                <a onclick="useCode({$vo.id},{$vo['code_status']})">使用核销码</a><br/>
+
                 <a data-open='{:url("$classuri/detail")}?id={$vo.id}'>查看详情</a>
             </td>
         </tr>

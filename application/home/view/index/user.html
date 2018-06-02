@@ -1,12 +1,13 @@
 {extend name="home@public/main"}
 {block name='css'}
-<link href="__STATIC__/home/css/gerenzhongxin.css?v={:date('ymdh')}" rel="stylesheet">
+<link href="__STATIC__/home/css/gerenzhongxin.css?v={:date('ymdhi')}" rel="stylesheet">
 <style>
     .xf-prize{
-        line-height: 25px;
+        line-height: 40px;
         width:33%;
         text-align: center;
         overflow: hidden;
+		display: inline-block;
     }
 </style>
 {/block}
@@ -29,7 +30,7 @@
         <li>我的奖品</li>
     </ul>
 </div>
-<ol class="huan">
+<ol class="huan" style="padding-bottom: 60px;">
     <li>
         <ul class="list-list">
             {volist name="order_list" id="v" key="k" }
@@ -52,17 +53,35 @@
                             <div class="lss fl">赛事时间</div>
                             <div class="ls fr"><input style="color: white" type="text" value="{$v['compete_id']|getCompeteTime}"></div>
                         </div>
-                        <div class="bm-list">
-                            <div class="lss fl">核销码</div>
-                            <div class="ls fr"><input style="color: white" type="text" value="{$v['code']|default=''}"></div>
-                        </div>
-                        <div class="bm-list">
-                            <div class="lss fl">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态</div>
-                            <div class="ls fr">
-                                <input style="color: white" type="text" value="<?php if($v['code_status'] == 1){echo '已使用';}else{echo '未使用';} ?>" >
-                            </div>
-                        </div>
+                        
                     </div>
+					<div class="kaung" style="    background-color: white;height: auto;">
+						<h4 style="font-size: 16px;font-weight: 200;">参赛人信息：</h4>
+					</div>
+					{volist name="v['people_info']" id="vx" key="kx" }
+						<div class="kaung">
+							<div class="bm-list">
+								<div class="lss fl">姓名</div>
+								<div class="ls fr"><input style="color: white" type="text" value="{$vx['name']|default=''}"></div>
+							</div>
+							<div class="bm-list">
+								<div class="lss fl">电话</div>
+								<div class="ls fr"><input style="color: white" type="text" value="{$vx['phone']|default=''}"></div>
+							</div>
+							<div class="bm-list">
+								<div class="lss fl">身份证</div>
+								<div class="ls fr"><input style="color: white" type="text" value="{$vx['id_card']|default=''}"></div>
+							</div>
+							<div class="bm-list">
+								<div class="lss fl">服装尺寸</div>
+								<div class="ls fr"><input style="color: white" type="text" value="{$vx['size']|default=''}"></div>
+							</div>
+							<div class="bm-list">
+								<div class="lss fl">服装颜色</div>
+								<div class="ls fr"><input style="color: white" type="text" value="{$vx['color']|default=''}"></div>
+							</div>
+						</div>
+					{/volist}
                 </li>
             {/volist}
         </ul>
@@ -71,17 +90,15 @@
             {volist name="prize_list" id="v" key="k" }
             <ul class="list-list">
                 <li>
-                    <div class="xq" style="height: 70px;font-size: 0.12rem;">
+                    <div class="xq" style="height: 70px;font-size: 0.2rem;padding: 0.1rem 0;" onclick="usecode({$v['id']},{$v['code_status']})">
                         <span class="fl xf-prize">
                             {$v['name']}<br/>
-                            {$v['content']}
                         </span>
-                        <span class="cen xf-prize">
-                            {$v['code']}<br/>
-                            <?php if($v['code_status'] == 1){echo '已使用';}else{echo '未使用';} ?>
+                        <span class="cen xf-prize code_status_{$v['id']}">
+                            <?php if($v['code_status'] == 1){echo '已核销';}else{echo '未核销';} ?>
                         </span>
                         <span class="fr xf-prize" style="margin-top: -0.3rem;">
-                            <img style="width: 50px;height: 50px;" src="{$v['img_url']}"/>
+                            <img style="width: 50px;height: 50px;margin: 0.24rem 0.02rem 0 0;" src="{$v['img_url']}"/>
                         </span>
                     </div>
                 </li>
@@ -118,5 +135,41 @@
         })
 
     })
+	function usecode(id,status){
+		if(status == 1){
+			alert("已核销");
+			return;
+		}
+		var judge = prompt("输入核销码！");
+		if (judge) {
+			useCode(id,judge)
+			//alert('已核销 ');
+			//document.write("输入的内容为："+judge+"。");
+		} else {
+			//document.write("取消就没了哦。");
+		}
+	}
+    function useCode(id,code){
+        if(status == 1){
+            alert('核销码已使用!');
+            return false;
+        }
+        $.ajax({
+            url:"/store/Prize/useCode?id="+id+"&code="+code,
+            async:false,
+            success:function(data){
+                if(data == 1){
+                    $('.code_status_'+id).text('已核销');
+                    alert('核销成功!');
+                }else{
+                    alert(data);
+                }
+
+            },
+            error:function(){
+                alert("网络错误，请稍后再试！");
+            },
+        });
+    }
 </script>
 {/block}

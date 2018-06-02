@@ -16,7 +16,7 @@ namespace app\admin\controller;
 
 use controller\BasicAdmin;
 use service\LogService;
-
+use think\Db;
 /**
  * 后台参数配置控制器
  * Class Config
@@ -71,4 +71,24 @@ class Config extends BasicAdmin
         return $this->index();
     }
 
+	public function commonconfig()
+    {
+        if ($this->request->isGet()) {
+			$data = Db::name('signup_system_config')->select();
+			$result = array();
+			foreach($data as $key => $value){
+				$result[$value['key']] = $value['value'];
+			}
+			$this->assign('data',$result);
+            return $this->fetch('', ['title' => $this->title]);
+        }
+        if ($this->request->isPost()) {
+            foreach ($this->request->post() as $key => $vo) {
+                Db::name('signup_system_config')->where(array('key' => $key))->update(array('value' => $vo));
+            }
+            LogService::write('系统管理', '系统参数配置成功');
+            $this->success('系统参数配置成功！', '');
+        }
+    }
+	
 }

@@ -32,6 +32,7 @@ class Base extends Controller {
             $go = $we->getOAuthRedirect($url,'','snsapi_userinfo');
 			header("Location: ".$go);
         }
+		
 
     }
 }

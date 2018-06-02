@@ -29,8 +29,8 @@ class Wechat {
 	/* OAuth2.0授权地址 */
 	const OAUTH_AUTHORIZE_URL     = 'https://open.weixin.qq.com/connect/oauth2/authorize';
 	const OAUTH_USER_TOKEN_URL    = 'https://api.weixin.qq.com/sns/oauth2/access_token';
-	//const OAUTH_GET_USERINFO	  = 'https://api.weixin.qq.com/sns/userinfo';
-	const OAUTH_GET_USERINFO	  = 'https://api.weixin.qq.com/cgi-bin/user/info';
+	const OAUTH_GET_USERINFO	  = 'https://api.weixin.qq.com/sns/userinfo';
+	//const OAUTH_GET_USERINFO	  = 'https://api.weixin.qq.com/cgi-bin/user/info';
 	/* 消息模板 */
 	const TEMPLATE_SEND			  = 'https://api.weixin.qq.com/cgi-bin/message/template/send';
 	/* JSAPI_TICKET获取地址 */
@@ -61,7 +61,7 @@ class Wechat {
 	const MATERIAL_COUNT_URL      = 'https://api.weixin.qq.com/cgi-bin/material/get_materialcount'; // 获取永久素材数量 1
 	const MATERIAL_LISTS_URL      = 'https://api.weixin.qq.com/cgi-bin/material/batchget_material'; // 获取永久素材列表 1
 	const APPID                   ='wx7f9abd56b9e2f182';
-	const SECRET                  ='69e67273cebd13cdc1c241bdfa1e8843';
+	const SECRET                  ='5d05f203242da39fb27a2f793d949fe9';
 	const TOKEN                   ='baoming';
 	CONST CALLBACKURL             ='http://www.hihill.cn/home/Weixin/callback';
 
@@ -786,6 +786,7 @@ class Wechat {
 			'grant_type' => 'authorization_code'
 		);
 		$jsonStr = $this->http(self::OAUTH_USER_TOKEN_URL, $params);
+
 		$jsonArr = $this->parseJson($jsonStr);
 		if ($jsonArr) {
 			return $jsonArr;
@@ -807,6 +808,7 @@ class Wechat {
 			'lang'          => 'zh_CN'
 		);
 		$jsonStr = $this->http(self::OAUTH_GET_USERINFO, $params);
+
 		$jsonArr = $this->parseJson($jsonStr);
 		if ($jsonArr) {
 			return $jsonArr;

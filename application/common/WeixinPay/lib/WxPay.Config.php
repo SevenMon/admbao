@@ -25,7 +25,7 @@ class WxPayConfig
 	const APPID = 'wx7f9abd56b9e2f182';
 	const MCHID = '1487742792';
 	const KEY = '9c34483e75521a8980071853ba5055b4';
-		const APPSECRET = '69e67273cebd13cdc1c241bdfa1e8843';
+		const APPSECRET = '5d05f203242da39fb27a2f793d949fe9';
 	
 	//=======【证书路径设置】=====================================
 	/**

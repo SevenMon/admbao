@@ -1,0 +1,26 @@
+{extend name="admin@public/content"}
+
+{block name="content"}
+<form onsubmit="return false;" action="{:request()->url()}" data-auto="true" method="post" class='form-horizontal layui-form padding-top-20'>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">
+            核销码<br><span class="nowrap color-desc"></span>
+        </label>
+        <div class='col-sm-8'>
+            <input name="prizecode" required="required" title="请输入程序名称" placeholder="请输入程序名称" value="{$data['prizecode']}" class="layui-input">
+            <p class="help-block">兑换奖品时候使用的核销码！</p>
+        </div>
+    </div>
+
+    <div class="hr-line-dashed"></div>
+
+    <div class="col-sm-4 col-sm-offset-2">
+        <div class="layui-form-item text-center">
+            <button class="layui-btn" type="submit">保存配置</button>
+        </div>
+    </div>
+
+</form>
+
+{/block}
