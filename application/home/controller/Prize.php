@@ -24,14 +24,17 @@ class Prize extends Base {
 
         //可以抽奖的次数
         $order_num = Db::name('signup_order')->where(array('user_id' => $user_id,'status' => 1))->count();
-        $all_num = (empty($order_num)?0:1) + 3;
+        $all_num = (empty($order_num)?0:3) + 3;
+
+        //可抽中次数
+        $can_luck_num = empty($order_num) ? 0 : 1;
 
 
         $rate = array();
         $prize_name = array();
         $prize_id = array();
         //有没有可能抽中奖
-        if($luck_num >= $order_num){
+        if($luck_num >= 1){
             //不再中奖
             foreach ($prize as $key => $value){
                 if($value['id'] != 10){
