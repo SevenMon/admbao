@@ -17,6 +17,17 @@
             <input name="titles" value="{$titles}" placeholder="赛事名称" class="layui-input">
         </div>
     </div>
+	<div class="layui-form-item layui-inline">
+        <label class="layui-form-label">参赛物品领取方式</label>
+        <div class="layui-input-inline">
+			<select name="good_recive_address" class="layui-input">
+				<option value =""></option>
+				{foreach $select as $key=>$vo}
+				<option value ="{$vo}" <?php if($vo == $good_recive_address){echo "selected";} ?> >{$vo}</option>
+				{/foreach}
+			</select>
+        </div>
+    </div>
 
     <div class="layui-form-item layui-inline">
         <label class="layui-form-label">用户昵称/名字</label>

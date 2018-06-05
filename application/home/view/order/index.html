@@ -73,10 +73,7 @@
                     <div class="lss fl">居住地址</div>
                     <div class="ls fl"><input type="text" name="address"></div>
                 </div>
-                <div class="bm-list">
-                    <div class="lss fl">工作单位</div>
-                    <div class="ls fl"><input type="text" name="company"></div>
-                </div>
+
                 <div class="bm-list">
                     <div class="lss fl">服装尺寸</div>
                     <div class="ls fl">
@@ -105,11 +102,11 @@
                     <div class="ls fl"><input type="text" name="emergency_person"></div>
                 </div>
                 <div class="bm-list">
-                    <div class="lss fl">紧急联系电话</div>
+                    <div class="lss fl">紧急联系人电话</div>
                     <div class="ls fl"><input type="text" name="emergency_phone"></div>
                 </div>
                 <div class="bm-list">
-                    <div class="lss fl">乘车摆渡车地点</div>
+                    <div class="lss fl">乘车地点</div>
                     <div class="ls fl">
                         <select class="lsr" name="car_address" required="required">
                             <option value=""></option>
@@ -120,7 +117,7 @@
                     </div>
                 </div>
                 <div class="bm-list">
-                    <div class="lss fl">领取参赛物品地点</div>
+                    <div class="lss fl">参赛物品领取方式</div>
                     <div class="ls fl">
                         <select class="lsr" name="receive_good_address" required="required" onchange="changeaddress()">
                             <option value=""></option>
@@ -198,10 +195,6 @@
                 <div class="ls fl"><input type="text" name="address"></div>
             </div>
             <div class="bm-list">
-                <div class="lss fl">工作单位</div>
-                <div class="ls fl"><input type="text" name="company"></div>
-            </div>
-            <div class="bm-list">
                 <div class="lss fl">服装尺寸</div>
                 <div class="ls fl">
                     <select class="lsr" name="size" required="required">
@@ -228,11 +221,11 @@
                 <div class="ls fl"><input type="text" name="emergency_person"></div>
             </div>
             <div class="bm-list">
-                <div class="lss fl">紧急联系电话</div>
+                <div class="lss fl">紧急联系人电话</div>
                 <div class="ls fl"><input type="text" name="emergency_phone"></div>
             </div>
             <div class="bm-list">
-                <div class="lss fl">乘车摆渡车地点</div>
+                <div class="lss fl">乘车地点</div>
                 <div class="ls fl">
                     <select class="lsr" name="car_address" required="required">
                         <option value=""></option>
@@ -243,7 +236,7 @@
                 </div>
             </div>
             <div class="bm-list">
-                <div class="lss fl">领取参赛物品地点</div>
+                <div class="lss fl">参赛物品领取方式</div>
                 <div class="ls fl">
                     <select class="lsr" name="receive_good_address" required="required" onchange="changeaddressx()">
                         <option value=""></option>
@@ -319,21 +312,22 @@
     }
     function changeaddress() {
         if($("#addorder select[name='receive_good_address']").val() == '物流到家'){
+
             $("#addorder input[name='address']").attr('required','required');
-            $("#addorder input[name='company']").attr('required','required');
+
         }else {
             $("#addorder input[name='address']").removeAttr('required');
-            $("#addorder input[name='company']").removeAttr('required');
+
         }
 
     }
     function changeaddressx() {
         if($("#addpeople select[name='receive_good_address']").val() == '物流到家'){
             $("#addpeople input[name='address']").attr('required','required');
-            $("#addpeople input[name='company']").attr('required','required');
+
         }else {
             $("#addpeople input[name='address']").removeAttr('required');
-            $("#addpeople input[name='company']").removeAttr('required');
+
         }
 
     }

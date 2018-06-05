@@ -11,10 +11,11 @@
         display: inline-block;
     }
     .key{
-        width: 30%;
+        width: 48%;
     }
     .value{
-        width: 60%;
+        width: 48%;
+		vertical-align: top;
     }
 </style>
 {/block}
@@ -30,7 +31,7 @@
         <span class="value">{$data['name']|default=''}</span>
     </div>
     <div class="vwrapper">
-        <span class="key">图片：</span>
+        <span class="key"></span>
         <span class="value" style="width: 140px;height: 70px">
 		 	 		<img src="{$data['img_url']|default=''}" style="width: 140px;height: 70px">
 		 	 	</span>
@@ -41,34 +42,43 @@
     </div>
     <div class="vwrapper">
         <span class="key">报名价格：</span>
-        <span class="value">￥{:sprintf("%.2f", $data['price']/100)}/人</span>
+        <span class="value">￥{:sprintf("%.2f", $data['price']/100)}元/人</span>
     </div>
     <div class="vwrapper">
-        <span class="key">年龄段：</span>
+        <span class="key">参赛年龄：</span>
         <span class="value">{$data['age'][0]|default=''}-{$data['age'][1]}岁</span>
     </div>
     <div class="vwrapper">
-        <span class="key">已参赛人数：</span>
+        <span class="key">参赛人数：</span>
         <span class="value">{$data_notice['people_num']|default=''}</span>
+    </div>
+	<div class="vwrapper">
+        <span class="key">报名截止时间：</span>
+        <span class="value">
+            {$data_notice['signup_end_time']|default=''}
+        </span>
     </div>
     <div class="vwrapper">
         <span class="key">乘车地点：</span>
         <span class="value">{$data_notice['car_address']|default=''}</span>
     </div>
     <div class="vwrapper">
-        <span class="key">参赛物品获取地点：</span>
+        <span class="key">参赛物品领取地点：</span>
         <span class="value">{$data_notice['receive_good_address']|default=''}</span>
+    </div>
+	<div class="vwrapper">
+        <span class="key">参赛物品领取时间：</span>
+        <span class="value">
+		<?php if($data['receive_good_time_begin']){echo date("Y年m年月d",strtotime($data['receive_good_time_begin']));}else{echo '';} ?>
+		至
+		<?php if($data['receive_good_time_end']){echo date("Y年m年月d",strtotime($data['receive_good_time_end']));}else{echo '';} ?>
+		</span>
     </div>
     <div class="vwrapper">
         <span class="key">比赛时间：</span>
         <span class="value">{$data['compete_time']|default=''}</span>
     </div>
-    <div class="vwrapper">
-        <span class="key">报名截止时间：</span>
-        <span class="value">
-            {$data_notice['signup_end_time']|default=''}
-        </span>
-    </div>
+    
     <div class="vwrapper">
         <span class="key">赛事内容：</span>
         <div style="width: 100%;overflow: hidden;margin-top:10px;border:1px solid lightgrey;min-height: 50px;word-wrap:break-word; ">

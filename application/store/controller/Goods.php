@@ -111,6 +111,8 @@ class Goods extends BasicAdmin
             $data['content'] = $this->request->post('content', '');
             $data['cate_id'] = $this->request->post('cate_id', '');
             $data['compete_time'] = $this->request->post('compete_time', '');
+            $data['receive_good_time_begin'] = $this->request->post('receive_good_time_begin', '');
+            $data['receive_good_time_end'] = $this->request->post('receive_good_time_end', '');
 
             $compete_info['name'] = $data['title'];
             $compete_info['img_url'] = $data['img_url'];
@@ -120,6 +122,8 @@ class Goods extends BasicAdmin
             $compete_info['create_time'] = date("Y-m-d H-i-s");
             $compete_info['cate_id'] = $data['cate_id'];
             $compete_info['compete_time'] = $data['compete_time'];
+            $compete_info['receive_good_time_begin'] = $data['receive_good_time_begin'];
+            $compete_info['receive_good_time_end'] = $data['receive_good_time_end'];
 
             $compete_notice['car_address'] = $data['car_address'];
             $compete_notice['receive_good_address'] = $data['receive_good_address'];
@@ -185,6 +189,8 @@ class Goods extends BasicAdmin
             $data['content'] = $this->request->post('content', '');
             $data['cate_id'] = $this->request->post('cate_id', '');
             $data['compete_time'] = $this->request->post('compete_time', '');
+			$data['receive_good_time_begin'] = $this->request->post('receive_good_time_begin', '');
+            $data['receive_good_time_end'] = $this->request->post('receive_good_time_end', '');
 
             $compete_info['name'] = $data['title'];
             $compete_info['img_url'] = $data['img_url'];
@@ -194,6 +200,8 @@ class Goods extends BasicAdmin
             $compete_info['create_time'] = date("Y-m-d H-i-s");
             $compete_info['cate_id'] = $data['cate_id'];
             $compete_info['compete_time'] = $data['compete_time'];
+			$compete_info['receive_good_time_begin'] = $data['receive_good_time_begin'];
+            $compete_info['receive_good_time_end'] = $data['receive_good_time_end'];
 
             $compete_notice['car_address'] = $data['car_address'];
             $compete_notice['receive_good_address'] = $data['receive_good_address'];

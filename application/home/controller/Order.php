@@ -66,7 +66,6 @@ class Order extends Base {
                 'country' => $_POST['country'],
                 'email' => $_POST['email'],
                 'address' => $_POST['address'],
-                'company' => $_POST['company'],
                 'size' => $_POST['size'],
                 'color' => $_POST['color'],
                 'emergency_person' => $_POST['emergency_person'],
@@ -135,7 +134,6 @@ class Order extends Base {
                 'country' => $_POST['country'],
                 'email' => $_POST['email'],
                 'address' => $_POST['address'],
-                'company' => $_POST['company'],
                 'size' => $_POST['size'],
                 'color' => $_POST['color'],
                 'emergency_person' => $_POST['emergency_person'],
@@ -145,6 +143,10 @@ class Order extends Base {
                 'create_time' => date("Y-m-d H-i-s")
             );
             Db::name('signup_order_people_info')->insert($order_people);
+			
+			$this->assign('receive_good_address',$_POST['receive_good_address']);
+			$this->assign('address',$_POST['address']);
+			
             $this->assign('order_id',$order_id);
             return $this->fetch('people');
         }
@@ -167,7 +169,6 @@ class Order extends Base {
                 'country' => $_POST['country'],
                 'email' => $_POST['email'],
                 'address' => $_POST['address'],
-                'company' => $_POST['company'],
                 'size' => $_POST['size'],
                 'color' => $_POST['color'],
                 'emergency_person' => $_POST['emergency_person'],
@@ -177,6 +178,10 @@ class Order extends Base {
                 'create_time' => date("Y-m-d H-i-s")
             );
             Db::name('signup_order_people_info')->insert($order_people);
+			
+			$this->assign('receive_good_address',$_POST['receive_good_address']);
+			$this->assign('address',$_POST['address']);
+			
             if($_POST['act'] == 'pay'){
                 //只有团体报名的支付才走这个方法  更新order 的price
                 $order_info =  Db::name('signup_order')->find($order_id);
@@ -345,7 +350,6 @@ class Order extends Base {
 		                'country' => $value[5],
 		                'email' => $value[6],
 		                'address' => $value[7],
-		                'company' => $value[8],
 		                'size' => $value[9],
 		                'color' => $value[10],
 		                'emergency_person' => $value[11],
@@ -382,5 +386,10 @@ class Order extends Base {
 			// 上传失败获取错误信息
 			echo '上传失败，请稍后再试！';
 		}
+	}
+	public function receiveaddress(){
+		$order_id = $this->request->get('order_id', '');
+		$data = Db::name('signup_order_people_info')->where(array('order_id' => $order_id))->order('id','asc')->find();
+		echo empty($data)?'':json_encode($data);
 	}
 }
