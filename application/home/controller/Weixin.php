@@ -1,8 +1,8 @@
 <?php
 namespace app\home\controller;
 
-use Think\Controller;
-use Wechat\Wechat;
+use think\Controller;
+use app\common\Wechat;
 
 class Weixin extends Controller
 {
@@ -17,14 +17,16 @@ class Weixin extends Controller
          */
     public function callback()
     {
-        echo 'ceshi';
-        exit();
-        $we = new \Wechat\Wechat();
+
+        $we = new Wechat();
         $token = $we->getOauthAccessToken();
         $accessToken = $we->getToken();
         if($token){
             $user = $we->getOauthUserInfo($accessToken,$token['openid']);
-            if($user){
+			$myfile = fopen("testfile.txt", "w");
+			fwrite($myfile, json_encode($user));
+			exit();
+            /*if($user){
                 $userId = D('WeixinUser')->getInfoByOpenId($user['openid'],array('userId'));
                 if($userId){
                     D('WeixinUser')->updateWeixinUser($userId['userId'],$user);        //更新微信信息，如果有修改昵称或者头像
@@ -48,7 +50,7 @@ class Weixin extends Controller
                 }
             }else{
                 $this->error('获取用户信息失败');
-            }
+            }*/
         }else{
             $this->error('获取accesstoken失败');
         }
